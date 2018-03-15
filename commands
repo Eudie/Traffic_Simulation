@@ -2,11 +2,11 @@
 
 netconvert --osm-files map.osm -o map.net.xml
 
-polyconvert --net-file sony_signal_1.net.xml --osm-files sony_signal_1.osm --type-file typemap.xml -o sony_signal_1.poly.xml
+polyconvert --net-file lalbagh.net.xml --osm-files lalbagh.osm --type-file typemap.xml -o lalbagh.poly.xml
 
 
-python /usr/share/sumo/tools/randomTrips.py -n sony_signal_1.net.xml -r sony_signal_1.rou.xml -l
+python /usr/share/sumo/tools/randomTrips.py -n lalbagh.net.xml -r lalbagh.rou.xml -l
 
-sumo-gui sony_signal_1.sumo.cfg
+sumo-gui lalbagh.sumo.cfg
 
 
