@@ -120,22 +120,46 @@ def generate_routefile():
 #    </tlLogic>
 
 
+
+
+
 def run():
     """execute the TraCI control loop"""
     step = 0
     # we start with phase 2 where EW has green
-    traci.trafficlights.setPhase("0", 0)
+    #
+    # phases = []
+    #
+    # phases.append(traci.trafficlights.Phase(30, 0, 0, "GGGgrrrGGGgrrr"))
+    # phases.append(traci.trafficlights.Phase(10, 0, 0, "rrrGrrrrrrGrrr"))
+    # phases.append(traci.trafficlights.Phase(40, 0, 0, "rrrrGGgrrrrGGg"))
+    # phases.append(traci.trafficlights.Phase(20, 0, 0, "rrrrrrGrrrrrrG"))
+    #
+    # logic = traci.trafficlights.Logic("new-program", 0, 0, 0, phases)
+    #
+    # traci.trafficlights.setCompleteRedYellowGreenDefinition("0", logic)
+
+
+    rule = {'one' : 120, 'two': 90}
+    total_cycle = sum(rule.values())
+    cycle_step = 0
+    traci.trafficlights.setRedYellowGreenState("0", "GGGgrrrGGGgrrr")
     while traci.simulation.getMinExpectedNumber() > 0:
         traci.simulationStep()
-        if traci.trafficlights.getPhase("0") == 0:
-            # print(traci.inductionloop.getLastStepVehicleNumber("0"))# we are not already switching
-            if traci.inductionloop.getLastStepVehicleNumber("0") > 0:
-                # there is a vehicle from the north, switch
-                traci.trafficlights.setPhase("0", 4)
-            else:
-                # otherwise try to keep green for EW
-                traci.trafficlights.setPhase("0", 0)
+        # print(traci.trafficlights.getPhase("0"))
+        # print(traci.trafficlights.getRedYellowGreenState("0"))
+        # print(traci.trafficlights.getCompleteRedYellowGreenDefinition("0"))
+        # print('one done \n')
+
+        if cycle_step == total_cycle:
+            # there is a vehicle from the north, switch
+            cycle_step = 0
+            traci.trafficlights.setRedYellowGreenState("0", "GGGgrrrGGGgrrr")
+        elif cycle_step == rule['one']:
+            # otherwise try to keep green for EW
+            traci.trafficlights.setRedYellowGreenState("0", "rrrrGGgrrrrGGg")
         step += 1
+        cycle_step += 1
     traci.close()
     sys.stdout.flush()
 
