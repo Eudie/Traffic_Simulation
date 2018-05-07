@@ -187,20 +187,19 @@ if __name__ == "__main__":
 
     # first, generate the route file for this simulation
 
-
-
+    generate_routefile()
 
     last_duration = 10000000000
     final_rule = (0, 0)
-    for one in range(60, 150):
-        for two in range(60, 150):
-            generate_routefile()
+    for one in range(15, 25):
+        for two in range(25, 35):
+            print(one, two)
 
             # this is the normal way of using traci. sumo is started as a
             # subprocess and then the python script connects and runs
             traci.start([sumoBinary, "-c", "data/cross.sumocfg", "--tripinfo-output", "tripinfo.xml"])
 
-            rule = {'one': one, 'two': two}
+            rule = {'one': 19, 'two': 29}
             run(rule)
             df = trip_info.read_as_df("tripinfo.xml")
             avg_duration = np.mean(df['duration'])
