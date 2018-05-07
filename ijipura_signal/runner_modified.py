@@ -27,6 +27,8 @@ import sys
 import optparse
 import subprocess
 import random
+import numpy as np
+import trip_info
 
 # we need to import python modules from the $SUMO_HOME/tools directory
 try:
@@ -123,7 +125,7 @@ def generate_routefile():
 
 
 
-def run():
+def run(rule):
     """execute the TraCI control loop"""
     step = 0
     # we start with phase 2 where EW has green
@@ -140,7 +142,7 @@ def run():
     # traci.trafficlights.setCompleteRedYellowGreenDefinition("0", logic)
 
 
-    rule = {'one' : 120, 'two': 90}
+
     total_cycle = sum(rule.values())
     cycle_step = 0
     traci.trafficlights.setRedYellowGreenState("0", "GGGgrrrGGGgrrr")
@@ -184,10 +186,27 @@ if __name__ == "__main__":
         sumoBinary = checkBinary('sumo-gui')
 
     # first, generate the route file for this simulation
-    generate_routefile()
 
-    # this is the normal way of using traci. sumo is started as a
-    # subprocess and then the python script connects and runs
-    traci.start([sumoBinary, "-c", "data/cross.sumocfg",
-                             "--tripinfo-output", "tripinfo.xml"])
-    run()
+
+
+
+    last_duration = 10000000000
+    final_rule = (0, 0)
+    for one in range(60, 150):
+        for two in range(60, 150):
+            generate_routefile()
+
+            # this is the normal way of using traci. sumo is started as a
+            # subprocess and then the python script connects and runs
+            traci.start([sumoBinary, "-c", "data/cross.sumocfg", "--tripinfo-output", "tripinfo.xml"])
+
+            rule = {'one': one, 'two': two}
+            run(rule)
+            df = trip_info.read_as_df("tripinfo.xml")
+            avg_duration = np.mean(df['duration'])
+            if avg_duration < last_duration:
+                final_rule = (one, two)
+                last_duration = avg_duration
+
+    print(final_rule)
+
