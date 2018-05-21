@@ -11,6 +11,7 @@ We are trying to optimize the signal using simulation. We are using OpenStreetMa
 import pandas as pd
 import numpy as np
 import os
+import sumo_information
 
 
 class DynamicTrafficSignal:
@@ -61,7 +62,7 @@ class DynamicTrafficSignal:
 
         # TODO: Capture all values, generate sumo trips xml and save name of location_name
 
-        self.trip_ino = 'name_location_of_trip_info'
+        self.trip_info = 'name_location_of_trip_info'
 
         return 0
 
