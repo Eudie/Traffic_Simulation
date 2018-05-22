@@ -8,10 +8,19 @@ We are trying to optimize the signal using simulation. We are using OpenStreetMa
 
 """
 
-import pandas as pd
-import numpy as np
+
+from __future__ import absolute_import
+from __future__ import print_function
+
 import os
+import sys
+import optparse
+import subprocess
+import random
+import numpy as np
+import pandas as pd
 import sumo_information
+import sumo_simulation
 
 
 class DynamicTrafficSignal:
@@ -19,8 +28,11 @@ class DynamicTrafficSignal:
     Here we will structure all submodules of the project.
     """
 
-    def __init__(self, name):
+    def __init__(self, name, data_dir='..'):
         self.name = name
+        self.data_folder = os.path.join(data_dir, name)
+        if not os.path.exists(self.data_folder):
+            os.makedirs(self.data_folder)
         # TODO: Create directory structure for this initiation
 
     def get_map(self, name_of_place, zoom, based_on='lat_long'):
@@ -66,7 +78,7 @@ class DynamicTrafficSignal:
 
         return 0
 
-    def optimize_traffic_lights(self):
+    def optimize_traffic_lights(self, gui=False):
         """
         Here we do all the magic. We simulate traffic in the area multiple time and optimize all signals for best perf.
         :return: json file of optimized signal properties containing all signals in the map.
@@ -74,6 +86,10 @@ class DynamicTrafficSignal:
 
         # TODO: simulate and optimize
 
-        self.optimized_result = {}
+        sim = sumo_simulation.Simulation(self.data_folder)
+        sim.optimize(timing_range=(15, 90))
+        self.optimized_result = sim.final_rule
 
+        if gui:
+            sim.run(rule=self.optimized_result)
         return self.optimized_result
