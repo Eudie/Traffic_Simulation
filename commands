@@ -2,11 +2,14 @@
 
 netconvert --osm-files map.osm -o map.net.xml
 
-polyconvert --net-file lalbagh.net.xml --osm-files lalbagh.osm --type-file typemap.xml -o lalbagh.poly.xml
+polyconvert --net-file merge.net.xml --osm-files merge.osm --type-file typemap.xml -o merge.poly.xml
 
 
-python /usr/share/sumo/tools/randomTrips.py -n lalbagh.net.xml -r lalbagh.rou.xml -l
+python /usr/share/sumo/tools/randomTrips.py -n merge.net.xml -r merge.rou.xml -l
 
-sumo-gui lalbagh.sumo.cfg
+sumo-gui merge.sumo.cfg
+
+netconvert --osm-files map2.osm --lefthand t -o map2.net.xml2. 
+polyconvert --xml-validation never --net-file map2.net.xml --osm-files map2.osm --type-file typemap.xml -o map2.poly.xml
 
 

@@ -78,7 +78,7 @@ class DynamicTrafficSignal:
 
         return 0
 
-    def optimize_traffic_lights(self, gui=False):
+    def optimize_traffic_lights(self, timing_range, gui=False):
         """
         Here we do all the magic. We simulate traffic in the area multiple time and optimize all signals for best perf.
         :return: json file of optimized signal properties containing all signals in the map.
@@ -87,9 +87,9 @@ class DynamicTrafficSignal:
         # TODO: simulate and optimize
 
         sim = sumo_simulation.Simulation(self.data_folder)
-        sim.optimize(timing_range=(15, 90))
+        sim.optimize(timing_range=timing_range)
         self.optimized_result = sim.final_rule
 
         if gui:
-            sim.run(rule=self.optimized_result)
+            sim.run(rule=self.optimized_result, gui=True)
         return self.optimized_result

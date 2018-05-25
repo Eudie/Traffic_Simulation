@@ -79,16 +79,16 @@ class Simulation:
         """
 
         last_duration = 10000000000
-        self.final_rule = (0, 0)
-        for one in range(15, 25):
-            for two in range(25, 35):
+        self.final_rule = {'one': 0, 'two': 0}
+        for one in range(timing_range['min'], timing_range['max']):
+            for two in range(timing_range['min'], timing_range['max']):
                 print(one, two)
 
-                rule = {'one': 19, 'two': 29}
+                rule = {'one': one, 'two': two}
                 self.run(rule)
                 info = sumo_information.SumoTripInfo(self.sumo_tripinfo_file)
                 df = info.get_df()
                 avg_duration = np.mean(df['duration'])
                 if avg_duration < last_duration:
-                    self.final_rule = (one, two)
+                    self.final_rule = rule
                     last_duration = avg_duration
