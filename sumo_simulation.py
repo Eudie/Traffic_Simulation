@@ -39,7 +39,7 @@ class Simulation:
 
     def __init__(self, area_name):
         self.area_name = area_name
-        self.sumo_cfg_file = os.path.join(self.area_name, 'cross.sumocfg')
+        self.sumo_cfg_file = os.path.join(self.area_name, 'configuration.sumo.cfg')
         self.sumo_tripinfo_file = os.path.join(self.area_name, 'tripinfo.xml')
 
     def run(self, rule, gui=False):
@@ -49,7 +49,7 @@ class Simulation:
         else:
             sumo_binary = checkBinary('sumo')
 
-        traci.start([sumo_binary, "-c", self.sumo_cfg_file , "--tripinfo-output", self.sumo_tripinfo_file])
+        traci.start([sumo_binary, "-c", self.sumo_cfg_file, "--tripinfo-output", self.sumo_tripinfo_file])
 
         step = 0
 

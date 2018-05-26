@@ -19,6 +19,9 @@ import subprocess
 import random
 import numpy as np
 import pandas as pd
+import shutil
+import requests
+import overpass
 import sumo_information
 import sumo_simulation
 
@@ -33,22 +36,30 @@ class DynamicTrafficSignal:
         self.data_folder = os.path.join(data_dir, name)
         if not os.path.exists(self.data_folder):
             os.makedirs(self.data_folder)
-        # TODO: Create directory structure for this initiation
 
-    def get_map(self, name_of_place, zoom, based_on='lat_long'):
+        shutil.copy2('configuration.sumo.cfg', self.data_folder)
+        shutil.copy2('typemap.xml', self.data_folder)
+
+    def get_map(self, left, bottom, right, top):
         """
         By this function user can get the map from openstreetmap and convert to sumo map.
-        :param name_of_place: specific name to place we want to get map of
-        :param zoom: zoom level of that area
-        :param based_on: There can be many ways we can explore data. This parameter will take values such as:
-                         'lat_long', 'bounding_box' or 'name' etc.
-        :return: success or failure
         """
-        # TODO: Get map of that area, convert to sumo map, save files in this specific folder.
+
+        # TODO: get data with bounding box http://api.openstreetmap.org/api/0.6/map?bbox=11,50,11.1,50.1, save in folder
+        link = 'https://api.openstreetmap.org/api/0.6/map?bbox='+",".join([str(left), str(bottom), str(right), str(top)])
+        data = requests.get(link)
+
+        api = overpass.API()
+        MapQuery = overpass.MapQuery(left, bottom, right, top)
+        response = api.get(MapQuery)
+        # TODO: find nodes to be merged and save in nodes.xml
+        # TODO: using sumpopy netconvert with lefthand and merge nodes
+        # TODO: change node id with human read name in sumo map
+
         self.osm_map = 'name_location_of_osm_map'
         self.original_sumo_map = 'name_location_of_converted_map'
 
-        return 0
+        return data, response
 
     def edit_map(self, source='original'):
         """
@@ -73,6 +84,9 @@ class DynamicTrafficSignal:
         """
 
         # TODO: Capture all values, generate sumo trips xml and save name of location_name
+        # TODO: find all the links passing through traffic signal
+        # TODO: take inputs for all combination or roads
+        # TODO: generate routefile
 
         self.trip_info = 'name_location_of_trip_info'
 
