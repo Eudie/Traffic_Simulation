@@ -33,33 +33,50 @@ class DynamicTrafficSignal:
 
     def __init__(self, name, data_dir='..'):
         self.name = name
-        self.data_folder = os.path.join(data_dir, name)
+        self.data_folder = os.path.join(os.path.realpath(data_dir), name)
         if not os.path.exists(self.data_folder):
             os.makedirs(self.data_folder)
 
         shutil.copy2('configuration.sumo.cfg', self.data_folder)
         shutil.copy2('typemap.xml', self.data_folder)
 
+        self.osm_map = os.path.join(self.data_folder, 'map.osm')
+        self.original_sumo_map = os.path.join(self.data_folder, 'original_sumo.net.xml')
+        self.original_sumo_poly = os.path.join(self.data_folder, 'original_sumo.poly.xml')
+        self.typemap = os.path.join(self.data_folder, 'typemap.xml')
+        self.joining_nodes = os.path.join(self.data_folder, 'joining_nodes.xml')
+
     def get_map(self, left, bottom, right, top):
         """
         By this function user can get the map from openstreetmap and convert to sumo map.
         """
 
-        # TODO: get data with bounding box http://api.openstreetmap.org/api/0.6/map?bbox=11,50,11.1,50.1, save in folder
         link = 'https://api.openstreetmap.org/api/0.6/map?bbox='+",".join([str(left), str(bottom), str(right), str(top)])
         data = requests.get(link)
 
-        api = overpass.API()
-        MapQuery = overpass.MapQuery(left, bottom, right, top)
-        response = api.get(MapQuery)
-        # TODO: find nodes to be merged and save in nodes.xml
-        # TODO: using sumpopy netconvert with lefthand and merge nodes
-        # TODO: change node id with human read name in sumo map
+        with open(self.osm_map, 'w') as f:
+            f.write(data.text)
 
-        self.osm_map = 'name_location_of_osm_map'
-        self.original_sumo_map = 'name_location_of_converted_map'
+        # Finding nodes to merge and saving in xml
+        osm_data = sumo_information.OsmNetworkInfo(self.osm_map)
+        nodes_to_join = osm_data.get_nodes_to_merge()
 
-        return data, response
+        with open(self.joining_nodes, "w") as routes:
+            print("<nodes>", file=routes)
+            for i in range(len(nodes_to_join)):
+                print('   <join nodes="{}"/>'.format(" ".join(nodes_to_join[i]['nodes'])), file=routes)
+
+            print("</nodes>", file=routes)
+
+        # converting osm to sumo net and using poligon to building
+        netconvert_cmd = ' '.join(['netconvert', '--osm-files', self.osm_map, '--lefthand', '-n', self.joining_nodes,
+                                   '-o', self.original_sumo_map])
+        os.system(netconvert_cmd)
+
+        polyconvert_cmd = ' '.join(['polyconvert', '--net-file', self.original_sumo_map,
+                                    '--osm-files', self.osm_map ,
+                                    '--type-file', self.typemap, '-o', self.original_sumo_poly])
+        os.system(polyconvert_cmd)
 
     def edit_map(self, source='original'):
         """

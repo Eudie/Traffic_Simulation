@@ -86,10 +86,10 @@ class OsmNetworkInfo:
         # Now after finding the clusters, we are grouping nodes and suggesting name based on the real world name
         output = {}
         i = 0
-        print(nx.connected_component_subgraphs(graph))
+
         for h in nx.connected_component_subgraphs(graph):
             output[i] = {'nodes': list(h.nodes), 'suggested_name': 'None'}
-            print(h.nodes)
+
             for node in h.nodes:
                 if h.nodes[node]['junction_name'] is not 'None':
                     output[i]['suggested_name'] = h.nodes[node]['junction_name']
