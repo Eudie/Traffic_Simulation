@@ -106,6 +106,17 @@ class SumoNetworkInfo:
     def __init__(self, xml_name_location):
         self.xml_name_location = xml_name_location
 
+    def get_junction_routes(self):
+        """
+        To get the routes which are passing from the junctions, these routes will be used to generate routefile
+        :return: dictionary of traffic junction with the list of passing route
+        """
+        output = {}
+        parsed_xml = Xml.parse(self.xml_name_location)
+        # TODO read .net file and find connecting routes
+
+        return output
+
     # TODO: add method to extract information from xml. If these method have to used in loop, we have to get all at once
 
 

@@ -45,6 +45,7 @@ class DynamicTrafficSignal:
         self.original_sumo_poly = os.path.join(self.data_folder, 'original_sumo.poly.xml')
         self.typemap = os.path.join(self.data_folder, 'typemap.xml')
         self.joining_nodes = os.path.join(self.data_folder, 'joining_nodes.xml')
+        self.routes = os.path.join(self.data_folder, 'route.rou.xml')
 
     def get_map(self, left, bottom, right, top):
         """
@@ -105,7 +106,12 @@ class DynamicTrafficSignal:
         # TODO: take inputs for all combination or roads
         # TODO: generate routefile
 
-        self.trip_info = 'name_location_of_trip_info'
+        net_info = sumo_information.SumoNetworkInfo(self.original_sumo_map)
+        junction_routes = net_info.get_junction_routes()
+
+        # TODO: for each routes get values from terminal or notebook and add to junction route
+        traffic = sumo_simulation.Traffic(self.routes)
+        traffic.generate(junction_routes)
 
         return 0
 

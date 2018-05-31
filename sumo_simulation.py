@@ -92,3 +92,21 @@ class Simulation:
                 if avg_duration < last_duration:
                     self.final_rule = rule
                     last_duration = avg_duration
+
+
+class Traffic:
+    """
+    In this class we handel all traffic and route related information
+    """
+
+    def __init__(self, xml_name_location):
+        self.xml_name_location = xml_name_location
+
+    def generate(self, route_info):
+        """
+        Here we are going to generate traffic based on input values from user
+        :param route_info:
+        :return: save route file with generated traffic
+        """
+
+        # TODO: from runner modified genreate traffic
