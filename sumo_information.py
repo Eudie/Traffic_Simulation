@@ -111,9 +111,23 @@ class SumoNetworkInfo:
         To get the routes which are passing from the junctions, these routes will be used to generate routefile
         :return: dictionary of traffic junction with the list of passing route
         """
-        output = {}
-        parsed_xml = Xml.parse(self.xml_name_location)
+        output = []
+        parsed_xml = Xml.parse(self.xml_name_location).getroot()
         # TODO read .net file and find connecting routes
+
+        for i in parsed_xml:
+
+            if i.tag == "connection":
+                if 'tl' in i.attrib:
+                    output.append({'junction': i.attrib['tl'],
+                                   'from': i.attrib['from'],
+                                   'to': i.attrib['to'],
+                                   'fromLane': i.attrib['fromLane'],
+                                   'toLane': i.attrib['toLane'],
+                                   'via': i.attrib['via'],
+                                   'linkIndex': i.attrib['linkIndex'],
+                                   'dir': i.attrib['dir'],
+                                   'state': i.attrib['state']})
 
         return output
 
