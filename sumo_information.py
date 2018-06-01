@@ -111,15 +111,30 @@ class SumoNetworkInfo:
         To get the routes which are passing from the junctions, these routes will be used to generate routefile
         :return: dictionary of traffic junction with the list of passing route
         """
-        output = []
-        parsed_xml = Xml.parse(self.xml_name_location).getroot()
-        # TODO read .net file and find connecting routes
 
+        parsed_xml = Xml.parse(self.xml_name_location).getroot()
+
+        output = {}
         for i in parsed_xml:
+
+            if i.tag == 'junction' and i.attrib['type'] == 'traffic_light':
+                output[i.attrib['id']] = {'x': i.attrib['x'], 'y': i.attrib['y'],
+                                          'incLanes': i.attrib['incLanes'].split(),
+                                          'intLanes': i.attrib['intLanes'].split(),
+                                          'shape': i.attrib['shape'].split(),
+                                          'request': [],
+                                          'routes':[]}
+
+                for j in i:
+                    if j.tag == "request":
+                        output[i.attrib['id']]['request'].append({'index': j.attrib['index'],
+                                                                  'response': j.attrib['response'],
+                                                                  'foes': j.attrib['foes'],
+                                                                  'cont': j.attrib['cont']})
 
             if i.tag == "connection":
                 if 'tl' in i.attrib:
-                    output.append({'junction': i.attrib['tl'],
+                    output[i.attrib['tl']]['routes'].append({
                                    'from': i.attrib['from'],
                                    'to': i.attrib['to'],
                                    'fromLane': i.attrib['fromLane'],
@@ -130,8 +145,6 @@ class SumoNetworkInfo:
                                    'state': i.attrib['state']})
 
         return output
-
-    # TODO: add method to extract information from xml. If these method have to used in loop, we have to get all at once
 
 
 class SumoTripInfo:

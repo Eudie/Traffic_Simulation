@@ -47,6 +47,8 @@ class DynamicTrafficSignal:
         self.joining_nodes = os.path.join(self.data_folder, 'joining_nodes.xml')
         self.routes = os.path.join(self.data_folder, 'route.rou.xml')
 
+        self.junction_info = None
+
     def get_map(self, left, bottom, right, top):
         """
         By this function user can get the map from openstreetmap and convert to sumo map.
@@ -107,11 +109,11 @@ class DynamicTrafficSignal:
         # TODO: generate routefile
 
         net_info = sumo_information.SumoNetworkInfo(self.original_sumo_map)
-        junction_routes = net_info.get_junction_routes()
+        self.junction_info = net_info.get_junction_routes()
 
         # TODO: for each routes get values from terminal or notebook and add to junction route
         traffic = sumo_simulation.Traffic(self.routes)
-        traffic.generate(junction_routes)
+        traffic.generate(self.junction_info)
 
         return 0
 
