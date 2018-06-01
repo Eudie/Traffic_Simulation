@@ -24,6 +24,7 @@ import requests
 import overpass
 import sumo_information
 import sumo_simulation
+import operator
 
 
 class DynamicTrafficSignal:
@@ -48,6 +49,7 @@ class DynamicTrafficSignal:
         self.routes = os.path.join(self.data_folder, 'route.rou.xml')
 
         self.junction_info = None
+        self.nodes_to_join = None
 
     def get_map(self, left, bottom, right, top):
         """
@@ -62,12 +64,12 @@ class DynamicTrafficSignal:
 
         # Finding nodes to merge and saving in xml
         osm_data = sumo_information.OsmNetworkInfo(self.osm_map)
-        nodes_to_join = osm_data.get_nodes_to_merge()
+        self.nodes_to_join = osm_data.get_nodes_to_merge()
 
         with open(self.joining_nodes, "w") as routes:
             print("<nodes>", file=routes)
-            for i in range(len(nodes_to_join)):
-                print('   <join nodes="{}"/>'.format(" ".join(nodes_to_join[i]['nodes'])), file=routes)
+            for i in range(len(self.nodes_to_join)):
+                print('   <join nodes="{}"/>'.format(" ".join(self.nodes_to_join[i]['nodes'])), file=routes)
 
             print("</nodes>", file=routes)
 
@@ -77,7 +79,7 @@ class DynamicTrafficSignal:
         os.system(netconvert_cmd)
 
         polyconvert_cmd = ' '.join(['polyconvert', '--net-file', self.original_sumo_map,
-                                    '--osm-files', self.osm_map ,
+                                    '--osm-files', self.osm_map,
                                     '--type-file', self.typemap, '-o', self.original_sumo_poly])
         os.system(polyconvert_cmd)
 
@@ -110,12 +112,32 @@ class DynamicTrafficSignal:
 
         net_info = sumo_information.SumoNetworkInfo(self.original_sumo_map)
         self.junction_info = net_info.get_junction_routes()
+        biggest_junction = max({key: len(value['routes']) for key, value in self.junction_info.items()}.items(),
+                               key=operator.itemgetter(1))[0]
+
+        junction_name_for_muggles = biggest_junction
+
+        # To get suggested name: not working as of now
+        # if biggest_junction[:7] is "cluster":
+        #     for k, i in self.nodes_to_join.items():
+        #         print("cluster_"+ "_".join(i['nodes'].sort()))
+        #         if "cluster_"+ "_".join(i['nodes'].sort()) == biggest_junction and i['suggested_name'] is not None:
+        #             junction_name_for_muggles = i['suggested_name']
+
+        print("Input traffic value for each road passing the junction: {}".format(junction_name_for_muggles))
+
+        for i in range(len(self.junction_info[biggest_junction]['routes'])):
+            route = self.junction_info[biggest_junction]['routes'][i]
+            self.junction_info[biggest_junction]['routes'][i]['traffic_value'] = input('from: {} to: {} via: {}'.format(route['from'], route['to'], route['via']))
+
+
 
         # TODO: for each routes get values from terminal or notebook and add to junction route
-        traffic = sumo_simulation.Traffic(self.routes)
-        traffic.generate(self.junction_info)
 
-        return 0
+        traffic = sumo_simulation.Traffic(self.routes)
+        traffic.generate(self.junction_info[biggest_junction])
+
+        return self.junction_info[biggest_junction]
 
     def optimize_traffic_lights(self, timing_range, gui=False):
         """

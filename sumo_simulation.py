@@ -110,3 +110,31 @@ class Traffic:
         """
 
         # TODO: from runner modified genreate traffic
+
+        random.seed(42)  # make tests reproducible
+        N = 3600  # number of time steps
+        vehNr = 0
+        with open(self.xml_name_location, "w") as routes:
+            print("""<routes>
+                <vType id="car" accel="0.8" decel="4.5" sigma="0.5" length="5" minGap="2.5" maxSpeed="16.67" guiShape="passenger"/>
+                <vType id="bike" length="1.8" width="0.8" maxSpeed="20" accel="0.8" decel="1.5" sigma="0.5" speedDev="0.5" vClass="bicycle"/>
+                <vType id="bus" accel="0.5" decel="4.5" sigma="0.5" length="7" minGap="5" maxSpeed="10" guiShape="bus"/>""", file=routes)
+
+            for i, connection in enumerate(route_info['routes']):
+
+                print('<route id="{}" edges="{} {} {}" />'.format(i, connection['from'], connection['via'], connection['to']), file=routes)
+
+            for j in range(N):
+                for i, connection in enumerate(route_info['routes']):
+                    if random.uniform(0, 1) < float(connection['traffic_value']):
+                        print('    <vehicle id="car_{}_{}" type="car" route="{}" depart="{}" />'.format(i, j, i, j),
+                              file=routes)
+                        vehNr += 1
+                        print('    <vehicle id="bike_{}_{}" type="car" route="{}" depart="{}" />'.format(i, j, i, j),
+                              file=routes)
+                        vehNr += 1
+                        print('    <vehicle id="bus_{}_{}" type="car" route="{}" depart="{}" />'.format(i, j, i, j),
+                              file=routes)
+                        vehNr += 1
+
+            print("</routes>", file=routes)

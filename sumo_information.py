@@ -50,7 +50,7 @@ class OsmNetworkInfo:
 
         return raw_traffic_light_nodes
 
-    def get_nodes_to_merge(self, max_distance=25):
+    def get_nodes_to_merge(self, max_distance=30):
         """
         here we are finding the nodes of junction which has to be merged is sumo to get proper junction
         :return: list of lists that contain nodes to be merged
@@ -123,7 +123,7 @@ class SumoNetworkInfo:
                                           'intLanes': i.attrib['intLanes'].split(),
                                           'shape': i.attrib['shape'].split(),
                                           'request': [],
-                                          'routes':[]}
+                                          'routes': []}
 
                 for j in i:
                     if j.tag == "request":
