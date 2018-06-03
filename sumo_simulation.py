@@ -37,10 +37,40 @@ class Simulation:
     Here we are doing everything related to traci
     """
 
-    def __init__(self, area_name):
+    def __init__(self, area_name, signal_pattern, phases):
         self.area_name = area_name
+        self.signal_pattern = signal_pattern
+        self.phases = phases
         self.sumo_cfg_file = os.path.join(self.area_name, 'configuration.sumo.cfg')
         self.sumo_tripinfo_file = os.path.join(self.area_name, 'tripinfo.xml')
+        self.final_rule = {}
+
+    def get_signal_schema(self, signal_pattern):
+        """
+        here we will get different schema for signal
+        :param signal_pattern:
+        :return: signal_schema
+        """
+        if signal_pattern == "one_road_open":
+            first_phase = self.phases[0]['state']
+
+            sig_len = {}
+            j=0
+            for i in range(len(first_phase) - 1):
+                if first_phase[i] != first_phase[i+1]:
+                    sig_len['signal_road_' + j] = i
+                    j += 1
+
+
+
+
+
+            schema = {'junction': list(self.phases.keys())[0], 'phases': ["GGGGrrrrrrrrrrrrrr",
+                                 "rrrrGGGggrrrrrrrrr",
+                                 "rrrrrrrrrGGGGrrrrr",
+                                 "rrrrrrrrrrrrrGGGgg"], 'time': [0, 0, 0, 0]}
+
+        return schema
 
     def run(self, rule, gui=False):
         """execute the TraCI control loop"""
@@ -53,21 +83,23 @@ class Simulation:
 
         step = 0
 
-        total_cycle = sum(rule.values())
+        total_cycle = rule['time'][-1]
         cycle_step = 0
-        traci.trafficlights.setRedYellowGreenState("0", "GGGgrrrGGGgrrr")
+        traci.trafficlights.setRedYellowGreenState(rule['junction'], rule['phases'][0])
         while traci.simulation.getMinExpectedNumber() > 0:
             traci.simulationStep()
 
             if cycle_step == total_cycle:
                 # there is a vehicle from the north, switch
                 cycle_step = 0
-                traci.trafficlights.setRedYellowGreenState("0", "GGGgrrrGGGgrrr")
-            elif cycle_step == rule['one']:
+                traci.trafficlights.setRedYellowGreenState(rule['junction'], rule['phases'][0])
+            elif cycle_step in rule['time']:
                 # otherwise try to keep green for EW
-                traci.trafficlights.setRedYellowGreenState("0", "rrrrGGgrrrrGGg")
+                index = rule['time'].index(cycle_step)
+                traci.trafficlights.setRedYellowGreenState(rule['junction'], rule['phases'][index+1])
             step += 1
             cycle_step += 1
+
         traci.close()
         sys.stdout.flush()
 
@@ -79,19 +111,24 @@ class Simulation:
         """
 
         last_duration = 10000000000
-        self.final_rule = {'one': 0, 'two': 0}
+
+        if self.signal_pattern is not None:
+            rule = self.get_signal_schema(self.signal_pattern)
+
         for one in range(timing_range['min'], timing_range['max']):
             for two in range(timing_range['min'], timing_range['max']):
-                print(one, two)
+                for three in range(timing_range['min'], timing_range['max']):
+                    for four in range(timing_range['min'], timing_range['max']):
+                        print(one, two)
 
-                rule = {'one': one, 'two': two}
-                self.run(rule)
-                info = sumo_information.SumoTripInfo(self.sumo_tripinfo_file)
-                df = info.get_df()
-                avg_duration = np.mean(df['duration'])
-                if avg_duration < last_duration:
-                    self.final_rule = rule
-                    last_duration = avg_duration
+                        rule['time'] = [one, one+two, one+two+three, one+two+three+four]
+                        self.run(rule)
+                        info = sumo_information.SumoTripInfo(self.sumo_tripinfo_file)
+                        df = info.get_df()
+                        avg_duration = np.mean(df['duration'])
+                        if avg_duration < last_duration:
+                            self.final_rule = rule
+                            last_duration = avg_duration
 
 
 class Traffic:
@@ -112,29 +149,27 @@ class Traffic:
         # TODO: from runner modified genreate traffic
 
         random.seed(42)  # make tests reproducible
-        N = 3600  # number of time steps
+        N = 360  # number of time steps
         vehNr = 0
         with open(self.xml_name_location, "w") as routes:
             print("""<routes>
-                <vType id="car" accel="0.8" decel="4.5" sigma="0.5" length="5" minGap="2.5" maxSpeed="16.67" guiShape="passenger"/>
-                <vType id="bike" length="1.8" width="0.8" maxSpeed="20" accel="0.8" decel="1.5" sigma="0.5" speedDev="0.5" vClass="bicycle"/>
-                <vType id="bus" accel="0.5" decel="4.5" sigma="0.5" length="7" minGap="5" maxSpeed="10" guiShape="bus"/>""", file=routes)
+        <vType id="car" accel="0.8" decel="4.5" sigma="0.5" length="5" minGap="2.5" maxSpeed="16.67" guiShape="passenger"/>
+        <vType id="bike" length="1.8" width="0.8" maxSpeed="20" accel="0.8" decel="1.5" sigma="0.5" speedDev="0.5" vClass="bicycle"/>
+        <vType id="bus" accel="0.5" decel="4.5" sigma="0.5" length="7" minGap="5" maxSpeed="10" guiShape="bus"/>""",
+                  file=routes)
 
             for i, connection in enumerate(route_info['routes']):
 
-                print('<route id="{}" edges="{} {} {}" />'.format(i, connection['from'], connection['via'], connection['to']), file=routes)
+                print('<route id="r_{}" edges="{} {}"/>'.format(i, connection['from'], connection['to']), file=routes)
 
             for j in range(N):
                 for i, connection in enumerate(route_info['routes']):
                     if random.uniform(0, 1) < float(connection['traffic_value']):
-                        print('    <vehicle id="car_{}_{}" type="car" route="{}" depart="{}" />'.format(i, j, i, j),
+                        print('    <vehicle id="car_{}_{}" type="car" route="r_{}" depart="{}"/>'.format(i, j, i, j),
                               file=routes)
-                        vehNr += 1
-                        print('    <vehicle id="bike_{}_{}" type="car" route="{}" depart="{}" />'.format(i, j, i, j),
+                        print('    <vehicle id="bike_{}_{}" type="bike" route="r_{}" depart="{}" color="0,1,0"/>'.format(i, j, i, j),
                               file=routes)
-                        vehNr += 1
-                        print('    <vehicle id="bus_{}_{}" type="car" route="{}" depart="{}" />'.format(i, j, i, j),
+                        print('    <vehicle id="bus_{}_{}" type="bus" route="r_{}" depart="{}" color="1,0,0"/>'.format(i, j, i, j),
                               file=routes)
-                        vehNr += 1
 
             print("</routes>", file=routes)

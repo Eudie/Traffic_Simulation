@@ -123,7 +123,8 @@ class SumoNetworkInfo:
                                           'intLanes': i.attrib['intLanes'].split(),
                                           'shape': i.attrib['shape'].split(),
                                           'request': [],
-                                          'routes': []}
+                                          'routes': [],
+                                          'phases': []}
 
                 for j in i:
                     if j.tag == "request":
@@ -143,6 +144,13 @@ class SumoNetworkInfo:
                                    'linkIndex': i.attrib['linkIndex'],
                                    'dir': i.attrib['dir'],
                                    'state': i.attrib['state']})
+
+        for i in parsed_xml:
+            if i.tag == "tlLogic":
+                for j in i:
+                    if j.tag == "phase":
+                        output[i.attrib['id']]['phases'].append({'duration': j.attrib['duration'],
+                                                                 'state': j.attrib['state']})
 
         return output
 

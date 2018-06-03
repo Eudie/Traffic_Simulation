@@ -50,6 +50,8 @@ class DynamicTrafficSignal:
 
         self.junction_info = None
         self.nodes_to_join = None
+        self.optimized_result = None
+        self.biggest_junction = None
 
     def get_map(self, left, bottom, right, top):
         """
@@ -74,7 +76,10 @@ class DynamicTrafficSignal:
             print("</nodes>", file=routes)
 
         # converting osm to sumo net and using poligon to building
-        netconvert_cmd = ' '.join(['netconvert', '--osm-files', self.osm_map, '--lefthand', '-n', self.joining_nodes,
+        netconvert_cmd = ' '.join(['netconvert', '--osm-files', self.osm_map,
+                                   '--lefthand', '-n', self.joining_nodes,
+                                   '--tls.yellow.time', '0',
+                                   '--tls.left-green.time', '0'
                                    '-o', self.original_sumo_map])
         os.system(netconvert_cmd)
 
@@ -105,41 +110,30 @@ class DynamicTrafficSignal:
         :return: success or failure
         """
 
-        # TODO: Capture all values, generate sumo trips xml and save name of location_name
-        # TODO: find all the links passing through traffic signal
-        # TODO: take inputs for all combination or roads
-        # TODO: generate routefile
-
         net_info = sumo_information.SumoNetworkInfo(self.original_sumo_map)
         self.junction_info = net_info.get_junction_routes()
-        biggest_junction = max({key: len(value['routes']) for key, value in self.junction_info.items()}.items(),
+        self.biggest_junction = max({key: len(value['routes']) for key, value in self.junction_info.items()}.items(),
                                key=operator.itemgetter(1))[0]
 
-        junction_name_for_muggles = biggest_junction
+        junction_name_for_muggles = self.biggest_junction
 
         # To get suggested name: not working as of now
-        # if biggest_junction[:7] is "cluster":
+        # if self.biggest_junction[:7] is "cluster":
         #     for k, i in self.nodes_to_join.items():
         #         print("cluster_"+ "_".join(i['nodes'].sort()))
-        #         if "cluster_"+ "_".join(i['nodes'].sort()) == biggest_junction and i['suggested_name'] is not None:
+        #         if "cluster_"+ "_".join(i['nodes'].sort()) == self.biggest_junction and i['suggested_name'] is not None:
         #             junction_name_for_muggles = i['suggested_name']
 
         print("Input traffic value for each road passing the junction: {}".format(junction_name_for_muggles))
 
-        for i in range(len(self.junction_info[biggest_junction]['routes'])):
-            route = self.junction_info[biggest_junction]['routes'][i]
-            self.junction_info[biggest_junction]['routes'][i]['traffic_value'] = input('from: {} to: {} via: {}'.format(route['from'], route['to'], route['via']))
-
-
-
-        # TODO: for each routes get values from terminal or notebook and add to junction route
+        for i in range(len(self.junction_info[self.biggest_junction]['routes'])):
+            route = self.junction_info[self.biggest_junction]['routes'][i]
+            self.junction_info[self.biggest_junction]['routes'][i]['traffic_value'] = 0.1 #input('from: {} to: {} via: {}'.format(route['from'], route['to'], route['via']))
 
         traffic = sumo_simulation.Traffic(self.routes)
-        traffic.generate(self.junction_info[biggest_junction])
+        traffic.generate(self.junction_info[self.biggest_junction])
 
-        return self.junction_info[biggest_junction]
-
-    def optimize_traffic_lights(self, timing_range, gui=False):
+    def optimize_traffic_lights(self, timing_range, signal_pattern='one_road_open', gui=False):
         """
         Here we do all the magic. We simulate traffic in the area multiple time and optimize all signals for best perf.
         :return: json file of optimized signal properties containing all signals in the map.
@@ -147,10 +141,15 @@ class DynamicTrafficSignal:
 
         # TODO: simulate and optimize
 
-        sim = sumo_simulation.Simulation(self.data_folder)
+        big_junction_phases = {self.biggest_junction: self.junction_info[self.biggest_junction]['phases']}
+        sim = sumo_simulation.Simulation(self.data_folder, signal_pattern=signal_pattern, phases=big_junction_phases)
         sim.optimize(timing_range=timing_range)
         self.optimized_result = sim.final_rule
 
+        # self.optimized_result = {'junction': 'cluster_315208341_315208342', 'phases': ["GGGGrrrrrrrrrrrrrr",
+        #                          "rrrrGGGggrrrrrrrrr",
+        #                          "rrrrrrrrrGGGGrrrrr",
+        #                          "rrrrrrrrrrrrrGGGgg"], 'time': [30, 60, 90, 120]}
         if gui:
             sim.run(rule=self.optimized_result, gui=True)
         return self.optimized_result
