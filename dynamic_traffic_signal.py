@@ -13,15 +13,8 @@ from __future__ import absolute_import
 from __future__ import print_function
 
 import os
-import sys
-import optparse
-import subprocess
-import random
-import numpy as np
-import pandas as pd
 import shutil
 import requests
-import overpass
 import sumo_information
 import sumo_simulation
 import operator
@@ -128,7 +121,7 @@ class DynamicTrafficSignal:
 
         for i in range(len(self.junction_info[self.biggest_junction]['routes'])):
             route = self.junction_info[self.biggest_junction]['routes'][i]
-            self.junction_info[self.biggest_junction]['routes'][i]['traffic_value'] = 0.1 #input('from: {} to: {} via: {}'.format(route['from'], route['to'], route['via']))
+            self.junction_info[self.biggest_junction]['routes'][i]['traffic_value'] = input('from: {} to: {} via: {} s'.format(route['from'], route['to'], route['via']))
 
         traffic = sumo_simulation.Traffic(self.routes)
         traffic.generate(self.junction_info[self.biggest_junction])
@@ -139,17 +132,11 @@ class DynamicTrafficSignal:
         :return: json file of optimized signal properties containing all signals in the map.
         """
 
-        # TODO: simulate and optimize
-
         big_junction_phases = {self.biggest_junction: self.junction_info[self.biggest_junction]['phases']}
         sim = sumo_simulation.Simulation(self.data_folder, signal_pattern=signal_pattern, phases=big_junction_phases)
         sim.optimize(timing_range=timing_range)
         self.optimized_result = sim.final_rule
 
-        # self.optimized_result = {'junction': 'cluster_315208341_315208342', 'phases': ["GGGGrrrrrrrrrrrrrr",
-        #                          "rrrrGGGggrrrrrrrrr",
-        #                          "rrrrrrrrrGGGGrrrrr",
-        #                          "rrrrrrrrrrrrrGGGgg"], 'time': [30, 60, 90, 120]}
         if gui:
             sim.run(rule=self.optimized_result, gui=True)
         return self.optimized_result

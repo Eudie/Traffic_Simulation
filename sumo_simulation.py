@@ -11,11 +11,8 @@ from __future__ import print_function
 
 import os
 import sys
-import optparse
-import subprocess
 import random
 import numpy as np
-import pandas as pd
 import sumo_information
 
 # we need to import python modules from the $SUMO_HOME/tools directory
@@ -51,24 +48,26 @@ class Simulation:
         :param signal_pattern:
         :return: signal_schema
         """
+        schema = None
         if signal_pattern == "one_road_open":
-            first_phase = self.phases[0]['state']
+            first_phase = list(self.phases.values())[0][0]['state'].lower()
 
-            sig_len = {}
-            j=0
-            for i in range(len(first_phase) - 1):
-                if first_phase[i] != first_phase[i+1]:
-                    sig_len['signal_road_' + j] = i
-                    j += 1
+            sig_len = []
+            phases = []
+            starting_index = 0
+            for i in range(1, len(first_phase)):
+                if first_phase[i - 1] != first_phase[i]:
+                    sig_len.append(i - starting_index)
+                    string = 'r' * len(first_phase[:starting_index]) + 'G' * len(
+                        first_phase[starting_index:i]) + 'r' * len(first_phase[i:])
+                    phases.append(string)
+                    starting_index = i
 
+            last_string = 'r' * len(first_phase[:starting_index]) + 'G' * len(first_phase[starting_index:])
+            phases.append(last_string)
+            time = [0]*len(phases)
 
-
-
-
-            schema = {'junction': list(self.phases.keys())[0], 'phases': ["GGGGrrrrrrrrrrrrrr",
-                                 "rrrrGGGggrrrrrrrrr",
-                                 "rrrrrrrrrGGGGrrrrr",
-                                 "rrrrrrrrrrrrrGGGgg"], 'time': [0, 0, 0, 0]}
+            schema = {'junction': list(self.phases.keys())[0], 'phases': phases, 'time': time}
 
         return schema
 
@@ -145,8 +144,6 @@ class Traffic:
         :param route_info:
         :return: save route file with generated traffic
         """
-
-        # TODO: from runner modified genreate traffic
 
         random.seed(42)  # make tests reproducible
         N = 360  # number of time steps

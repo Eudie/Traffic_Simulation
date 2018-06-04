@@ -180,4 +180,3 @@ class SumoTripInfo:
         trips_df[to_float_col] = trips_df[to_float_col].astype(np.float)
         return trips_df
 
-    # TODO: add method to extract information from xml. If these method have to used in loop, we have to get all at once
