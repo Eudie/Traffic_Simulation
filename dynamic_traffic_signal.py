@@ -26,7 +26,7 @@ class DynamicTrafficSignal:
     """
 
     def __init__(self, name, data_dir='..'):
-        self.name = name
+        self.__name = name
         self.data_folder = os.path.join(os.path.realpath(data_dir), name)
         if not os.path.exists(self.data_folder):
             os.makedirs(self.data_folder)
