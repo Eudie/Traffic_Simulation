@@ -121,7 +121,7 @@ class DynamicTrafficSignal:
 
         for i in range(len(self.junction_info[self.biggest_junction]['routes'])):
             route = self.junction_info[self.biggest_junction]['routes'][i]
-            self.junction_info[self.biggest_junction]['routes'][i]['traffic_value'] = input('from: {} to: {} via: {} s'.format(route['from'], route['to'], route['via']))
+            self.junction_info[self.biggest_junction]['routes'][i]['traffic_value'] = 0.1 #input('from: {} to: {} via: {} s'.format(route['from'], route['to'], route['via']))
 
         traffic = sumo_simulation.Traffic(self.routes)
         traffic.generate(self.junction_info[self.biggest_junction])

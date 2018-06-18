@@ -179,4 +179,3 @@ class SumoTripInfo:
         to_float_col = ['arrivalSpeed', 'depart', 'departDelay', 'departSpeed', 'duration', 'speedFactor', 'timeLoss']
         trips_df[to_float_col] = trips_df[to_float_col].astype(np.float)
         return trips_df
-

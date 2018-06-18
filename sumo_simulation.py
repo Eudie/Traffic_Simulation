@@ -14,6 +14,7 @@ import sys
 import random
 import numpy as np
 import sumo_information
+from scipy.optimize import minimize
 
 # we need to import python modules from the $SUMO_HOME/tools directory
 try:
@@ -40,7 +41,9 @@ class Simulation:
         self.phases = phases
         self.sumo_cfg_file = os.path.join(self.area_name, 'configuration.sumo.cfg')
         self.sumo_tripinfo_file = os.path.join(self.area_name, 'tripinfo.xml')
-        self.final_rule = {}
+        self.final_rule = {'junction': '_',
+                           'phases': [],
+                           'time': []}
 
     def get_signal_schema(self, signal_pattern):
         """
@@ -102,6 +105,17 @@ class Simulation:
         traci.close()
         sys.stdout.flush()
 
+    def _objective(self, array):
+
+        rule = self.get_signal_schema(self.signal_pattern)
+
+
+        rule['time'] = np.cumsum(array).tolist()
+        self.run(rule)
+        info = sumo_information.SumoTripInfo(self.sumo_tripinfo_file)
+        df = info.get_df()
+        return np.mean(df['duration'])
+
     def optimize(self, timing_range):
         """
         Here we run simulation multiple times and find the most optimized value
@@ -109,25 +123,40 @@ class Simulation:
         :return: set optimized result
         """
 
-        last_duration = 10000000000
+        # last_duration = 10000000000
 
         if self.signal_pattern is not None:
             rule = self.get_signal_schema(self.signal_pattern)
 
-        for one in range(timing_range['min'], timing_range['max']):
-            for two in range(timing_range['min'], timing_range['max']):
-                for three in range(timing_range['min'], timing_range['max']):
-                    for four in range(timing_range['min'], timing_range['max']):
-                        print(one, two)
+        no_of_signals = len(rule['time'])
 
-                        rule['time'] = [one, one+two, one+two+three, one+two+three+four]
-                        self.run(rule)
-                        info = sumo_information.SumoTripInfo(self.sumo_tripinfo_file)
-                        df = info.get_df()
-                        avg_duration = np.mean(df['duration'])
-                        if avg_duration < last_duration:
-                            self.final_rule = rule
-                            last_duration = avg_duration
+        if len(self.final_rule['time']) != 0:
+            starting_array = self.final_rule['time']
+        else:
+            starting_array = [timing_range['min']]*no_of_signals
+
+        bounds = [(timing_range['min'], timing_range['max'])]*no_of_signals
+
+        solution = minimize(self._objective, starting_array, method='SLSQP', bounds=bounds)
+        self.final_rule = rule
+        self.final_rule['time'] = np.cumsum(solution.x).tolist()
+
+        # for one in range(timing_range['min'], timing_range['max']):
+        #     for two in range(timing_range['min'], timing_range['max']):
+        #         for three in range(timing_range['min'], timing_range['max']):
+        #             for four in range(timing_range['min'], timing_range['max']):
+        #                 print(one, two)
+        #
+        #                 rule['time'] = [one, one+two, one+two+three, one+two+three+four]
+        #                 self.run(rule)
+        #                 info = sumo_information.SumoTripInfo(self.sumo_tripinfo_file)
+        #                 df = info.get_df()
+        #                 avg_duration = np.mean(df['duration'])
+        #                 if avg_duration < last_duration:
+        #                     self.final_rule = rule
+        #                     last_duration = avg_duration
+
+
 
 
 class Traffic:
@@ -146,7 +175,7 @@ class Traffic:
         """
 
         random.seed(42)  # make tests reproducible
-        N = 360  # number of time steps
+        N = 180  # number of time steps
         vehNr = 0
         with open(self.xml_name_location, "w") as routes:
             print("""<routes>
