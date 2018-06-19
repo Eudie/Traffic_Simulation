@@ -15,6 +15,7 @@ import random
 import numpy as np
 import sumo_information
 from scipy.optimize import minimize
+from scipy.optimize import brute
 
 # we need to import python modules from the $SUMO_HOME/tools directory
 try:
@@ -137,9 +138,10 @@ class Simulation:
 
         bounds = [(timing_range['min'], timing_range['max'])]*no_of_signals
 
-        solution = minimize(self._objective, starting_array, method='SLSQP', bounds=bounds)
+        # solution = minimize(self._objective, starting_array, method='SLSQP', bounds=bounds)
+        x0, fval, grid, Jout = brute(self._objective, ranges=bounds, full_output=True, finish=None)
         self.final_rule = rule
-        self.final_rule['time'] = np.cumsum(solution.x).tolist()
+        self.final_rule['time'] = np.cumsum(x0).tolist()
 
         # for one in range(timing_range['min'], timing_range['max']):
         #     for two in range(timing_range['min'], timing_range['max']):
