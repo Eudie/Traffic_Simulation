@@ -106,12 +106,15 @@ class Simulation:
         traci.close()
         sys.stdout.flush()
 
-    def _objective(self, array):
-
+    def __objective(self, array):
+        """
+        Internal objective function to optimize
+        :param array: signal timings
+        :return: total mean duration in the simulation
+        """
         rule = self.get_signal_schema(self.signal_pattern)
-
-
         rule['time'] = np.cumsum(array).tolist()
+
         self.run(rule)
         info = sumo_information.SumoTripInfo(self.sumo_tripinfo_file)
         df = info.get_df()
@@ -124,41 +127,16 @@ class Simulation:
         :return: set optimized result
         """
 
-        # last_duration = 10000000000
-
         if self.signal_pattern is not None:
             rule = self.get_signal_schema(self.signal_pattern)
 
         no_of_signals = len(rule['time'])
 
-        if len(self.final_rule['time']) != 0:
-            starting_array = self.final_rule['time']
-        else:
-            starting_array = [timing_range['min']]*no_of_signals
+        bounds = (slice(timing_range['min'], timing_range['max'], 1),)*no_of_signals
 
-        bounds = [(timing_range['min'], timing_range['max'])]*no_of_signals
-
-        # solution = minimize(self._objective, starting_array, method='SLSQP', bounds=bounds)
-        x0, fval, grid, Jout = brute(self._objective, ranges=bounds, full_output=True, finish=None)
+        x, f_val, grid, j_out = brute(self._objective, ranges=bounds, full_output=True, finish=None)
         self.final_rule = rule
-        self.final_rule['time'] = np.cumsum(x0).tolist()
-
-        # for one in range(timing_range['min'], timing_range['max']):
-        #     for two in range(timing_range['min'], timing_range['max']):
-        #         for three in range(timing_range['min'], timing_range['max']):
-        #             for four in range(timing_range['min'], timing_range['max']):
-        #                 print(one, two)
-        #
-        #                 rule['time'] = [one, one+two, one+two+three, one+two+three+four]
-        #                 self.run(rule)
-        #                 info = sumo_information.SumoTripInfo(self.sumo_tripinfo_file)
-        #                 df = info.get_df()
-        #                 avg_duration = np.mean(df['duration'])
-        #                 if avg_duration < last_duration:
-        #                     self.final_rule = rule
-        #                     last_duration = avg_duration
-
-
+        self.final_rule['time'] = np.cumsum(x).tolist()
 
 
 class Traffic:

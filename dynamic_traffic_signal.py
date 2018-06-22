@@ -26,7 +26,7 @@ class DynamicTrafficSignal:
     """
 
     def __init__(self, name, data_dir='..'):
-        self.__name = name
+        self.name = name
         self.data_folder = os.path.join(os.path.realpath(data_dir), name)
         if not os.path.exists(self.data_folder):
             os.makedirs(self.data_folder)
@@ -72,7 +72,7 @@ class DynamicTrafficSignal:
         netconvert_cmd = ' '.join(['netconvert', '--osm-files', self.osm_map,
                                    '--lefthand', '-n', self.joining_nodes,
                                    '--tls.yellow.time', '0',
-                                   '--tls.left-green.time', '0'
+                                   '--tls.left-green.time', '0',
                                    '-o', self.original_sumo_map])
         os.system(netconvert_cmd)
 
