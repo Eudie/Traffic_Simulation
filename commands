@@ -1,6 +1,6 @@
 
 
-netconvert --osm-files map.osm -o map.net.xml
+netconvert --osm-files map.osm '-n' joining_nodes.xml -o map_test.net.xml
 
 polyconvert --net-file merge.net.xml --osm-files merge.osm --type-file typemap.xml -o merge.poly.xml
 

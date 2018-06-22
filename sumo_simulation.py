@@ -134,7 +134,7 @@ class Simulation:
 
         bounds = (slice(timing_range['min'], timing_range['max'], 1),)*no_of_signals
 
-        x, f_val, grid, j_out = brute(self._objective, ranges=bounds, full_output=True, finish=None)
+        x, f_val, grid, j_out = brute(self.__objective, ranges=bounds, full_output=True, finish=None)
         self.final_rule = rule
         self.final_rule['time'] = np.cumsum(x).tolist()
 
