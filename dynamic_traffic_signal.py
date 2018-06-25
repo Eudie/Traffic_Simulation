@@ -17,6 +17,7 @@ import shutil
 import requests
 import sumo_information
 import sumo_simulation
+import traffic_from_api
 import operator
 
 
@@ -41,6 +42,11 @@ class DynamicTrafficSignal:
         self.joining_nodes = os.path.join(self.data_folder, 'joining_nodes.xml')
         self.routes = os.path.join(self.data_folder, 'route.rou.xml')
 
+        self.left = None
+        self.bottom = None
+        self.right = None
+        self.top = None
+
         self.junction_info = None
         self.nodes_to_join = None
         self.optimized_result = None
@@ -51,7 +57,11 @@ class DynamicTrafficSignal:
         By this function user can get the map from openstreetmap and convert to sumo map.
         """
 
-        link = 'https://api.openstreetmap.org/api/0.6/map?bbox='+",".join([str(left), str(bottom), str(right), str(top)])
+        self.left = str(left)
+        self.bottom = str(bottom)
+        self.right = str(right)
+        self.top = str(top)
+        link = 'https://api.openstreetmap.org/api/0.6/map?bbox='+",".join([self.left, self.bottom, self.right, self.top])
         data = requests.get(link)
 
         with open(self.osm_map, 'w') as f:
@@ -99,14 +109,14 @@ class DynamicTrafficSignal:
         """
         This function will open UI window or help to open UI window by sending information.
         It will capture all traffic info of each pair of roads.
-        :param how: method by which user want to input values
+        :param how: method by which user want to input values ['manual', 'heremap']
         :return: success or failure
         """
 
         net_info = sumo_information.SumoNetworkInfo(self.original_sumo_map)
         self.junction_info = net_info.get_junction_routes()
         self.biggest_junction = max({key: len(value['routes']) for key, value in self.junction_info.items()}.items(),
-                               key=operator.itemgetter(1))[0]
+                                    key=operator.itemgetter(1))[0]
 
         junction_name_for_muggles = self.biggest_junction
 
@@ -117,11 +127,16 @@ class DynamicTrafficSignal:
         #         if "cluster_"+ "_".join(i['nodes'].sort()) == self.biggest_junction and i['suggested_name'] is not None:
         #             junction_name_for_muggles = i['suggested_name']
 
-        print("Input traffic value for each road passing the junction: {}".format(junction_name_for_muggles))
+        if how == 'manual':
+            print("Input traffic value for each road passing the junction: {}".format(junction_name_for_muggles))
 
-        for i in range(len(self.junction_info[self.biggest_junction]['routes'])):
-            route = self.junction_info[self.biggest_junction]['routes'][i]
-            self.junction_info[self.biggest_junction]['routes'][i]['traffic_value'] = 0.1 #input('from: {} to: {} via: {} s'.format(route['from'], route['to'], route['via']))
+            for i in range(len(self.junction_info[self.biggest_junction]['routes'])):
+                route = self.junction_info[self.biggest_junction]['routes'][i]
+                self.junction_info[self.biggest_junction]['routes'][i]['traffic_value'] = 0.1 #input('from: {} to: {} via: {} s'.format(route['from'], route['to'], route['via']))
+
+        elif how == 'heremap':
+            heremap = traffic_from_api.HereMapInfo(self.left, self.bottom, self.right, self.top)
+            self.junction_info = heremap.build_traffic_flow(self.junction_info)
 
         traffic = sumo_simulation.Traffic(self.routes)
         traffic.generate(self.junction_info[self.biggest_junction])
