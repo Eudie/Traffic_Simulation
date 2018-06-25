@@ -1,0 +1,851 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="CGImap 0.6.0 (18005 thorn-02.openstreetmap.org)" copyright="OpenStreetMap and contributors" attribution="http://www.openstreetmap.org/copyright" license="http://opendatacommons.org/licenses/odbl/1-0/">
+ <bounds minlat="12.9833797" minlon="77.7519486" maxlat="12.9842017" maxlon="77.7528560"/>
+ <node id="251105190" visible="true" version="26" changeset="54592714" timestamp="2017-12-13T11:14:03Z" user="Bhojaraj" uid="4647004" lat="12.9837497" lon="77.7523626">
+  <tag k="highway" v="traffic_signals"/>
+ </node>
+ <node id="251105276" visible="true" version="17" changeset="11247209" timestamp="2012-04-10T02:29:11Z" user="docaneesh" uid="492742" lat="12.9752227" lon="77.7506453"/>
+ <node id="251105277" visible="true" version="18" changeset="58648905" timestamp="2018-05-03T14:24:13Z" user="docaneesh" uid="492742" lat="12.9722472" lon="77.7501772"/>
+ <node id="251105278" visible="true" version="16" changeset="20011785" timestamp="2014-01-15T11:25:01Z" user="docaneesh" uid="492742" lat="12.9695062" lon="77.7498601"/>
+ <node id="251105279" visible="true" version="16" changeset="10679365" timestamp="2012-02-14T01:17:09Z" user="docaneesh" uid="492742" lat="12.9684456" lon="77.7496720"/>
+ <node id="251105281" visible="true" version="16" changeset="10679365" timestamp="2012-02-14T01:17:09Z" user="docaneesh" uid="492742" lat="12.9625342" lon="77.7478814"/>
+ <node id="251105282" visible="true" version="15" changeset="10679365" timestamp="2012-02-14T01:17:09Z" user="docaneesh" uid="492742" lat="12.9618374" lon="77.7476553"/>
+ <node id="251105283" visible="true" version="16" changeset="19198553" timestamp="2013-11-30T17:57:49Z" user="docaneesh" uid="492742" lat="12.9612167" lon="77.7476145"/>
+ <node id="251105284" visible="true" version="15" changeset="10679365" timestamp="2012-02-14T01:17:09Z" user="docaneesh" uid="492742" lat="12.9610106" lon="77.7475461"/>
+ <node id="251105285" visible="true" version="17" changeset="10679365" timestamp="2012-02-14T01:17:10Z" user="docaneesh" uid="492742" lat="12.9586113" lon="77.7462254"/>
+ <node id="251105286" visible="true" version="39" changeset="12512826" timestamp="2012-07-27T15:24:50Z" user="docaneesh" uid="492742" lat="12.9573484" lon="77.7456471"/>
+ <node id="253447903" visible="true" version="19" changeset="10679365" timestamp="2012-02-14T01:17:08Z" user="docaneesh" uid="492742" lat="12.9816614" lon="77.7519091"/>
+ <node id="253448561" visible="true" version="17" changeset="10679365" timestamp="2012-02-14T01:17:10Z" user="docaneesh" uid="492742" lat="12.9702201" lon="77.7499644"/>
+ <node id="253448582" visible="true" version="17" changeset="10679365" timestamp="2012-02-14T01:17:10Z" user="docaneesh" uid="492742" lat="12.9708073" lon="77.7500387"/>
+ <node id="253455818" visible="true" version="14" changeset="8786623" timestamp="2011-07-21T10:05:16Z" user="docaneesh" uid="492742" lat="12.9858523" lon="77.7531883"/>
+ <node id="253455819" visible="true" version="15" changeset="10674067" timestamp="2012-02-13T15:18:47Z" user="docaneesh" uid="492742" lat="12.9879471" lon="77.7540603"/>
+ <node id="253455820" visible="true" version="15" changeset="8786623" timestamp="2011-07-21T10:05:16Z" user="docaneesh" uid="492742" lat="12.9900762" lon="77.7549910"/>
+ <node id="253455821" visible="true" version="15" changeset="8786623" timestamp="2011-07-21T10:05:17Z" user="docaneesh" uid="492742" lat="12.9909461" lon="77.7556260"/>
+ <node id="253455822" visible="true" version="18" changeset="30186832" timestamp="2015-04-13T12:59:21Z" user="yogi_ks" uid="827808" lat="12.9920327" lon="77.7564291">
+  <tag k="highway" v="bus_stop"/>
+  <tag k="name" v="Prajwal School"/>
+  <tag k="name:kn" v="ಪ್ರಜ್ವಲ್ ಶಾಲೆ"/>
+ </node>
+ <node id="253455823" visible="true" version="15" changeset="8786623" timestamp="2011-07-21T10:05:16Z" user="docaneesh" uid="492742" lat="12.9930675" lon="77.7572606"/>
+ <node id="253455824" visible="true" version="14" changeset="8786623" timestamp="2011-07-21T10:05:17Z" user="docaneesh" uid="492742" lat="12.9931811" lon="77.7573208"/>
+ <node id="331146203" visible="true" version="10" changeset="10679365" timestamp="2012-02-14T01:17:25Z" user="docaneesh" uid="492742" lat="12.9677494" lon="77.7494937"/>
+ <node id="331147627" visible="true" version="9" changeset="10679365" timestamp="2012-02-14T01:17:26Z" user="docaneesh" uid="492742" lat="12.9663685" lon="77.7491135"/>
+ <node id="331147702" visible="true" version="6" changeset="10679365" timestamp="2012-02-14T01:17:22Z" user="docaneesh" uid="492742" lat="12.9698348" lon="77.7499197"/>
+ <node id="825452159" visible="true" version="8" changeset="58160064" timestamp="2018-04-17T08:07:16Z" user="Polyglot" uid="15188" lat="12.9839736" lon="77.7520439">
+  <tag k="bus" v="yes"/>
+  <tag k="highway" v="bus_stop"/>
+  <tag k="name" v="Hope Farm"/>
+  <tag k="public_transport" v="platform"/>
+ </node>
+ <node id="825453269" visible="true" version="2" changeset="10234767" timestamp="2011-12-29T12:27:41Z" user="Nand Kishore Gupta" uid="178915" lat="12.9865787" lon="77.7443317">
+  <tag k="highway" v="bus_stop"/>
+  <tag k="name" v="GR Tech Park Bus Stop"/>
+ </node>
+ <node id="955696079" visible="true" version="6" changeset="44316206" timestamp="2016-12-11T05:44:10Z" user="docaneesh" uid="492742" lat="12.9876780" lon="77.7358205"/>
+ <node id="955696095" visible="true" version="6" changeset="27059069" timestamp="2014-11-27T01:19:27Z" user="docaneesh" uid="492742" lat="12.9862591" lon="77.7454886"/>
+ <node id="955696097" visible="true" version="6" changeset="27059069" timestamp="2014-11-27T01:19:27Z" user="docaneesh" uid="492742" lat="12.9856886" lon="77.7470467"/>
+ <node id="955696101" visible="true" version="6" changeset="27059069" timestamp="2014-11-27T01:19:27Z" user="docaneesh" uid="492742" lat="12.9851339" lon="77.7485261"/>
+ <node id="955705471" visible="true" version="5" changeset="44316206" timestamp="2016-12-11T05:44:11Z" user="docaneesh" uid="492742" lat="12.9876920" lon="77.7355682"/>
+ <node id="956975072" visible="true" version="4" changeset="28442654" timestamp="2015-01-27T13:52:13Z" user="docaneesh" uid="492742" lat="12.9613309" lon="77.7476132"/>
+ <node id="1010545473" visible="true" version="4" changeset="27059069" timestamp="2014-11-27T01:19:24Z" user="docaneesh" uid="492742" lat="12.9864437" lon="77.7448615"/>
+ <node id="1016228568" visible="true" version="5" changeset="10679365" timestamp="2012-02-14T01:17:16Z" user="docaneesh" uid="492742" lat="12.9635064" lon="77.7482046"/>
+ <node id="1016228603" visible="true" version="6" changeset="31494559" timestamp="2015-05-27T06:32:52Z" user="anushap" uid="2901769" lat="12.9631596" lon="77.7480891"/>
+ <node id="1078253094" visible="true" version="6" changeset="10679365" timestamp="2012-02-14T01:17:20Z" user="docaneesh" uid="492742" lat="12.9638514" lon="77.7483166"/>
+ <node id="1080176720" visible="true" version="3" changeset="10679365" timestamp="2012-02-14T01:17:33Z" user="docaneesh" uid="492742" lat="12.9794965" lon="77.7515115"/>
+ <node id="1080176721" visible="true" version="3" changeset="10679365" timestamp="2012-02-14T01:17:18Z" user="docaneesh" uid="492742" lat="12.9783311" lon="77.7512891"/>
+ <node id="1104215747" visible="true" version="3" changeset="8786623" timestamp="2011-07-21T10:05:19Z" user="docaneesh" uid="492742" lat="12.9942900" lon="77.7575686"/>
+ <node id="1104241015" visible="true" version="5" changeset="10679365" timestamp="2012-02-14T01:17:33Z" user="docaneesh" uid="492742" lat="12.9789996" lon="77.7514958"/>
+ <node id="1104241017" visible="true" version="4" changeset="18061458" timestamp="2013-09-27T13:23:22Z" user="Gururaja Upadhyaya" uid="1319316" lat="12.9919193" lon="77.7564837">
+  <tag k="highway" v="bus_stop"/>
+  <tag k="name" v="Prajwal School"/>
+ </node>
+ <node id="1104241023" visible="true" version="5" changeset="18061458" timestamp="2013-09-27T13:23:22Z" user="Gururaja Upadhyaya" uid="1319316" lat="12.9929052" lon="77.7572576"/>
+ <node id="1104241030" visible="true" version="7" changeset="54592714" timestamp="2017-12-13T11:14:04Z" user="Bhojaraj" uid="4647004" lat="12.9837982" lon="77.7524697">
+  <tag k="highway" v="traffic_signals"/>
+ </node>
+ <node id="1104241031" visible="true" version="4" changeset="44316206" timestamp="2016-12-11T05:44:11Z" user="docaneesh" uid="492742" lat="12.9879833" lon="77.7542022"/>
+ <node id="1104241032" visible="true" version="3" changeset="8786623" timestamp="2011-07-21T10:05:18Z" user="docaneesh" uid="492742" lat="12.9943015" lon="77.7576209"/>
+ <node id="1104241036" visible="true" version="3" changeset="8786623" timestamp="2011-07-21T10:05:18Z" user="docaneesh" uid="492742" lat="12.9900428" lon="77.7550390"/>
+ <node id="1104241038" visible="true" version="4" changeset="8786623" timestamp="2011-07-21T10:16:11Z" user="docaneesh" uid="492742" lat="12.9945276" lon="77.7576699"/>
+ <node id="1104241048" visible="true" version="4" changeset="44316206" timestamp="2016-12-11T05:44:10Z" user="docaneesh" uid="492742" lat="12.9850010" lon="77.7529992"/>
+ <node id="1104241050" visible="true" version="4" changeset="18061458" timestamp="2013-09-27T13:23:22Z" user="Gururaja Upadhyaya" uid="1319316" lat="12.9937636" lon="77.7575066"/>
+ <node id="1104241052" visible="true" version="4" changeset="18061458" timestamp="2013-09-27T13:23:22Z" user="Gururaja Upadhyaya" uid="1319316" lat="12.9928135" lon="77.7571751"/>
+ <node id="1104241056" visible="true" version="4" changeset="44316206" timestamp="2016-12-11T05:44:11Z" user="docaneesh" uid="492742" lat="12.9864414" lon="77.7535964"/>
+ <node id="1104241058" visible="true" version="8" changeset="10679365" timestamp="2012-02-14T01:17:33Z" user="docaneesh" uid="492742" lat="12.9816384" lon="77.7519936"/>
+ <node id="1104241066" visible="true" version="3" changeset="8786623" timestamp="2011-07-21T10:05:18Z" user="docaneesh" uid="492742" lat="12.9887613" lon="77.7544701"/>
+ <node id="1104241070" visible="true" version="5" changeset="10679365" timestamp="2012-02-14T01:17:33Z" user="docaneesh" uid="492742" lat="12.9780221" lon="77.7512876"/>
+ <node id="1104241071" visible="true" version="3" changeset="8786623" timestamp="2011-07-21T10:05:18Z" user="docaneesh" uid="492742" lat="12.9909092" lon="77.7556711"/>
+ <node id="1104241073" visible="true" version="4" changeset="44316206" timestamp="2016-12-11T05:44:10Z" user="docaneesh" uid="492742" lat="12.9858601" lon="77.7533579"/>
+ <node id="1104241075" visible="true" version="4" changeset="44316206" timestamp="2016-12-11T05:44:12Z" user="docaneesh" uid="492742" lat="12.9871229" lon="77.7538763"/>
+ <node id="1104243942" visible="true" version="8" changeset="28285900" timestamp="2015-01-20T16:44:18Z" user="sommerluk" uid="1700634" lat="12.9837801" lon="77.7524140">
+  <tag k="alt_name" v="O Farm"/>
+  <tag k="junction" v="yes"/>
+  <tag k="local_ref" v="O Farm"/>
+  <tag k="name" v="Hope Farm"/>
+ </node>
+ <node id="1104243944" visible="true" version="9" changeset="54592714" timestamp="2017-12-13T11:14:04Z" user="Bhojaraj" uid="4647004" lat="12.9838219" lon="77.7523977">
+  <tag k="highway" v="traffic_signals"/>
+ </node>
+ <node id="1104250480" visible="true" version="4" changeset="10679365" timestamp="2012-02-14T01:17:17Z" user="docaneesh" uid="492742" lat="12.9726015" lon="77.7502685"/>
+ <node id="1104250485" visible="true" version="6" changeset="10679365" timestamp="2012-02-14T01:17:37Z" user="docaneesh" uid="492742" lat="12.9684021" lon="77.7497084"/>
+ <node id="1104250497" visible="true" version="4" changeset="10679365" timestamp="2012-02-14T01:17:33Z" user="docaneesh" uid="492742" lat="12.9693907" lon="77.7498771"/>
+ <node id="1104250504" visible="true" version="5" changeset="10679365" timestamp="2012-02-14T01:17:27Z" user="docaneesh" uid="492742" lat="12.9751844" lon="77.7506962"/>
+ <node id="1104250513" visible="true" version="4" changeset="10679365" timestamp="2012-02-14T01:17:25Z" user="docaneesh" uid="492742" lat="12.9698275" lon="77.7499595"/>
+ <node id="1104250524" visible="true" version="4" changeset="10679365" timestamp="2012-02-14T01:17:32Z" user="docaneesh" uid="492742" lat="12.9721046" lon="77.7502046"/>
+ <node id="1104250532" visible="true" version="4" changeset="10679365" timestamp="2012-02-14T01:17:28Z" user="docaneesh" uid="492742" lat="12.9707408" lon="77.7500716"/>
+ <node id="1173931047" visible="true" version="3" changeset="10679365" timestamp="2012-02-14T01:17:26Z" user="docaneesh" uid="492742" lat="12.9593150" lon="77.7466084"/>
+ <node id="1177705608" visible="true" version="5" changeset="27059069" timestamp="2014-11-27T01:19:31Z" user="docaneesh" uid="492742" lat="12.9876558" lon="77.7400830"/>
+ <node id="1186904252" visible="true" version="4" changeset="10679365" timestamp="2012-02-14T01:17:37Z" user="docaneesh" uid="492742" lat="12.9637310" lon="77.7482803"/>
+ <node id="1198163715" visible="true" version="4" changeset="27059069" timestamp="2014-11-27T01:19:31Z" user="docaneesh" uid="492742" lat="12.9876289" lon="77.7402078"/>
+ <node id="1198163774" visible="true" version="5" changeset="44316206" timestamp="2016-12-11T05:44:10Z" user="docaneesh" uid="492742" lat="12.9854092" lon="77.7478000"/>
+ <node id="1224890408" visible="true" version="3" changeset="10674067" timestamp="2012-02-13T15:19:10Z" user="docaneesh" uid="492742" lat="12.9928842" lon="77.7570949"/>
+ <node id="1327387673" visible="true" version="5" changeset="10679365" timestamp="2012-02-14T01:17:18Z" user="docaneesh" uid="492742" lat="12.9772675" lon="77.7511495"/>
+ <node id="1327387692" visible="true" version="6" changeset="10699437" timestamp="2012-02-16T08:06:29Z" user="docaneesh" uid="492742" lat="12.9800566" lon="77.7517044"/>
+ <node id="1368117316" visible="true" version="2" changeset="10679365" timestamp="2012-02-14T01:17:37Z" user="docaneesh" uid="492742" lat="12.9713737" lon="77.7501355"/>
+ <node id="1368117387" visible="true" version="2" changeset="10679365" timestamp="2012-02-14T01:17:17Z" user="docaneesh" uid="492742" lat="12.9713688" lon="77.7500988"/>
+ <node id="1368814489" visible="true" version="3" changeset="10679365" timestamp="2012-02-14T01:17:18Z" user="docaneesh" uid="492742" lat="12.9677228" lon="77.7495373"/>
+ <node id="1368828982" visible="true" version="2" changeset="19946778" timestamp="2014-01-12T04:25:46Z" user="docaneesh" uid="492742" lat="12.9837520" lon="77.7525788"/>
+ <node id="1368828987" visible="true" version="3" changeset="19946778" timestamp="2014-01-12T04:25:46Z" user="docaneesh" uid="492742" lat="12.9831567" lon="77.7522775"/>
+ <node id="1368828989" visible="true" version="2" changeset="18061458" timestamp="2013-09-27T13:26:36Z" user="Gururaja Upadhyaya" uid="1319316" lat="12.9841229" lon="77.7525050">
+  <tag k="highway" v="bus_stop"/>
+  <tag k="name" v="Hope Farm"/>
+ </node>
+ <node id="1368828994" visible="true" version="1" changeset="8786623" timestamp="2011-07-21T10:05:13Z" user="docaneesh" uid="492742" lat="12.9934817" lon="77.7573814"/>
+ <node id="1368828998" visible="true" version="2" changeset="10674067" timestamp="2012-02-13T15:18:59Z" user="docaneesh" uid="492742" lat="12.9871249" lon="77.7537084"/>
+ <node id="1368829001" visible="true" version="3" changeset="11748860" timestamp="2012-05-30T13:55:26Z" user="docaneesh" uid="492742" lat="12.9913092" lon="77.7559127"/>
+ <node id="1368829002" visible="true" version="2" changeset="10674067" timestamp="2012-02-13T15:18:59Z" user="docaneesh" uid="492742" lat="12.9937039" lon="77.7574046"/>
+ <node id="1368829012" visible="true" version="3" changeset="19946778" timestamp="2014-01-12T04:25:46Z" user="docaneesh" uid="492742" lat="12.9828990" lon="77.7521377"/>
+ <node id="1368829013" visible="true" version="2" changeset="10674067" timestamp="2012-02-13T15:18:59Z" user="docaneesh" uid="492742" lat="12.9896728" lon="77.7547703"/>
+ <node id="1368829015" visible="true" version="3" changeset="33093454" timestamp="2015-08-04T10:27:30Z" user="maheshrkm" uid="2897465" lat="12.9936361" lon="77.7574831"/>
+ <node id="1368829016" visible="true" version="1" changeset="8786623" timestamp="2011-07-21T10:05:14Z" user="docaneesh" uid="492742" lat="12.9896440" lon="77.7548237"/>
+ <node id="1368829017" visible="true" version="4" changeset="54592714" timestamp="2017-12-13T11:14:04Z" user="Bhojaraj" uid="4647004" lat="12.9837373" lon="77.7524493">
+  <tag k="highway" v="traffic_signals"/>
+ </node>
+ <node id="1368829019" visible="true" version="4" changeset="54592714" timestamp="2017-12-13T11:14:04Z" user="Bhojaraj" uid="4647004" lat="12.9835987" lon="77.7536855">
+  <tag k="highway" v="bus_stop"/>
+ </node>
+ <node id="1368829032" visible="true" version="3" changeset="18061458" timestamp="2013-09-27T13:23:22Z" user="Gururaja Upadhyaya" uid="1319316" lat="12.9930565" lon="77.7573557"/>
+ <node id="1368829037" visible="true" version="3" changeset="44316206" timestamp="2016-12-11T05:44:12Z" user="docaneesh" uid="492742" lat="12.9841183" lon="77.7526226">
+  <tag k="highway" v="bus_stop"/>
+  <tag k="name" v="Hope Farm"/>
+ </node>
+ <node id="1368829039" visible="true" version="2" changeset="18061458" timestamp="2013-09-27T13:23:22Z" user="Gururaja Upadhyaya" uid="1319316" lat="12.9932359" lon="77.7574442"/>
+ <node id="1368829040" visible="true" version="2" changeset="10679365" timestamp="2012-02-14T01:17:32Z" user="docaneesh" uid="492742" lat="12.9834626" lon="77.7522929"/>
+ <node id="1368829042" visible="true" version="3" changeset="19946778" timestamp="2014-01-12T04:25:46Z" user="docaneesh" uid="492742" lat="12.9835924" lon="77.7524007"/>
+ <node id="1368933534" visible="true" version="4" changeset="11247209" timestamp="2012-04-10T02:29:11Z" user="docaneesh" uid="492742" lat="12.9750566" lon="77.7506068"/>
+ <node id="1371807555" visible="true" version="3" changeset="10679365" timestamp="2012-02-14T01:17:36Z" user="docaneesh" uid="492742" lat="12.9678705" lon="77.7495680"/>
+ <node id="1371814142" visible="true" version="3" changeset="31311962" timestamp="2015-05-20T11:26:47Z" user="praveeng" uid="2900362" lat="12.9710286" lon="77.7501129"/>
+ <node id="1374396082" visible="true" version="2" changeset="10679365" timestamp="2012-02-14T01:17:27Z" user="docaneesh" uid="492742" lat="12.9669027" lon="77.7492606"/>
+ <node id="1374397405" visible="true" version="2" changeset="8902554" timestamp="2011-08-02T16:20:53Z" user="Ashim" uid="398735" lat="12.9860477" lon="77.7460931"/>
+ <node id="1376905670" visible="true" version="3" changeset="11317648" timestamp="2012-04-16T02:16:41Z" user="docaneesh" uid="492742" lat="12.9661152" lon="77.7490288"/>
+ <node id="1383248176" visible="true" version="2" changeset="27059069" timestamp="2014-11-27T01:19:25Z" user="docaneesh" uid="492742" lat="12.9870640" lon="77.7423684"/>
+ <node id="1383248183" visible="true" version="1" changeset="8902554" timestamp="2011-08-02T16:20:21Z" user="Ashim" uid="398735" lat="12.9841900" lon="77.7510007"/>
+ <node id="1383248188" visible="true" version="2" changeset="27059069" timestamp="2014-11-27T01:19:26Z" user="docaneesh" uid="492742" lat="12.9865201" lon="77.7445530"/>
+ <node id="1383248252" visible="true" version="3" changeset="44316206" timestamp="2016-12-11T05:44:10Z" user="docaneesh" uid="492742" lat="12.9876604" lon="77.7378975"/>
+ <node id="1383248314" visible="true" version="2" changeset="27059069" timestamp="2014-11-27T01:19:28Z" user="docaneesh" uid="492742" lat="12.9842577" lon="77.7510287"/>
+ <node id="1431901814" visible="true" version="4" changeset="58648905" timestamp="2018-05-03T14:24:13Z" user="docaneesh" uid="492742" lat="12.9722405" lon="77.7502194"/>
+ <node id="1431901816" visible="true" version="3" changeset="10679365" timestamp="2012-02-14T01:17:37Z" user="docaneesh" uid="492742" lat="12.9702210" lon="77.7500024"/>
+ <node id="1431901817" visible="true" version="2" changeset="10679365" timestamp="2012-02-14T01:17:18Z" user="docaneesh" uid="492742" lat="12.9707946" lon="77.7500770"/>
+ <node id="1431901818" visible="true" version="3" changeset="31311962" timestamp="2015-05-20T11:26:47Z" user="praveeng" uid="2900362" lat="12.9710387" lon="77.7500757"/>
+ <node id="1437209533" visible="true" version="4" changeset="44316206" timestamp="2016-12-11T05:44:11Z" user="docaneesh" uid="492742" lat="12.9876546" lon="77.7371207"/>
+ <node id="1437330565" visible="true" version="3" changeset="10699437" timestamp="2012-02-16T08:06:30Z" user="docaneesh" uid="492742" lat="12.9800685" lon="77.7516305"/>
+ <node id="1437330568" visible="true" version="3" changeset="10679365" timestamp="2012-02-14T01:17:25Z" user="docaneesh" uid="492742" lat="12.9794654" lon="77.7515846"/>
+ <node id="1439027924" visible="true" version="3" changeset="33093454" timestamp="2015-08-04T10:27:30Z" user="maheshrkm" uid="2897465" lat="12.9848273" lon="77.7494019"/>
+ <node id="1470833635" visible="true" version="2" changeset="10679365" timestamp="2012-02-14T01:17:34Z" user="docaneesh" uid="492742" lat="12.9772972" lon="77.7510667"/>
+ <node id="1470833648" visible="true" version="2" changeset="10679365" timestamp="2012-02-14T01:17:27Z" user="docaneesh" uid="492742" lat="12.9772904" lon="77.7510652"/>
+ <node id="1472791598" visible="true" version="2" changeset="10679365" timestamp="2012-02-14T01:17:37Z" user="docaneesh" uid="492742" lat="12.9686126" lon="77.7496999"/>
+ <node id="1472791602" visible="true" version="3" changeset="20011785" timestamp="2014-01-15T11:25:01Z" user="docaneesh" uid="492742" lat="12.9689872" lon="77.7497744"/>
+ <node id="1472791607" visible="true" version="2" changeset="10679365" timestamp="2012-02-14T01:17:32Z" user="docaneesh" uid="492742" lat="12.9686085" lon="77.7497438"/>
+ <node id="1472791628" visible="true" version="2" changeset="10679365" timestamp="2012-02-14T01:17:25Z" user="docaneesh" uid="492742" lat="12.9687725" lon="77.7497265"/>
+ <node id="1472791635" visible="true" version="2" changeset="10679365" timestamp="2012-02-14T01:17:33Z" user="docaneesh" uid="492742" lat="12.9706980" lon="77.7500249"/>
+ <node id="1472791644" visible="true" version="3" changeset="20011785" timestamp="2014-01-15T11:25:01Z" user="docaneesh" uid="492742" lat="12.9689789" lon="77.7498142"/>
+ <node id="1485730734" visible="true" version="2" changeset="10679365" timestamp="2012-02-14T01:17:37Z" user="docaneesh" uid="492742" lat="12.9739152" lon="77.7504223"/>
+ <node id="1485730751" visible="true" version="2" changeset="10679365" timestamp="2012-02-14T01:17:37Z" user="docaneesh" uid="492742" lat="12.9739075" lon="77.7504694"/>
+ <node id="1497326586" visible="true" version="4" changeset="54592714" timestamp="2017-12-13T11:14:04Z" user="Bhojaraj" uid="4647004" lat="12.9834614" lon="77.7546363"/>
+ <node id="1579616033" visible="true" version="2" changeset="10679365" timestamp="2012-02-14T01:17:24Z" user="docaneesh" uid="492742" lat="12.9702768" lon="77.7500098"/>
+ <node id="1584707701" visible="true" version="2" changeset="44316206" timestamp="2016-12-11T05:44:10Z" user="docaneesh" uid="492742" lat="12.9884190" lon="77.7543483"/>
+ <node id="1584707878" visible="true" version="2" changeset="10674067" timestamp="2012-02-13T15:19:04Z" user="docaneesh" uid="492742" lat="12.9884488" lon="77.7542667"/>
+ <node id="1585793468" visible="true" version="2" changeset="10679365" timestamp="2012-02-14T01:17:32Z" user="docaneesh" uid="492742" lat="12.9650941" lon="77.7487105"/>
+ <node id="1585798170" visible="true" version="1" changeset="10361512" timestamp="2012-01-11T15:38:54Z" user="docaneesh" uid="492742" lat="12.9829910" lon="77.7520625"/>
+ <node id="1604607805" visible="true" version="3" changeset="48820351" timestamp="2017-05-19T12:20:34Z" user="docaneesh" uid="492742" lat="12.9839090" lon="77.7523424"/>
+ <node id="1604607807" visible="true" version="3" changeset="48820351" timestamp="2017-05-19T12:20:34Z" user="docaneesh" uid="492742" lat="12.9844214" lon="77.7525810"/>
+ <node id="1605954144" visible="true" version="3" changeset="14234052" timestamp="2012-12-11T04:14:00Z" user="docaneesh" uid="492742" lat="12.9803341" lon="77.7516793"/>
+ <node id="1605954203" visible="true" version="2" changeset="18124410" timestamp="2013-10-01T10:11:42Z" user="anshulahuja" uid="1761919" lat="12.9794440" lon="77.7515805"/>
+ <node id="1605954208" visible="true" version="2" changeset="18124410" timestamp="2013-10-01T10:11:42Z" user="anshulahuja" uid="1761919" lat="12.9796221" lon="77.7516164"/>
+ <node id="1631109057" visible="true" version="2" changeset="27059069" timestamp="2014-11-27T01:19:28Z" user="docaneesh" uid="492742" lat="12.9862478" lon="77.7455208"/>
+ <node id="1631109063" visible="true" version="2" changeset="10674067" timestamp="2012-02-13T15:18:55Z" user="docaneesh" uid="492742" lat="12.9861020" lon="77.7532903"/>
+ <node id="1634931575" visible="true" version="2" changeset="27059069" timestamp="2014-11-27T01:19:26Z" user="docaneesh" uid="492742" lat="12.9870943" lon="77.7422525"/>
+ <node id="1709379155" visible="true" version="1" changeset="11247209" timestamp="2012-04-10T02:29:07Z" user="docaneesh" uid="492742" lat="12.9751154" lon="77.7506204"/>
+ <node id="1711387415" visible="true" version="1" changeset="11264323" timestamp="2012-04-11T12:38:52Z" user="docaneesh" uid="492742" lat="12.9830744" lon="77.7519391"/>
+ <node id="1711387467" visible="true" version="1" changeset="11264323" timestamp="2012-04-11T12:38:54Z" user="docaneesh" uid="492742" lat="12.9836912" lon="77.7518962"/>
+ <node id="1711387487" visible="true" version="1" changeset="11264323" timestamp="2012-04-11T12:38:54Z" user="docaneesh" uid="492742" lat="12.9831633" lon="77.7517031"/>
+ <node id="1711387491" visible="true" version="1" changeset="11264323" timestamp="2012-04-11T12:38:54Z" user="docaneesh" uid="492742" lat="12.9836063" lon="77.7521373"/>
+ <node id="1770465745" visible="true" version="1" changeset="11748860" timestamp="2012-05-30T13:55:25Z" user="docaneesh" uid="492742" lat="12.9913435" lon="77.7560173"/>
+ <node id="1770465750" visible="true" version="1" changeset="11748860" timestamp="2012-05-30T13:55:25Z" user="docaneesh" uid="492742" lat="12.9913813" lon="77.7559733"/>
+ <node id="2048248823" visible="true" version="3" changeset="33093454" timestamp="2015-08-04T10:27:31Z" user="maheshrkm" uid="2897465" lat="12.9936405" lon="77.7573951"/>
+ <node id="2475474263" visible="true" version="4" changeset="44316206" timestamp="2016-12-11T05:44:10Z" user="docaneesh" uid="492742" lat="12.9876616" lon="77.7369153">
+  <tag k="highway" v="bus_stop"/>
+  <tag k="name" v="ITPL,Whitefield"/>
+ </node>
+ <node id="2475474264" visible="true" version="2" changeset="34277601" timestamp="2015-09-27T08:31:23Z" user="indigomc" uid="136860" lat="12.9854325" lon="77.7477045">
+  <tag k="highway" v="bus_stop"/>
+  <tag k="name" v="B P L,Whitefield"/>
+ </node>
+ <node id="2478796828" visible="true" version="1" changeset="18124444" timestamp="2013-10-01T10:14:24Z" user="anshulahuja" uid="1761919" lat="12.9791599" lon="77.7515264"/>
+ <node id="2482304662" visible="true" version="1" changeset="18178288" timestamp="2013-10-04T13:13:51Z" user="Gururaja Upadhyaya" uid="1319316" lat="12.9738461" lon="77.7504600">
+  <tag k="highway" v="bus_stop"/>
+  <tag k="name" v="Saibaba General Hospital"/>
+ </node>
+ <node id="2482304663" visible="true" version="1" changeset="18178288" timestamp="2013-10-04T13:13:51Z" user="Gururaja Upadhyaya" uid="1319316" lat="12.9739646" lon="77.7504303">
+  <tag k="highway" v="bus_stop"/>
+  <tag k="name" v="Saibaba General Hospital"/>
+ </node>
+ <node id="2486617758" visible="true" version="2" changeset="19198553" timestamp="2013-11-30T17:57:49Z" user="docaneesh" uid="492742" lat="12.9640154" lon="77.7483686">
+  <tag k="highway" v="bus_stop"/>
+  <tag k="name" v="Brooke Bond"/>
+ </node>
+ <node id="2619331785" visible="true" version="3" changeset="42522776" timestamp="2016-09-29T16:04:45Z" user="moghal shahataj" uid="4643208" lat="12.9837905" lon="77.7525598"/>
+ <node id="2619331786" visible="true" version="1" changeset="19946778" timestamp="2014-01-12T04:25:44Z" user="docaneesh" uid="492742" lat="12.9837283" lon="77.7527373"/>
+ <node id="2619331800" visible="true" version="3" changeset="54592714" timestamp="2017-12-13T11:14:04Z" user="Bhojaraj" uid="4647004" lat="12.9837278" lon="77.7531510">
+  <tag k="highway" v="bus_stop"/>
+ </node>
+ <node id="2619331806" visible="true" version="1" changeset="19946778" timestamp="2014-01-12T04:25:44Z" user="docaneesh" uid="492742" lat="12.9826917" lon="77.7520950"/>
+ <node id="2623251185" visible="true" version="1" changeset="20010020" timestamp="2014-01-15T09:44:22Z" user="docaneesh" uid="492742" lat="12.9641671" lon="77.7484167"/>
+ <node id="2623613727" visible="true" version="1" changeset="20017236" timestamp="2014-01-15T16:19:54Z" user="docaneesh" uid="492742" lat="12.9726473" lon="77.7502755"/>
+ <node id="2631448301" visible="true" version="1" changeset="20127430" timestamp="2014-01-21T18:21:45Z" user="docaneesh" uid="492742" lat="12.9943552" lon="77.7575976"/>
+ <node id="2876319736" visible="true" version="2" changeset="47857345" timestamp="2017-04-17T06:21:30Z" user="Vonter" uid="3926189" lat="12.9835135" lon="77.7520657">
+  <tag k="addr:city" v="Bangalore"/>
+  <tag k="addr:housename" v="Arya Hub"/>
+  <tag k="addr:postcode" v="560068"/>
+  <tag k="addr:street" v="Whitefield Main Road"/>
+  <tag k="alt_name" v="A2B"/>
+  <tag k="amenity" v="restaurant"/>
+  <tag k="cuisine" v="regional"/>
+  <tag k="diet:vegetarian" v="only"/>
+  <tag k="food" v="veg"/>
+  <tag k="name" v="Adyar Ananda Bhavan"/>
+  <tag k="operator" v="Adyar Ananda Bhavan"/>
+  <tag k="phone" v="919886952681"/>
+  <tag k="website" v="www.aabsweets.in"/>
+ </node>
+ <node id="2876319743" visible="true" version="1" changeset="22507755" timestamp="2014-05-23T15:54:16Z" user="docaneesh" uid="492742" lat="12.9831323" lon="77.7516601"/>
+ <node id="2876319744" visible="true" version="1" changeset="22507755" timestamp="2014-05-23T15:54:16Z" user="docaneesh" uid="492742" lat="12.9836598" lon="77.7522719"/>
+ <node id="2876319749" visible="true" version="1" changeset="22507755" timestamp="2014-05-23T15:54:17Z" user="docaneesh" uid="492742" lat="12.9836867" lon="77.7519089"/>
+ <node id="2876319769" visible="true" version="1" changeset="22507755" timestamp="2014-05-23T15:54:17Z" user="docaneesh" uid="492742" lat="12.9831434" lon="77.7517558"/>
+ <node id="2876319778" visible="true" version="1" changeset="22507755" timestamp="2014-05-23T15:54:17Z" user="docaneesh" uid="492742" lat="12.9838547" lon="77.7520127"/>
+ <node id="2876319787" visible="true" version="1" changeset="22507755" timestamp="2014-05-23T15:54:17Z" user="docaneesh" uid="492742" lat="12.9837486" lon="77.7519049"/>
+ <node id="2876319793" visible="true" version="1" changeset="22507755" timestamp="2014-05-23T15:54:18Z" user="docaneesh" uid="492742" lat="12.9837852" lon="77.7518963"/>
+ <node id="2876319800" visible="true" version="1" changeset="22507755" timestamp="2014-05-23T15:54:18Z" user="docaneesh" uid="492742" lat="12.9838350" lon="77.7519527"/>
+ <node id="2876321413" visible="true" version="1" changeset="22507755" timestamp="2014-05-23T15:54:18Z" user="docaneesh" uid="492742" lat="12.9838140" lon="77.7519237"/>
+ <node id="2876321418" visible="true" version="1" changeset="22507755" timestamp="2014-05-23T15:54:18Z" user="docaneesh" uid="492742" lat="12.9830081" lon="77.7521677"/>
+ <node id="3207678175" visible="true" version="1" changeset="27068467" timestamp="2014-11-27T14:12:15Z" user="docaneesh" uid="492742" lat="12.9840964" lon="77.7512072"/>
+ <node id="3300742565" visible="true" version="1" changeset="28285856" timestamp="2015-01-20T16:41:59Z" user="sommerluk" uid="1700634" lat="12.9573812" lon="77.7456616"/>
+ <node id="3300742802" visible="true" version="2" changeset="42522776" timestamp="2016-09-29T16:04:45Z" user="moghal shahataj" uid="4643208" lat="12.9836351" lon="77.7524189"/>
+ <node id="3300742803" visible="true" version="2" changeset="42522776" timestamp="2016-09-29T16:04:45Z" user="moghal shahataj" uid="4643208" lat="12.9836479" lon="77.7523499"/>
+ <node id="3300742804" visible="true" version="2" changeset="42522776" timestamp="2016-09-29T16:04:45Z" user="moghal shahataj" uid="4643208" lat="12.9837483" lon="77.7525566"/>
+ <node id="3300742805" visible="true" version="2" changeset="42522776" timestamp="2016-09-29T16:04:45Z" user="moghal shahataj" uid="4643208" lat="12.9837820" lon="77.7522626"/>
+ <node id="3300742806" visible="true" version="3" changeset="44316206" timestamp="2016-12-11T05:44:10Z" user="docaneesh" uid="492742" lat="12.9838439" lon="77.7522748"/>
+ <node id="3300742807" visible="true" version="3" changeset="44316206" timestamp="2016-12-11T05:44:11Z" user="docaneesh" uid="492742" lat="12.9838842" lon="77.7525161"/>
+ <node id="3300742808" visible="true" version="2" changeset="42522776" timestamp="2016-09-29T16:04:45Z" user="moghal shahataj" uid="4643208" lat="12.9839244" lon="77.7524241"/>
+ <node id="3314362623" visible="true" version="1" changeset="28442654" timestamp="2015-01-27T13:52:12Z" user="docaneesh" uid="492742" lat="12.9615974" lon="77.7476284"/>
+ <node id="3314362624" visible="true" version="1" changeset="28442654" timestamp="2015-01-27T13:52:12Z" user="docaneesh" uid="492742" lat="12.9617278" lon="77.7476390"/>
+ <node id="3314362625" visible="true" version="1" changeset="28442654" timestamp="2015-01-27T13:52:12Z" user="docaneesh" uid="492742" lat="12.9614458" lon="77.7476139"/>
+ <node id="3545996597" visible="true" version="1" changeset="31462011" timestamp="2015-05-26T04:22:44Z" user="docaneesh" uid="492742" lat="12.9910173" lon="77.7556823"/>
+ <node id="3545996639" visible="true" version="1" changeset="31462011" timestamp="2015-05-26T04:22:45Z" user="docaneesh" uid="492742" lat="12.9899282" lon="77.7549100"/>
+ <node id="4204925700" visible="true" version="1" changeset="39535480" timestamp="2016-05-24T14:53:24Z" user="RichRico" uid="2219338" lat="12.9773305" lon="77.7511610"/>
+ <node id="4548744364" visible="true" version="1" changeset="44316206" timestamp="2016-12-11T05:44:07Z" user="docaneesh" uid="492742" lat="12.9876530" lon="77.7374249"/>
+ <node id="4864098113" visible="true" version="1" changeset="48820351" timestamp="2017-05-19T12:20:31Z" user="docaneesh" uid="492742" lat="12.9842690" lon="77.7521592"/>
+ <node id="4864098115" visible="true" version="1" changeset="48820351" timestamp="2017-05-19T12:20:31Z" user="docaneesh" uid="492742" lat="12.9843725" lon="77.7523651"/>
+ <node id="4864098118" visible="true" version="1" changeset="48820351" timestamp="2017-05-19T12:20:31Z" user="docaneesh" uid="492742" lat="12.9841159" lon="77.7516935"/>
+ <node id="4864098119" visible="true" version="1" changeset="48820351" timestamp="2017-05-19T12:20:31Z" user="docaneesh" uid="492742" lat="12.9842063" lon="77.7519688"/>
+ <node id="4864098221" visible="true" version="1" changeset="48820351" timestamp="2017-05-19T12:20:31Z" user="docaneesh" uid="492742" lat="12.9844502" lon="77.7525043"/>
+ <node id="4864098227" visible="true" version="1" changeset="48820351" timestamp="2017-05-19T12:20:32Z" user="docaneesh" uid="492742" lat="12.9841399" lon="77.7517080"/>
+ <node id="5125749260" visible="true" version="1" changeset="52319188" timestamp="2017-09-24T03:49:07Z" user="docaneesh" uid="492742" lat="12.9579079" lon="77.7459030"/>
+ <node id="5125749295" visible="true" version="1" changeset="52319188" timestamp="2017-09-24T03:49:07Z" user="docaneesh" uid="492742" lat="12.9583535" lon="77.7461072"/>
+ <node id="5281691571" visible="true" version="1" changeset="54590611" timestamp="2017-12-13T09:41:59Z" user="marthaleena" uid="5659851" lat="12.9806455" lon="77.7517332"/>
+ <node id="5281842549" visible="true" version="1" changeset="54592714" timestamp="2017-12-13T11:13:59Z" user="Bhojaraj" uid="4647004" lat="12.9835254" lon="77.7544150"/>
+ <node id="5281842550" visible="true" version="1" changeset="54592714" timestamp="2017-12-13T11:13:59Z" user="Bhojaraj" uid="4647004" lat="12.9835685" lon="77.7542084"/>
+ <node id="5281842551" visible="true" version="1" changeset="54592714" timestamp="2017-12-13T11:13:59Z" user="Bhojaraj" uid="4647004" lat="12.9836025" lon="77.7539778"/>
+ <node id="5281842552" visible="true" version="1" changeset="54592714" timestamp="2017-12-13T11:13:59Z" user="Bhojaraj" uid="4647004" lat="12.9836443" lon="77.7537552"/>
+ <node id="5281842553" visible="true" version="1" changeset="54592714" timestamp="2017-12-13T11:13:59Z" user="Bhojaraj" uid="4647004" lat="12.9836693" lon="77.7535326"/>
+ <node id="5558684050" visible="true" version="1" changeset="58160064" timestamp="2018-04-17T08:07:05Z" user="Polyglot" uid="15188" lat="12.9828301" lon="77.7521949"/>
+ <node id="5559661186" visible="true" version="1" changeset="58173653" timestamp="2018-04-17T16:35:16Z" user="Polyglot" uid="15188" lat="12.9839251" lon="77.7520302">
+  <tag k="bus" v="yes"/>
+  <tag k="public_transport" v="stop_position"/>
+ </node>
+ <way id="23213553" visible="true" version="34" changeset="28285900" timestamp="2015-01-20T16:44:17Z" user="sommerluk" uid="1700634">
+  <nd ref="251105190"/>
+  <nd ref="3300742805"/>
+  <nd ref="2876319778"/>
+  <nd ref="3207678175"/>
+  <nd ref="1383248183"/>
+  <tag k="highway" v="primary"/>
+  <tag k="lanes" v="2"/>
+  <tag k="name" v="Whitefield Road"/>
+  <tag k="name:kn" v="ವೈಟ್‌ಫೀಲ್ಡ್‌ ರಸ್ತೆ"/>
+  <tag k="oneway" v="yes"/>
+ </way>
+ <way id="28043853" visible="true" version="62" changeset="54590611" timestamp="2017-12-13T09:42:00Z" user="marthaleena" uid="5659851">
+  <nd ref="251105286"/>
+  <nd ref="3300742565"/>
+  <nd ref="5125749260"/>
+  <nd ref="5125749295"/>
+  <nd ref="251105285"/>
+  <nd ref="1173931047"/>
+  <nd ref="251105284"/>
+  <nd ref="251105283"/>
+  <nd ref="956975072"/>
+  <nd ref="3314362625"/>
+  <nd ref="3314362623"/>
+  <nd ref="3314362624"/>
+  <nd ref="251105282"/>
+  <nd ref="251105281"/>
+  <nd ref="1016228603"/>
+  <nd ref="1016228568"/>
+  <nd ref="1186904252"/>
+  <nd ref="1078253094"/>
+  <nd ref="2486617758"/>
+  <nd ref="2623251185"/>
+  <nd ref="1585793468"/>
+  <nd ref="1376905670"/>
+  <nd ref="331147627"/>
+  <nd ref="1374396082"/>
+  <nd ref="331146203"/>
+  <nd ref="251105279"/>
+  <nd ref="1472791598"/>
+  <nd ref="1472791628"/>
+  <nd ref="1472791602"/>
+  <nd ref="251105278"/>
+  <nd ref="331147702"/>
+  <nd ref="253448561"/>
+  <nd ref="1472791635"/>
+  <nd ref="253448582"/>
+  <nd ref="1431901818"/>
+  <nd ref="1368117387"/>
+  <nd ref="251105277"/>
+  <nd ref="1485730734"/>
+  <nd ref="2482304663"/>
+  <nd ref="1368933534"/>
+  <nd ref="1709379155"/>
+  <nd ref="251105276"/>
+  <nd ref="1470833648"/>
+  <nd ref="1470833635"/>
+  <nd ref="1080176721"/>
+  <nd ref="1080176720"/>
+  <nd ref="1437330565"/>
+  <nd ref="1605954144"/>
+  <nd ref="5281691571"/>
+  <nd ref="253447903"/>
+  <nd ref="2619331806"/>
+  <nd ref="1368829012"/>
+  <nd ref="2876321418"/>
+  <nd ref="1368829040"/>
+  <nd ref="3300742803"/>
+  <nd ref="251105190"/>
+  <tag k="access" v="yes"/>
+  <tag k="bicycle" v="yes"/>
+  <tag k="cycleway" v="no"/>
+  <tag k="highway" v="primary"/>
+  <tag k="int_name" v="State Highway 35"/>
+  <tag k="lanes" v="2"/>
+  <tag k="name" v="Whitefield Main Road"/>
+  <tag k="name:kn" v="ಮುಖ್ಯ ರಸ್ತೆ"/>
+  <tag k="oneway" v="yes"/>
+  <tag k="postal_code" v="560066"/>
+  <tag k="surface" v="asphalt"/>
+ </way>
+ <way id="122516806" visible="true" version="15" changeset="56574642" timestamp="2018-02-22T10:07:19Z" user="indigomc" uid="136860">
+  <nd ref="1368829019"/>
+  <nd ref="2619331786"/>
+  <nd ref="1368828982"/>
+  <nd ref="3300742804"/>
+  <nd ref="1368829017"/>
+  <tag k="highway" v="secondary"/>
+  <tag k="name" v="Channasandra Main Road"/>
+  <tag k="name:kn" v="ಚನ್ನಸಂದ್ರ ಮುಖ್ಯ ರಸ್ತೆ"/>
+  <tag k="oneway" v="yes"/>
+ </way>
+ <way id="122516813" visible="true" version="1" changeset="8786623" timestamp="2011-07-21T10:05:16Z" user="docaneesh" uid="492742">
+  <nd ref="1368829017"/>
+  <nd ref="251105190"/>
+  <tag k="highway" v="primary"/>
+  <tag k="oneway" v="yes"/>
+ </way>
+ <way id="133631821" visible="true" version="5" changeset="40260813" timestamp="2016-06-24T13:37:04Z" user="indigomc" uid="136860">
+  <nd ref="1104241030"/>
+  <nd ref="1368829017"/>
+  <tag k="highway" v="primary"/>
+  <tag k="lanes" v="2"/>
+  <tag k="name" v="Whitefield Main Road"/>
+  <tag k="name:kn" v="ವೈಟ್‌ಫೀಲ್ಡ್‌ ಮುಖ್ಯ ರಸ್ತೆ"/>
+  <tag k="oneway" v="yes"/>
+  <tag k="ref" v="SH 35"/>
+ </way>
+ <way id="133631823" visible="true" version="9" changeset="31462011" timestamp="2015-05-26T04:22:49Z" user="docaneesh" uid="492742">
+  <nd ref="1104243944"/>
+  <nd ref="3300742808"/>
+  <nd ref="1368828989"/>
+  <nd ref="253455818"/>
+  <nd ref="1631109063"/>
+  <nd ref="1368828998"/>
+  <nd ref="253455819"/>
+  <nd ref="1584707878"/>
+  <nd ref="1368829013"/>
+  <nd ref="3545996639"/>
+  <nd ref="253455820"/>
+  <nd ref="253455821"/>
+  <nd ref="3545996597"/>
+  <nd ref="1368829001"/>
+  <nd ref="1770465750"/>
+  <nd ref="253455822"/>
+  <nd ref="1224890408"/>
+  <nd ref="253455823"/>
+  <nd ref="253455824"/>
+  <nd ref="1368828994"/>
+  <nd ref="2048248823"/>
+  <nd ref="1368829002"/>
+  <nd ref="1104215747"/>
+  <nd ref="2631448301"/>
+  <nd ref="1104241038"/>
+  <tag k="access" v="yes"/>
+  <tag k="bicycle" v="yes"/>
+  <tag k="cycleway" v="no"/>
+  <tag k="highway" v="primary"/>
+  <tag k="int_name" v="State Highway 35"/>
+  <tag k="lanes" v="2"/>
+  <tag k="motor_vehicle" v="yes"/>
+  <tag k="oneway" v="yes"/>
+  <tag k="ref" v="SH 35"/>
+  <tag k="surface" v="asphalt"/>
+ </way>
+ <way id="139266402" visible="true" version="13" changeset="58173653" timestamp="2018-04-17T16:35:17Z" user="Polyglot" uid="15188">
+  <nd ref="955705471"/>
+  <nd ref="955696079"/>
+  <nd ref="2475474263"/>
+  <nd ref="1437209533"/>
+  <nd ref="4548744364"/>
+  <nd ref="1383248252"/>
+  <nd ref="1177705608"/>
+  <nd ref="1198163715"/>
+  <nd ref="1634931575"/>
+  <nd ref="1383248176"/>
+  <nd ref="825453269"/>
+  <nd ref="1383248188"/>
+  <nd ref="1010545473"/>
+  <nd ref="955696095"/>
+  <nd ref="1631109057"/>
+  <nd ref="1374397405"/>
+  <nd ref="955696097"/>
+  <nd ref="2475474264"/>
+  <nd ref="1198163774"/>
+  <nd ref="955696101"/>
+  <nd ref="1439027924"/>
+  <nd ref="1383248314"/>
+  <nd ref="5559661186"/>
+  <tag k="highway" v="primary"/>
+  <tag k="lanes" v="2"/>
+  <tag k="name" v="Whitefield Road"/>
+  <tag k="name:kn" v="ವೈಟ್‌ಫೀಲ್ಡ್‌ ರಸ್ತೆ"/>
+  <tag k="oneway" v="yes"/>
+ </way>
+ <way id="143215059" visible="true" version="6" changeset="28285900" timestamp="2015-01-20T16:44:16Z" user="sommerluk" uid="1700634">
+  <nd ref="1104241032"/>
+  <nd ref="1104241050"/>
+  <nd ref="1368829015"/>
+  <nd ref="1368829039"/>
+  <nd ref="1368829032"/>
+  <nd ref="1104241023"/>
+  <nd ref="1104241052"/>
+  <nd ref="1104241017"/>
+  <nd ref="1770465745"/>
+  <nd ref="1104241071"/>
+  <nd ref="1104241036"/>
+  <nd ref="1368829016"/>
+  <nd ref="1104241066"/>
+  <nd ref="1584707701"/>
+  <nd ref="1104241031"/>
+  <nd ref="1104241075"/>
+  <nd ref="1104241056"/>
+  <nd ref="1104241073"/>
+  <nd ref="1104241048"/>
+  <nd ref="1368829037"/>
+  <nd ref="3300742807"/>
+  <nd ref="1104241030"/>
+  <tag k="highway" v="primary"/>
+  <tag k="lanes" v="2"/>
+  <tag k="oneway" v="yes"/>
+  <tag k="ref" v="SH35"/>
+ </way>
+ <way id="143215060" visible="true" version="15" changeset="58160064" timestamp="2018-04-17T08:07:51Z" user="Polyglot" uid="15188">
+  <nd ref="1368829017"/>
+  <nd ref="3300742802"/>
+  <nd ref="1368829042"/>
+  <nd ref="1368828987"/>
+  <nd ref="5558684050"/>
+  <nd ref="1104241058"/>
+  <nd ref="1327387692"/>
+  <nd ref="1605954208"/>
+  <nd ref="1437330568"/>
+  <nd ref="1605954203"/>
+  <nd ref="2478796828"/>
+  <nd ref="1104241015"/>
+  <nd ref="1104241070"/>
+  <nd ref="4204925700"/>
+  <nd ref="1327387673"/>
+  <nd ref="1104250504"/>
+  <nd ref="1485730751"/>
+  <nd ref="2482304662"/>
+  <nd ref="2623613727"/>
+  <nd ref="1104250480"/>
+  <nd ref="1431901814"/>
+  <nd ref="1104250524"/>
+  <nd ref="1368117316"/>
+  <nd ref="1371814142"/>
+  <nd ref="1431901817"/>
+  <nd ref="1104250532"/>
+  <nd ref="1579616033"/>
+  <nd ref="1431901816"/>
+  <nd ref="1104250513"/>
+  <nd ref="1104250497"/>
+  <nd ref="1472791644"/>
+  <nd ref="1472791607"/>
+  <nd ref="1104250485"/>
+  <nd ref="1371807555"/>
+  <nd ref="1368814489"/>
+  <tag k="addr:postcode" v="560066"/>
+  <tag k="highway" v="primary"/>
+  <tag k="lanes" v="2"/>
+  <tag k="name" v="Whitefield Main Road"/>
+  <tag k="name:kn" v="ವೈಟ್‌ಫೀಲ್ಡ್‌ ಮುಖ್ಯ ರಸ್ತೆ"/>
+  <tag k="oneway" v="yes"/>
+ </way>
+ <way id="159033879" visible="true" version="2" changeset="22507755" timestamp="2014-05-23T15:54:21Z" user="docaneesh" uid="492742">
+  <nd ref="1711387467"/>
+  <nd ref="1711387487"/>
+  <nd ref="2876319769"/>
+  <nd ref="1711387415"/>
+  <nd ref="1711387491"/>
+  <nd ref="2876319749"/>
+  <nd ref="1711387467"/>
+  <tag k="building" v="yes"/>
+ </way>
+ <way id="256261589" visible="true" version="4" changeset="56574642" timestamp="2018-02-22T10:07:28Z" user="indigomc" uid="136860">
+  <nd ref="1104241030"/>
+  <nd ref="2619331785"/>
+  <nd ref="2619331800"/>
+  <nd ref="5281842553"/>
+  <nd ref="5281842552"/>
+  <nd ref="5281842551"/>
+  <nd ref="5281842550"/>
+  <nd ref="5281842549"/>
+  <nd ref="1497326586"/>
+  <tag k="highway" v="secondary"/>
+  <tag k="name" v="Channasandra Main Road"/>
+  <tag k="name:kn" v="ಚನ್ನಸಂದ್ರ ಮುಖ್ಯ ರಸ್ತೆ"/>
+  <tag k="oneway" v="yes"/>
+ </way>
+ <way id="283807068" visible="true" version="1" changeset="22507755" timestamp="2014-05-23T15:54:19Z" user="docaneesh" uid="492742">
+  <nd ref="2876319793"/>
+  <nd ref="2876319743"/>
+  <nd ref="1585798170"/>
+  <nd ref="2876319744"/>
+  <nd ref="2876319793"/>
+  <tag k="landuse" v="retail"/>
+  <tag k="name" v="Arya Hub"/>
+ </way>
+ <way id="283807085" visible="true" version="1" changeset="22507755" timestamp="2014-05-23T15:54:19Z" user="docaneesh" uid="492742">
+  <nd ref="2876319778"/>
+  <nd ref="2876319800"/>
+  <nd ref="2876321413"/>
+  <nd ref="2876319787"/>
+  <nd ref="2876319749"/>
+  <tag k="highway" v="service"/>
+  <tag k="oneway" v="yes"/>
+  <tag k="service" v="parking_aisle"/>
+ </way>
+ <way id="494676176" visible="true" version="1" changeset="48820351" timestamp="2017-05-19T12:20:32Z" user="docaneesh" uid="492742">
+  <nd ref="4864098221"/>
+  <nd ref="4864098115"/>
+  <nd ref="4864098113"/>
+  <nd ref="4864098119"/>
+  <nd ref="4864098227"/>
+  <nd ref="4864098118"/>
+  <nd ref="1604607805"/>
+  <nd ref="1604607807"/>
+  <nd ref="4864098221"/>
+  <tag k="genus" v="Eucalyptus"/>
+  <tag k="leaf_cycle" v="evergreen"/>
+  <tag k="leaf_type" v="broadleaved"/>
+  <tag k="natural" v="wood"/>
+ </way>
+ <way id="498554029" visible="true" version="1" changeset="49301944" timestamp="2017-06-06T11:08:36Z" user="PlaneMad" uid="1306">
+  <nd ref="251105190"/>
+  <nd ref="1104243944"/>
+  <tag k="access" v="yes"/>
+  <tag k="addr:postcode" v="560066"/>
+  <tag k="bicycle" v="yes"/>
+  <tag k="cycleway" v="no"/>
+  <tag k="highway" v="primary"/>
+  <tag k="int_name" v="State Highway 35"/>
+  <tag k="lanes" v="2"/>
+  <tag k="motor_vehicle" v="yes"/>
+  <tag k="name" v="Whitefield Main Road"/>
+  <tag k="name:kn" v="ಮುಖ್ಯ ರಸ್ತೆ"/>
+  <tag k="oneway" v="yes"/>
+  <tag k="surface" v="asphalt"/>
+ </way>
+ <way id="580921886" visible="true" version="1" changeset="58173653" timestamp="2018-04-17T16:35:16Z" user="Polyglot" uid="15188">
+  <nd ref="5559661186"/>
+  <nd ref="3300742806"/>
+  <nd ref="1104243944"/>
+  <nd ref="1104241030"/>
+  <tag k="highway" v="primary"/>
+  <tag k="lanes" v="2"/>
+  <tag k="name" v="Whitefield Road"/>
+  <tag k="name:kn" v="ವೈಟ್‌ಫೀಲ್ಡ್‌ ರಸ್ತೆ"/>
+  <tag k="oneway" v="yes"/>
+ </way>
+ <relation id="1673105" visible="true" version="74" changeset="58173653" timestamp="2018-04-17T16:35:18Z" user="Polyglot" uid="15188">
+  <member type="node" ref="3304100394" role="platform"/>
+  <member type="node" ref="1504737976" role="platform"/>
+  <member type="node" ref="1078253111" role="platform"/>
+  <member type="node" ref="825452139" role="platform"/>
+  <member type="node" ref="1368829031" role="platform"/>
+  <member type="way" ref="28631926" role=""/>
+  <member type="way" ref="498839285" role=""/>
+  <member type="way" ref="368624554" role=""/>
+  <member type="way" ref="372031016" role=""/>
+  <member type="way" ref="498550660" role=""/>
+  <member type="way" ref="368624555" role=""/>
+  <member type="way" ref="498550659" role=""/>
+  <member type="way" ref="139141579" role=""/>
+  <member type="way" ref="31235669" role=""/>
+  <member type="way" ref="580771983" role=""/>
+  <member type="way" ref="31235670" role=""/>
+  <member type="way" ref="36884551" role=""/>
+  <member type="way" ref="251495490" role=""/>
+  <member type="way" ref="150785556" role=""/>
+  <member type="way" ref="150894905" role=""/>
+  <member type="way" ref="52032727" role=""/>
+  <member type="way" ref="22893740" role=""/>
+  <member type="way" ref="154340361" role=""/>
+  <member type="way" ref="36851759" role=""/>
+  <member type="way" ref="36852351" role=""/>
+  <member type="way" ref="180375724" role=""/>
+  <member type="way" ref="36853150" role=""/>
+  <member type="way" ref="461556535" role=""/>
+  <member type="way" ref="124316745" role=""/>
+  <member type="way" ref="23029688" role=""/>
+  <member type="way" ref="325833350" role=""/>
+  <member type="way" ref="27007398" role=""/>
+  <member type="way" ref="28137491" role=""/>
+  <member type="way" ref="124316968" role=""/>
+  <member type="way" ref="464465171" role=""/>
+  <member type="way" ref="479244934" role=""/>
+  <member type="way" ref="464465172" role=""/>
+  <member type="way" ref="28709483" role=""/>
+  <member type="way" ref="28709481" role=""/>
+  <member type="way" ref="29147905" role=""/>
+  <member type="way" ref="546327978" role=""/>
+  <member type="way" ref="546327975" role=""/>
+  <member type="way" ref="158623056" role=""/>
+  <member type="way" ref="426988256" role=""/>
+  <member type="way" ref="399000520" role=""/>
+  <member type="way" ref="399000517" role=""/>
+  <member type="way" ref="23492995" role=""/>
+  <member type="way" ref="546327178" role=""/>
+  <member type="way" ref="546327176" role=""/>
+  <member type="way" ref="122493882" role=""/>
+  <member type="way" ref="546329206" role=""/>
+  <member type="way" ref="546329207" role=""/>
+  <member type="way" ref="122424488" role=""/>
+  <member type="way" ref="498842449" role=""/>
+  <member type="way" ref="28043853" role=""/>
+  <member type="way" ref="23213553" role=""/>
+  <tag k="bus" v="yes"/>
+  <tag k="name" v="333P"/>
+  <tag k="name:kn" v="೩೩೩ಪೀ"/>
+  <tag k="network" v="BMTC"/>
+  <tag k="operator" v="BMTC"/>
+  <tag k="public_transport:version" v="2"/>
+  <tag k="ref" v="333P"/>
+  <tag k="route" v="bus"/>
+  <tag k="type" v="route"/>
+ </relation>
+ <relation id="1938848" visible="true" version="16" changeset="54565539" timestamp="2017-12-12T12:46:31Z" user="venkanna37" uid="5680733">
+  <member type="node" ref="825452795" role=""/>
+  <member type="way" ref="320478816" role=""/>
+  <member type="way" ref="414833799" role=""/>
+  <member type="way" ref="546329205" role=""/>
+  <member type="way" ref="86813518" role=""/>
+  <member type="node" ref="1093360265" role=""/>
+  <member type="way" ref="94527471" role=""/>
+  <member type="way" ref="321072543" role=""/>
+  <member type="way" ref="320473167" role=""/>
+  <member type="way" ref="94528594" role=""/>
+  <member type="way" ref="143846411" role=""/>
+  <member type="way" ref="124141061" role=""/>
+  <member type="way" ref="110267622" role=""/>
+  <member type="way" ref="139266399" role=""/>
+  <member type="way" ref="314723045" role=""/>
+  <member type="way" ref="23213553" role=""/>
+  <member type="way" ref="122516813" role=""/>
+  <member type="way" ref="133631821" role=""/>
+  <member type="way" ref="143215059" role=""/>
+  <member type="way" ref="256064229" role=""/>
+  <tag k="name" v="335E"/>
+  <tag k="operator" v="BMTC"/>
+  <tag k="ref" v="335E"/>
+  <tag k="route" v="bus"/>
+  <tag k="type" v="route"/>
+ </relation>
+ <relation id="1940207" visible="true" version="31" changeset="59871049" timestamp="2018-06-15T10:47:26Z" user="docaneesh" uid="492742">
+  <member type="node" ref="5631196665" role="platform"/>
+  <member type="way" ref="314284581" role=""/>
+  <member type="way" ref="143215061" role=""/>
+  <member type="way" ref="110267622" role=""/>
+  <member type="way" ref="139266399" role=""/>
+  <member type="way" ref="314723045" role=""/>
+  <member type="way" ref="23213553" role=""/>
+  <member type="way" ref="83711462" role=""/>
+  <member type="way" ref="82899509" role=""/>
+  <member type="way" ref="314427152" role=""/>
+  <member type="way" ref="82899515" role=""/>
+  <member type="way" ref="84652049" role=""/>
+  <member type="way" ref="30954419" role=""/>
+  <member type="way" ref="589701034" role=""/>
+  <member type="way" ref="376784372" role=""/>
+  <member type="way" ref="376784331" role=""/>
+  <member type="way" ref="376784358" role=""/>
+  <member type="way" ref="380704971" role=""/>
+  <member type="way" ref="380704970" role=""/>
+  <member type="way" ref="376784366" role=""/>
+  <member type="way" ref="377096332" role=""/>
+  <member type="way" ref="377096329" role=""/>
+  <member type="way" ref="377096333" role=""/>
+  <member type="way" ref="378720749" role=""/>
+  <member type="way" ref="377103305" role=""/>
+  <member type="way" ref="377104670" role=""/>
+  <member type="way" ref="377104672" role=""/>
+  <member type="way" ref="377104675" role=""/>
+  <member type="way" ref="377105483" role=""/>
+  <member type="way" ref="377105485" role=""/>
+  <member type="way" ref="380705540" role=""/>
+  <member type="way" ref="380706142" role=""/>
+  <member type="way" ref="377106135" role=""/>
+  <member type="way" ref="379308034" role=""/>
+  <member type="way" ref="377125912" role=""/>
+  <member type="way" ref="377129592" role=""/>
+  <member type="way" ref="380707230" role=""/>
+  <member type="way" ref="377132617" role=""/>
+  <tag k="name" v="319"/>
+  <tag k="name:kn" v="೩೧೯"/>
+  <tag k="operator" v="BMTC"/>
+  <tag k="public_transport:version" v="2"/>
+  <tag k="ref" v="319"/>
+  <tag k="route" v="bus"/>
+  <tag k="type" v="route"/>
+ </relation>
+ <relation id="3786879" visible="true" version="6" changeset="49301944" timestamp="2017-06-06T11:08:37Z" user="PlaneMad" uid="1306">
+  <member type="way" ref="136445357" role=""/>
+  <member type="way" ref="136445364" role=""/>
+  <member type="way" ref="55336366" role=""/>
+  <member type="way" ref="103301656" role=""/>
+  <member type="way" ref="103301623" role=""/>
+  <member type="way" ref="27992840" role=""/>
+  <member type="way" ref="148213760" role=""/>
+  <member type="way" ref="27992856" role=""/>
+  <member type="way" ref="27992841" role=""/>
+  <member type="way" ref="155429202" role=""/>
+  <member type="way" ref="155429210" role=""/>
+  <member type="way" ref="41678590" role=""/>
+  <member type="way" ref="155429214" role=""/>
+  <member type="way" ref="123684593" role=""/>
+  <member type="way" ref="123684594" role=""/>
+  <member type="way" ref="143215059" role=""/>
+  <member type="way" ref="150206825" role=""/>
+  <member type="way" ref="95187518" role=""/>
+  <member type="way" ref="147011872" role=""/>
+  <member type="way" ref="147011873" role=""/>
+  <member type="way" ref="240275654" role=""/>
+  <member type="way" ref="176788919" role=""/>
+  <member type="way" ref="143215060" role=""/>
+  <member type="way" ref="28043853" role=""/>
+  <member type="way" ref="498554029" role=""/>
+  <member type="way" ref="324756518" role=""/>
+  <member type="way" ref="132503148" role=""/>
+  <member type="way" ref="123062356" role=""/>
+  <member type="way" ref="26365534" role=""/>
+  <member type="way" ref="155430909" role=""/>
+  <member type="way" ref="155430915" role=""/>
+  <member type="way" ref="155431139" role=""/>
+  <member type="way" ref="155431122" role=""/>
+  <tag k="name" v="Karnataka State Highway 35"/>
+  <tag k="name:kn" v="ರಾಜ್ಯ ಹೆದ್ದಾರಿ ೩೫"/>
+  <tag k="network" v="IN:SH:KA"/>
+  <tag k="ref" v="SH35"/>
+  <tag k="route" v="road"/>
+  <tag k="type" v="route"/>
+ </relation>
+ <relation id="8218280" visible="true" version="1" changeset="58173653" timestamp="2018-04-17T16:35:16Z" user="Polyglot" uid="15188">
+  <member type="node" ref="825452159" role="platform"/>
+  <member type="node" ref="1437330570" role="platform"/>
+  <member type="node" ref="1694231761" role="platform"/>
+  <member type="node" ref="2485090592" role="platform"/>
+  <member type="node" ref="1454651907" role="platform"/>
+  <member type="node" ref="414404832" role="platform"/>
+  <member type="node" ref="316997347" role="platform"/>
+  <member type="way" ref="580921886" role=""/>
+  <member type="way" ref="133631821" role=""/>
+  <member type="way" ref="143215060" role=""/>
+  <member type="way" ref="123062356" role=""/>
+  <member type="way" ref="101184763" role=""/>
+  <member type="way" ref="122424479" role=""/>
+  <member type="way" ref="546329204" role=""/>
+  <member type="way" ref="546327179" role=""/>
+  <member type="way" ref="546327177" role=""/>
+  <member type="way" ref="122494279" role=""/>
+  <member type="way" ref="27228687" role=""/>
+  <member type="way" ref="158623054" role=""/>
+  <member type="way" ref="426988255" role=""/>
+  <member type="way" ref="399000525" role=""/>
+  <member type="way" ref="399000523" role=""/>
+  <member type="way" ref="546327973" role=""/>
+  <member type="way" ref="546327982" role=""/>
+  <member type="way" ref="431532857" role=""/>
+  <member type="way" ref="28709469" role=""/>
+  <member type="way" ref="28451813" role=""/>
+  <member type="way" ref="498550317" role=""/>
+  <member type="way" ref="464465169" role=""/>
+  <member type="way" ref="464465170" role=""/>
+  <member type="way" ref="8681388" role=""/>
+  <member type="way" ref="133632534" role=""/>
+  <member type="way" ref="435249770" role=""/>
+  <member type="way" ref="171887405" role=""/>
+  <member type="way" ref="498553874" role=""/>
+  <member type="way" ref="375964868" role=""/>
+  <member type="way" ref="224618934" role=""/>
+  <member type="way" ref="148016866" role=""/>
+  <member type="way" ref="148016873" role=""/>
+  <member type="way" ref="461556532" role=""/>
+  <member type="way" ref="23076927" role=""/>
+  <member type="way" ref="36907507" role=""/>
+  <member type="way" ref="150808480" role=""/>
+  <member type="way" ref="150808482" role=""/>
+  <member type="way" ref="28631881" role=""/>
+  <member type="way" ref="402911910" role=""/>
+  <member type="way" ref="139266401" role=""/>
+  <member type="way" ref="498554152" role=""/>
+  <member type="way" ref="498845912" role=""/>
+  <member type="way" ref="501648130" role=""/>
+  <tag k="bus" v="yes"/>
+  <tag k="name" v="333P"/>
+  <tag k="name:kn" v="೩೩೩ಪೀ"/>
+  <tag k="network" v="BMTC"/>
+  <tag k="operator" v="BMTC"/>
+  <tag k="public_transport:version" v="2"/>
+  <tag k="ref" v="333P"/>
+  <tag k="route" v="bus"/>
+  <tag k="type" v="route"/>
+ </relation>
+</osm>
