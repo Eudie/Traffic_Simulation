@@ -38,7 +38,10 @@ class HereMapInfo:
         :return:
         """
 
-        # biggest_junction = max({key: len(value['routes']) for key, value in junction_info.items()}.items(),
-        #                        key=operator.itemgetter(1))[0]
+        biggest_junction = max({key: len(value['routes']) for key, value in junction_info.items()}.items(),
+                               key=operator.itemgetter(1))[0]
 
+        # TODO: from here map find the number of vehicles
+        # TODO: find the flow for each lane
+        # TODO: map flow to each sumo lane with equal distribution
         return self.data_json
