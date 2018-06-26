@@ -14,7 +14,8 @@ import sys
 import random
 import numpy as np
 import sumo_information
-from scipy.optimize import minimize
+import operator
+import json
 from scipy.optimize import brute
 
 # we need to import python modules from the $SUMO_HOME/tools directory
@@ -144,10 +145,44 @@ class Traffic:
     In this class we handel all traffic and route related information
     """
 
-    def __init__(self, xml_name_location):
-        self.xml_name_location = xml_name_location
+    def __init__(self, data_folder):
+        self.data_folder = data_folder
+        self.route_file = os.path.join(data_folder, 'route.rou.xml')
+        self.traffic_flow = os.path.join(data_folder, 'traffic_flow.json')
+        self.original_sumo_map = os.path.join(data_folder, 'original_sumo.net.xml')
+        self.junction_info = None
+        self.biggest_junction = None
 
-    def generate(self, route_info):
+    def build_traffic_flow(self):
+        """
+        Here we will generate json with default values, that we can edit manually or with api
+        """
+
+        net_info = sumo_information.SumoNetworkInfo(self.original_sumo_map)
+        self.junction_info = net_info.get_junction_routes()
+        self.biggest_junction = max({key: len(value['routes']) for key, value in self.junction_info.items()}.items(),
+                                    key=operator.itemgetter(1))[0]
+        biggest_juction_info = {self.biggest_junction: self.junction_info[self.biggest_junction]}
+
+        output = {}
+        for key, value in biggest_juction_info.items():
+            temp_route = []
+            for key1, value1 in value.items():
+                if key1 == 'routes':
+                    for route in value1:
+                        temp_route.append((route['from'], route['to']))
+
+            temp_route = list(set(temp_route))
+            temp_dict = []
+            for i in temp_route:
+                temp_dict.append(
+                    {'from': i[0], 'to': i[1], 'vehicle_flow': 0.1, 'vehicle_ratio': {'car': 1, 'bike': 1, 'bus': 1}})
+            output[key] = temp_dict
+
+        with open(self.traffic_flow, 'w') as outfile:
+            json.dump(output, outfile, indent=4)
+
+    def generate(self):
         """
         Here we are going to generate traffic based on input values from user
         :param route_info:
@@ -155,27 +190,32 @@ class Traffic:
         """
 
         random.seed(42)  # make tests reproducible
-        N = 180  # number of time steps
-        vehNr = 0
-        with open(self.xml_name_location, "w") as routes:
-            print("""<routes>
+        N = 360  # number of time steps
+
+        with open(self.traffic_flow, 'r') as outfile:
+            traffic_flow = json.load(outfile)
+
+        with open(self.route_file, "w") as route_file:
+            print("</routes>", file=route_file)
+
+            print("""
         <vType id="car" accel="0.8" decel="4.5" sigma="0.5" length="5" minGap="2.5" maxSpeed="16.67" guiShape="passenger"/>
         <vType id="bike" length="1.8" width="0.8" maxSpeed="20" accel="0.8" decel="1.5" sigma="0.5" speedDev="0.5" vClass="bicycle"/>
         <vType id="bus" accel="0.5" decel="4.5" sigma="0.5" length="7" minGap="5" maxSpeed="10" guiShape="bus"/>""",
-                  file=routes)
-
-            for i, connection in enumerate(route_info['routes']):
-
-                print('<route id="r_{}" edges="{} {}"/>'.format(i, connection['from'], connection['to']), file=routes)
+                  file=route_file)
+            for junction, routes in traffic_flow.items():
+                for i, connection in enumerate(routes):
+                    print('<route id="r_{}" edges="{} {}"/>'.format(i, connection['from'], connection['to']), file=route_file)
 
             for j in range(N):
-                for i, connection in enumerate(route_info['routes']):
-                    if random.uniform(0, 1) < float(connection['traffic_value']):
-                        print('    <vehicle id="car_{}_{}" type="car" route="r_{}" depart="{}"/>'.format(i, j, i, j),
-                              file=routes)
-                        print('    <vehicle id="bike_{}_{}" type="bike" route="r_{}" depart="{}" color="0,1,0"/>'.format(i, j, i, j),
-                              file=routes)
-                        print('    <vehicle id="bus_{}_{}" type="bus" route="r_{}" depart="{}" color="1,0,0"/>'.format(i, j, i, j),
-                              file=routes)
+                for junction, routes in traffic_flow.items():
+                    for i, connection in enumerate(routes):
+                        ratio_total = sum(connection['vehicle_ratio'].values())
+                        for v_type, v_ratio in connection['vehicle_ratio'].items():
+                            v_ratio = float((v_ratio/ratio_total) * connection['vehicle_flow'])
 
-            print("</routes>", file=routes)
+                            if random.uniform(0, 1) < v_ratio:
+                                print('    <vehicle id="{}_{}_{}" type="{}" route="r_{}" depart="{}"/>'.format(v_type, i, j, v_type, i, j),
+                                      file=route_file)
+
+            print("</routes>", file=route_file)

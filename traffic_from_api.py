@@ -21,25 +21,25 @@ class HereMapInfo:
         self.right = str(right)
         self.top = str(top)
 
-        with open('heremap_credentials.json') as f:
-            api_keys = json.load(f)
+        # with open('heremap_credentials.json') as f:
+        #     api_keys = json.load(f)
+        #
+        # url = 'https://traffic.cit.api.here.com/traffic/6.1/flow.json?bbox=' + \
+        #       self.left + '%2C' + self.bottom + '%3B' + self.right + '%2C' + self.top +\
+        #       '&responseattributes=sh,fc&app_code='+api_keys['app_code']+'&app_id='+api_keys['app_id']
+        #
+        # data = requests.get(url)
+        # self.data_json = data.json()
 
-        url = 'https://traffic.cit.api.here.com/traffic/6.1/flow.json?bbox=' + \
-              self.left + '%2C' + self.bottom + '%3B' + self.right + '%2C' + self.top +\
-              '&responseattributes=sh,fc&app_code='+api_keys['app_code']+'&app_id='+api_keys['app_id']
+        with open('data_comparision/heremap.json') as f:
+            self.data_json = json.load(f)
 
-        data = requests.get(url)
-        self.data_json = data.json()
-
-    def build_traffic_flow(self, junction_info):
+    def build_traffic_flow(self, junction_info, biggest_junction):
         """
         Here we will match heremap congestion data to sumo traffic flow
         :param junction_info:
         :return:
         """
-
-        biggest_junction = max({key: len(value['routes']) for key, value in junction_info.items()}.items(),
-                               key=operator.itemgetter(1))[0]
 
         # TODO: from here map find the number of vehicles
         # TODO: find the flow for each lane

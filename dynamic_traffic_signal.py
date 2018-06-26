@@ -127,19 +127,23 @@ class DynamicTrafficSignal:
         #         if "cluster_"+ "_".join(i['nodes'].sort()) == self.biggest_junction and i['suggested_name'] is not None:
         #             junction_name_for_muggles = i['suggested_name']
 
-        if how == 'manual':
-            print("Input traffic value for each road passing the junction: {}".format(junction_name_for_muggles))
+        traffic = sumo_simulation.Traffic(self.data_folder)
+        traffic.build_traffic_flow()
+        traffic.generate()
 
-            for i in range(len(self.junction_info[self.biggest_junction]['routes'])):
-                route = self.junction_info[self.biggest_junction]['routes'][i]
-                self.junction_info[self.biggest_junction]['routes'][i]['traffic_value'] = 0.1 #input('from: {} to: {} via: {} s'.format(route['from'], route['to'], route['via']))
-
-        elif how == 'heremap':
-            heremap = traffic_from_api.HereMapInfo(self.left, self.bottom, self.right, self.top)
-            self.junction_info = heremap.build_traffic_flow(self.junction_info)
-
-        traffic = sumo_simulation.Traffic(self.routes)
-        traffic.generate(self.junction_info[self.biggest_junction])
+        # if how == 'manual':
+        #     print("Input traffic value for each road passing the junction: {}".format(junction_name_for_muggles))
+        #
+        #     for i in range(len(self.junction_info[self.biggest_junction]['routes'])):
+        #         route = self.junction_info[self.biggest_junction]['routes'][i]
+        #         self.junction_info[self.biggest_junction]['routes'][i]['traffic_value'] = 0.1 #input('from: {} to: {} via: {} s'.format(route['from'], route['to'], route['via']))
+        #
+        # elif how == 'heremap':
+        #     heremap = traffic_from_api.HereMapInfo(self.left, self.bottom, self.right, self.top)
+        #     self.junction_info = heremap.build_traffic_flow(self.junction_info, self.biggest_junction)
+        #
+        # traffic = sumo_simulation.Traffic(self.routes)
+        # traffic.generate(self.junction_info[self.biggest_junction])
 
     def optimize_traffic_lights(self, timing_range, signal_pattern='one_road_open', gui=False):
         """
