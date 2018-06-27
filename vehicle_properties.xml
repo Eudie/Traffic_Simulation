@@ -1,0 +1,5 @@
+<vehicle_properties>
+    <vType id="car" accel="0.8" decel="4.5" sigma="0.5" length="5" minGap="2.5" maxSpeed="16.67" guiShape="passenger"/>
+    <vType id="bike" accel="0.8" decel="1.5" sigma="0.5" length="1.8" width="0.8" maxSpeed="20" speedDev="0.5" vClass="bicycle"/>
+    <vType id="bus" accel="0.5" decel="4.5" sigma="0.5" length="7" minGap="5" maxSpeed="10" guiShape="bus"/>
+</vehicle_properties>

@@ -106,6 +106,22 @@ class SumoNetworkInfo:
     def __init__(self, xml_name_location):
         self.xml_name_location = xml_name_location
 
+    def get_total_lanes(self, road):
+        """
+        Here we are finding the total number of lanes of a road
+        :param road: road for which lanes to find
+        :return: numnber of lanes
+        """
+        lanes = 0
+        parsed_xml = Xml.parse(self.xml_name_location).getroot()
+        for i in parsed_xml:
+            if i.tag == 'edge':
+                if i.attrib['id'] == road:
+                    for j in i:
+                        if j.tag == 'lane':
+                            lanes += 1
+        return lanes
+
     def get_junction_routes(self):
         """
         To get the routes which are passing from the junctions, these routes will be used to generate routefile
