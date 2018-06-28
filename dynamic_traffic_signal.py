@@ -1,4 +1,4 @@
-#!/home/eudie/miniconda3/envs/Traffic_Simulation/bin/python
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Author: Eudie
 
@@ -19,6 +19,7 @@ import sumo_information
 import sumo_simulation
 import traffic_from_api
 import operator
+from make_file_names import FileName
 
 
 class DynamicTrafficSignal:
@@ -36,13 +37,7 @@ class DynamicTrafficSignal:
         shutil.copy2('typemap.xml', self.data_folder)
         shutil.copy2('vehicle_properties.xml', self.data_folder)
 
-        self.osm_map = os.path.join(self.data_folder, 'map.osm')
-        self.original_sumo_map = os.path.join(self.data_folder, 'original_sumo.net.xml')
-        self.original_sumo_poly = os.path.join(self.data_folder, 'original_sumo.poly.xml')
-        self.typemap = os.path.join(self.data_folder, 'typemap.xml')
-        self.joining_nodes = os.path.join(self.data_folder, 'joining_nodes.xml')
-        self.routes = os.path.join(self.data_folder, 'route.rou.xml')
-        self.traffic_flow_file = os.path.join(self.data_folder, 'traffic_flow.json')
+        self.filename = FileName(self.data_folder)
 
         self.left = None
         self.bottom = None
@@ -66,31 +61,32 @@ class DynamicTrafficSignal:
         link = 'https://api.openstreetmap.org/api/0.6/map?bbox='+",".join([self.left, self.bottom, self.right, self.top])
         data = requests.get(link)
 
-        with open(self.osm_map, 'w') as f:
+        with open(self.filename.osm_map, 'w') as f:
             f.write(data.text)
 
         # Finding nodes to merge and saving in xml
-        osm_data = sumo_information.OsmNetworkInfo(self.osm_map)
+        osm_data = sumo_information.OsmNetworkInfo(self.filename.osm_map)
         self.nodes_to_join = osm_data.get_nodes_to_merge()
 
-        with open(self.joining_nodes, "w") as routes:
-            print("<nodes>", file=routes)
-            for i in range(len(self.nodes_to_join)):
-                print('   <join nodes="{}"/>'.format(" ".join(self.nodes_to_join[i]['nodes'])), file=routes)
+        if not os.path.isfile(self.filename.joining_nodes):
+            with open(self.filename.joining_nodes, "w") as routes:
+                print("<nodes>", file=routes)
+                for i in range(len(self.nodes_to_join)):
+                    print('   <join nodes="{}"/>'.format(" ".join(self.nodes_to_join[i]['nodes'])), file=routes)
 
-            print("</nodes>", file=routes)
+                print("</nodes>", file=routes)
 
         # converting osm to sumo net and using poligon to building
-        netconvert_cmd = ' '.join(['netconvert', '--osm-files', self.osm_map,
-                                   '--lefthand', '-n', self.joining_nodes,
+        netconvert_cmd = ' '.join(['netconvert', '--osm-files', self.filename.osm_map,
+                                   '--lefthand', '-n', self.filename.joining_nodes,
                                    '--tls.yellow.time', '0',
                                    '--tls.left-green.time', '0',
-                                   '-o', self.original_sumo_map])
+                                   '-o', self.filename.original_sumo_map])
         os.system(netconvert_cmd)
 
-        polyconvert_cmd = ' '.join(['polyconvert', '--net-file', self.original_sumo_map,
-                                    '--osm-files', self.osm_map,
-                                    '--type-file', self.typemap, '-o', self.original_sumo_poly])
+        polyconvert_cmd = ' '.join(['polyconvert', '--net-file', self.filename.original_sumo_map,
+                                    '--osm-files', self.filename.osm_map,
+                                    '--type-file', self.filename.typemap, '-o', self.filename.original_sumo_poly])
         os.system(polyconvert_cmd)
 
     def edit_map(self, source='original'):
@@ -103,7 +99,7 @@ class DynamicTrafficSignal:
 
         # TODO: With the help of UI allow to make changes in the original_sumo_map and save to edited_sumo_map.
 
-        self.edited_sumo_map = 'name_location_of_edited_sumo_map'
+        self.filename.edited_sumo_map = 'name_location_of_edited_sumo_map'
 
         return 0
 
@@ -117,7 +113,7 @@ class DynamicTrafficSignal:
 
         traffic = sumo_simulation.Traffic(self.data_folder)
 
-        if os.path.isfile(self.traffic_flow_file):
+        if not os.path.isfile(self.filename.traffic_flow_file):
             traffic.build_traffic_flow()
 
         if how == 'heremap':
@@ -131,7 +127,7 @@ class DynamicTrafficSignal:
         Here we do all the magic. We simulate traffic in the area multiple time and optimize all signals for best perf.
         :return: json file of optimized signal properties containing all signals in the map.
         """
-        net_info = sumo_information.SumoNetworkInfo(self.original_sumo_map)
+        net_info = sumo_information.SumoNetworkInfo(self.filename.original_sumo_map)
         self.junction_info = net_info.get_junction_routes()
         self.biggest_junction = max({key: len(value['routes']) for key, value in self.junction_info.items()}.items(),
                                     key=operator.itemgetter(1))[0]

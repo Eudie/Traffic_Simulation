@@ -1,4 +1,4 @@
-#!/home/eudie/miniconda3/envs/Traffic_Simulation/bin/python
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Author: Eudie
 
@@ -6,14 +6,13 @@
 In this class I am trying to get vehicle flow from some api
 
 """
-import operator
 import requests
 import json
-import os
 import pandas as pd
 import datetime
 import xml.etree.ElementTree as Xml
 import sumo_information
+from make_file_names import FileName
 
 
 class HereMapInfo:
@@ -27,14 +26,7 @@ class HereMapInfo:
         self.right = str(right)
         self.top = str(top)
 
-        self.osm_map = os.path.join(self.data_folder, 'map.osm')
-        self.original_sumo_map = os.path.join(self.data_folder, 'original_sumo.net.xml')
-        self.original_sumo_poly = os.path.join(self.data_folder, 'original_sumo.poly.xml')
-        self.typemap = os.path.join(self.data_folder, 'typemap.xml')
-        self.joining_nodes = os.path.join(self.data_folder, 'joining_nodes.xml')
-        self.routes = os.path.join(self.data_folder, 'route.rou.xml')
-        self.traffic_flow_file = os.path.join(self.data_folder, 'traffic_flow.json')
-        self.vehicle_properties = os.path.join(data_folder, 'vehicle_properties.xml')
+        self.filename = FileName(self.data_folder)
 
         with open('heremap_credentials.json') as f:
             api_keys = json.load(f)
@@ -49,19 +41,18 @@ class HereMapInfo:
         # with open('data_comparision/heremap.json') as f:
         #     self.data_json = json.load(f)
 
-        e = Xml.parse(self.vehicle_properties).getroot()
+        e = Xml.parse(self.filename.vehicle_properties).getroot()
         self.vehicle_length = {}
         for i in e:
             self.vehicle_length[i.attrib['id']] = float(i.attrib['length'])
 
-        with open(self.traffic_flow_file) as f:
+        with open(self.filename.traffic_flow_file) as f:
             self.traffic_flow = json.load(f)
 
     def heremap_data_as_df(self):
         """
         For simplicity here we convert nested json data from heremap to dataframe
-        :param heremap_json:
-        :return:
+        :return: heremap data as df
         """
         RWS = self.data_json['RWS']
         l = []
@@ -118,7 +109,6 @@ class HereMapInfo:
         """
         Mathematically calculate flow from jamfactor and other lane information
         :param road: all information of lane from here map
-        :param vehicle_ratio: distribution of type of vehicles
         :return: average_length of vehicle
         """
 
@@ -141,10 +131,9 @@ class HereMapInfo:
     def update_traffic_flow(self):
         """
         Here we will match heremap congestion data to sumo traffic flow
-        :return:
         """
 
-        sumo_info = sumo_information.SumoNetworkInfo(self.original_sumo_map)
+        sumo_info = sumo_information.SumoNetworkInfo(self.filename.original_sumo_map)
 
         mapping = self.find_mapping()
         mapping['average_vehicle_length'] = mapping['sumo_road'].apply(self.average_vehicle_length)
@@ -155,20 +144,17 @@ class HereMapInfo:
 
         merge_df['total_flow'] = (merge_df['total_lanes'] * merge_df['JF'] * merge_df['SP'])/(merge_df['average_vehicle_length'] * 18)
 
-        flow_divide = dict.fromkeys(merge_df['sumo_road'], 0)
+        flow_divide = dict.fromkeys(mapping['sumo_road'], 0)
 
-        for junction, roads in self.traffic_flow.items():
-            for i in roads:
-                flow_divide[i['from']] += 1
+        for roads in self.traffic_flow.values():
+            for road in roads:
+                flow_divide[road['from']] += 1
 
-        output = self.traffic_flow
-        for junction, roads in self.traffic_flow.items():
-            for i in roads:
-                flow_divide[i['from']] += 1
+        output = self.traffic_flow.copy()
 
         for junction, roads in output.items():
-            for i in roads:
-                i['vehicle_flow'] = float(merge_df['total_flow'][merge_df['sumo_road'] == i['from']])/flow_divide[i['from']]
+            for i in range(len(roads)):
+                output[junction][i]['vehicle_flow'] = float(merge_df['total_flow'][merge_df['sumo_road'] == roads[i]['from']])/flow_divide[roads[i]['from']]
 
-        with open(self.traffic_flow_file, 'w') as outfile:
+        with open(self.filename.traffic_flow_file, 'w') as outfile:
             json.dump(output, outfile, indent=4)

@@ -1,4 +1,4 @@
-#!/home/eudie/miniconda3/envs/Traffic_Simulation/bin/python
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Author: Eudie
 
@@ -14,10 +14,9 @@ minlon = "77.6319900345"
 maxlat = "12.939314082"
 maxlon = "77.6337735827"
 
-data_fold = '/home/eudie/Study/Quantela/hoodi_test'
+data_fold = '/home/utkarsh/Study/Quantela/hoodi_test'
 
 here = traffic_from_api.HereMapInfo(data_fold, minlat, minlon, maxlat,  maxlon)
-data = here.update_traffic_flow()
+here.update_traffic_flow()
 
-print(data)
 

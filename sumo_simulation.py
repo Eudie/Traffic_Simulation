@@ -1,4 +1,4 @@
-#!/home/eudie/miniconda3/envs/Traffic_Simulation/bin/python
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Author: Eudie
 
@@ -18,6 +18,7 @@ import operator
 import json
 import xml.etree.ElementTree as Xml
 from scipy.optimize import brute
+from make_file_names import FileName
 
 # we need to import python modules from the $SUMO_HOME/tools directory
 try:
@@ -39,11 +40,9 @@ class Simulation:
     """
 
     def __init__(self, area_name, signal_pattern, phases):
-        self.area_name = area_name
         self.signal_pattern = signal_pattern
         self.phases = phases
-        self.sumo_cfg_file = os.path.join(self.area_name, 'configuration.sumo.cfg')
-        self.sumo_tripinfo_file = os.path.join(self.area_name, 'tripinfo.xml')
+        self.filename = FileName(area_name)
         self.final_rule = {'junction': '_',
                            'phases': [],
                            'time': []}
@@ -84,7 +83,7 @@ class Simulation:
         else:
             sumo_binary = checkBinary('sumo')
 
-        traci.start([sumo_binary, "-c", self.sumo_cfg_file, "--tripinfo-output", self.sumo_tripinfo_file])
+        traci.start([sumo_binary, "-c", self.filename.sumo_cfg_file, "--tripinfo-output", self.filename.sumo_tripinfo_file])
 
         step = 0
 
@@ -118,7 +117,7 @@ class Simulation:
         rule['time'] = np.cumsum(array).tolist()
 
         self.run(rule)
-        info = sumo_information.SumoTripInfo(self.sumo_tripinfo_file)
+        info = sumo_information.SumoTripInfo(self.filename.sumo_tripinfo_file)
         df = info.get_df()
         return np.mean(df['duration'])
 
@@ -147,11 +146,7 @@ class Traffic:
     """
 
     def __init__(self, data_folder):
-        self.data_folder = data_folder
-        self.route_file = os.path.join(data_folder, 'route.rou.xml')
-        self.traffic_flow = os.path.join(data_folder, 'traffic_flow.json')
-        self.original_sumo_map = os.path.join(data_folder, 'original_sumo.net.xml')
-        self.vehicle_properties = os.path.join(data_folder, 'vehicle_properties.xml')
+        self.filename = FileName(data_folder)
         self.junction_info = None
         self.biggest_junction = None
 
@@ -160,7 +155,7 @@ class Traffic:
         Here we will generate json with default values, that we can edit manually or with api
         """
 
-        net_info = sumo_information.SumoNetworkInfo(self.original_sumo_map)
+        net_info = sumo_information.SumoNetworkInfo(self.filename.original_sumo_map)
         self.junction_info = net_info.get_junction_routes()
         self.biggest_junction = max({key: len(value['routes']) for key, value in self.junction_info.items()}.items(),
                                     key=operator.itemgetter(1))[0]
@@ -181,25 +176,24 @@ class Traffic:
                     {'from': i[0], 'to': i[1], 'vehicle_flow': 0.1, 'vehicle_ratio': {'car': 1, 'bike': 1, 'bus': 1}})
             output[key] = temp_dict
 
-        with open(self.traffic_flow, 'w') as outfile:
+        with open(self.filename.traffic_flow_file, 'w') as outfile:
             json.dump(output, outfile, indent=4)
 
     def generate(self):
         """
         Here we are going to generate traffic based on input values from user
-        :param route_info:
         :return: save route file with generated traffic
         """
-        #random.seed(42)  # make tests reproducible
+        # random.seed(42)  # make tests reproducible
         N = 90  # number of time steps
 
-        with open(self.traffic_flow, 'r') as outfile:
+        with open(self.filename.traffic_flow_file, 'r') as outfile:
             traffic_flow = json.load(outfile)
 
-        with open(self.route_file, "w") as route_file:
+        with open(self.filename.routes, "w") as route_file:
             print("<routes>", file=route_file)
 
-            e = Xml.parse(self.vehicle_properties).getroot()
+            e = Xml.parse(self.filename.vehicle_properties).getroot()
             for i in e:
                 print((Xml.tostring(i, 'unicode')), end='', file=route_file)
 

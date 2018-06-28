@@ -1,4 +1,4 @@
-#!/home/eudie/miniconda3/envs/Traffic_Simulation/bin/python
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Author: Eudie
 
