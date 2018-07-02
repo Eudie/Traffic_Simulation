@@ -16,7 +16,7 @@ import numpy as np
 import sumo_information
 import operator
 import json
-import xml.etree.ElementTree as Xml
+import defusedxml.ElementTree as Xml
 from scipy.optimize import brute
 from make_file_names import FileName
 

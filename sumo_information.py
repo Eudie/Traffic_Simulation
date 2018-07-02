@@ -9,7 +9,7 @@ Here we are trying to organize the code for extracting information from SUMO xml
 import pandas as pd
 import numpy as np
 import networkx as nx
-import xml.etree.ElementTree as Xml
+import defusedxml.ElementTree as Xml
 from geopy.distance import great_circle
 
 

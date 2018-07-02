@@ -10,7 +10,7 @@ import requests
 import json
 import pandas as pd
 import datetime
-import xml.etree.ElementTree as Xml
+import defusedxml.ElementTree as Xml
 import sumo_information
 from make_file_names import FileName
 
@@ -153,8 +153,8 @@ class HereMapInfo:
         output = self.traffic_flow.copy()
 
         for junction, roads in output.items():
-            for i in range(len(roads)):
-                output[junction][i]['vehicle_flow'] = float(merge_df['total_flow'][merge_df['sumo_road'] == roads[i]['from']])/flow_divide[roads[i]['from']]
+            for i, road in enumerate(roads):
+                output[junction][i]['vehicle_flow'] = float(merge_df['total_flow'][merge_df['sumo_road'] == road['from']])/flow_divide[road['from']]
 
         with open(self.filename.traffic_flow_file, 'w') as outfile:
             json.dump(output, outfile, indent=4)
