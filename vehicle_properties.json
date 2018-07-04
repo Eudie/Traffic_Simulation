@@ -1,4 +1,0 @@
-[{"type": "car", "acceleration": "0.8", "decel":"4.5", "sigma":"0.5", "length":"5", "minimum_gap":"2.5", "max_speed": "16.67", "gui_shape":"passenger"},
-{"type": "bike", "acceleration": "0.8", "decel":"1.5", "sigma":"0.5", "length":"1.8", "minimum_gap":"2.5", "max_speed": "20", "gui_shape":"passenger"},
-{"type": "bus", "acceleration": "0.5", "decel":"4.5", "sigma":"0.5", "length":"7", "minimum_gap":"5", "max_speed": "10", "gui_shape":"bus"}]
-
