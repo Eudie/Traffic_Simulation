@@ -25,7 +25,8 @@ class Distribution:
         :return: float containing prob
         """
 
-        # TODO
+        # TODO Transform lines to first [(0,0), (0, n)] and relatively other
+
 
     def probability_polyline(self, first_polyline, second_polyline):
         """
