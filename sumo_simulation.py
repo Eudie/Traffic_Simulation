@@ -159,10 +159,10 @@ class Traffic:
         self.junction_info = net_info.get_junction_routes()
         self.biggest_junction = max({key: len(value['routes']) for key, value in self.junction_info.items()}.items(),
                                     key=operator.itemgetter(1))[0]
-        biggest_juction_info = {self.biggest_junction: self.junction_info[self.biggest_junction]}
+        biggest_junction_info = {self.biggest_junction: self.junction_info[self.biggest_junction]}
 
         output = {}
-        for key, value in biggest_juction_info.items():
+        for key, value in biggest_junction_info.items():
             temp_route = []
             for key1, value1 in value.items():
                 if key1 == 'routes':

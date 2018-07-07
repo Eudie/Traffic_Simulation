@@ -122,6 +122,48 @@ class SumoNetworkInfo:
                             lanes += 1
         return lanes
 
+    def get_transform(self, list_point):
+        """
+        To convert sumo point to original lat-long
+        """
+        x = list_point[0]
+        y = list_point[1]
+
+        parsed_xml = Xml.parse(self.xml_name_location).getroot()
+        for i in parsed_xml:
+            if i.tag == 'location':
+                loc = [float(i) for i in i.attrib['origBoundary'].split(',')]
+                points = [float(i) for i in i.attrib['convBoundary'].split(',')]
+
+        l1 = loc[0] + ((loc[2] - loc[0]) / (points[2] - points[0])) * x
+        l2 = loc[1] + ((loc[3] - loc[1]) / (points[3] - points[1])) * y
+        return [l2, l1]
+
+    def get_road_polyline(self, roads):
+        """
+        Here we are extracting polyline of all list of roads
+        :param roads: list of roads
+        :return: dict of polyline with key as roads
+        """
+
+        parsed_xml = Xml.parse(self.xml_name_location).getroot()
+
+        output = {}
+        for i in parsed_xml:
+            if i.tag == 'edge' and (i.attrib['id'] in roads):
+                all_lanes_polyline = []
+                for j in i:
+                    if j.tag == 'lane':
+                        list_points = []
+                        for ll in j.attrib['shape'].split():
+                            list_points.append(self.get_transform([float(i) for i in ll.split(',')]))
+
+                        all_lanes_polyline.append(list_points)
+
+                output[i.attrib['id']] = np.around(np.average(all_lanes_polyline, axis=0), 5).tolist()
+
+        return output
+
     def get_junction_routes(self):
         """
         To get the routes which are passing from the junctions, these routes will be used to generate routefile

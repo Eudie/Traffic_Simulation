@@ -14,9 +14,11 @@ minlon = "77.6319900345"
 maxlat = "12.939314082"
 maxlon = "77.6337735827"
 
-data_fold = '/home/utkarsh/Study/Quantela/hoodi_test'
+data_fold = '/home/eudie/Study/Quantela/hoodi_test'
 
 here = traffic_from_api.HereMapInfo(data_fold, minlat, minlon, maxlat,  maxlon)
-here.update_traffic_flow()
+mapped = here.find_mapping()
+
+print(mapped)
 
 

@@ -10,6 +10,8 @@ import requests
 import json
 import pandas as pd
 import datetime
+import re
+import itertools
 import defusedxml.ElementTree as Xml
 import sumo_information
 from make_file_names import FileName
@@ -28,8 +30,8 @@ class HereMapInfo:
         self.top = str(top)
 
         self.filename = FileName(self.data_folder)
-        self.map_scale = 0.00001
-        self.normal_dist = Distribution(sigma=2)
+        self.map_scale = 0.00005
+        self.normal_dist = Distribution(sigma=0.0000001)
 
         with open('heremap_credentials.json') as f:
             api_keys = json.load(f)
@@ -95,6 +97,27 @@ class HereMapInfo:
         df['PATCH'] = df['PC'].map(str) + df['QD']
         return df
 
+    def heremap_polyline(self):
+        """
+        From this function we will get polyline coordinates of heremap roads
+        :return:
+        """
+        data_2 = self.heremap_data_as_df()
+        output = {}
+        for i in (data_2.index.tolist()):
+            tmp2 = []
+            tmp = re.findall("\d*\.\d+", data_2['SHP'][i])
+            tmp = [float(i) for i in tmp]
+            it = iter(tmp)
+
+            for z in it:
+                tmp2.append([z, next(it)])
+
+            tmp2 = list(tmp2 for tmp2, _ in itertools.groupby(tmp2))
+            output[data_2['PATCH'][i]] = tmp2
+
+        return output
+
     def get_correction_offset(self, sumo_road_points, heremap_road_points):
         """
         Here we will try to find the optimum offset my convolving one map over other
@@ -104,21 +127,21 @@ class HereMapInfo:
         """
         max_prob = 0
         offset = [0, 0]
-        window = 25
+        window = 5
         for i in range(-1*window, window):
             for j in range(-1*window, window):
                 i *= self.map_scale
                 j *= self.map_scale
-                offseted_sumo_road_points = sumo_road_points.copy()
+                offsetted_sumo_road_points = sumo_road_points.copy()
                 total_prob = 0
-                for k in offseted_sumo_road_points.values():
+                for k in offsetted_sumo_road_points.values():
                     for l in k:
                         l[0] += i
                         l[1] += j
 
                 for m in heremap_road_points.values():
-                    for n in offseted_sumo_road_points.values():
-                        total_prob += self.normal_dist.probability_polyline(first_polyline=n, second_polyline=m)
+                    for n in offsetted_sumo_road_points.values():
+                        total_prob += self.normal_dist.similarity_polyline(first_polyline=n, second_polyline=m)
 
                 if total_prob > max_prob:
                     offset = [i, j]
@@ -129,19 +152,27 @@ class HereMapInfo:
     def find_mapping(self):
         """
         Here we will find the which road from here map is linked to that of sumo or osm
-        :return: dictionary for
+        :return: dataframe of sumo road corresponding to heremap road
         """
 
-        sumo_road_points = {'122516806': [(1, 2), (2, 4)]}
-        heremap_road_points = {'2572+': [(1, 2), (2, 4)]}
+        incoming_sumo_roads = []
+        for i in self.traffic_flow.values():
+            for j in i:
+                incoming_sumo_roads.append(j['from'])
+        incoming_sumo_roads = list(set(incoming_sumo_roads))
 
-        correction_offset = self.get_correction_offset(sumo_road_points, heremap_road_points)
+        sumo_info = sumo_information.SumoNetworkInfo(self.filename.original_sumo_map)
+        sumo_road_points = sumo_info.get_road_polyline(incoming_sumo_roads)
 
-        sumo_names = sumo_road_points.keys()
-        heremap_names = heremap_road_points.keys()
+        heremap_road_points = self.heremap_polyline()
 
-        offseted_sumo_road_points = sumo_road_points.copy()
-        for k in offseted_sumo_road_points.values():
+        correction_offset = [0, 0] # self.get_correction_offset(sumo_road_points, heremap_road_points)
+
+        sumo_names = list(sumo_road_points.keys())
+        heremap_names = list(heremap_road_points.keys())
+
+        offsetted_sumo_road_points = sumo_road_points.copy()
+        for k in offsetted_sumo_road_points.values():
             for l in k:
                 l[0] += correction_offset[0]
                 l[1] += correction_offset[1]
@@ -150,16 +181,16 @@ class HereMapInfo:
         for i in sumo_names:
             road_prob = []
             for j in heremap_names:
-                road_prob.append(self.normal_dist.probability_polyline(first_polyline=offseted_sumo_road_points[i],
-                                                                       second_polyline=heremap_road_points[j]))
+                road_prob.append(self.normal_dist.similarity_polyline(first_polyline=offsetted_sumo_road_points[i],
+                                                                      second_polyline=heremap_road_points[j]))
 
             mapping.append((i, heremap_names[road_prob.index(max(road_prob))]))
 
         df = pd.DataFrame.from_records(mapping, columns=['sumo_road', 'here_map_road'])
 
-        sumo_road = ['122516806', '143215059', '580921886#0', '28043853']
-        here_map_road = ['2572+', '1835+', '2572-', '1836-']
-        df = pd.DataFrame({'sumo_road': sumo_road, 'here_map_road': here_map_road})
+        # sumo_road = ['122516806', '143215059', '580921886#0', '28043853']
+        # here_map_road = ['2572+', '1835+', '2572-', '1836-']
+        # df = pd.DataFrame({'sumo_road': sumo_road, 'here_map_road': here_map_road})
 
         return df
 
