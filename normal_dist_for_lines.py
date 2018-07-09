@@ -33,13 +33,23 @@ class Distribution:
         points = np.concatenate((first_seg, second_seg))
 
         move = points[0]
-        angle = np.arctan((first_seg[1, 1] - first_seg[0, 1]) / (first_seg[1, 0] - first_seg[0, 0]))
+
+        with np.errstate(divide='ignore', invalid='ignore'):
+            angle = np.arctan((first_seg[1, 1] - first_seg[0, 1]) / (first_seg[1, 0] - first_seg[0, 0]))
+
         c, s = np.cos(angle), np.sin(angle)
 
         rotation = np.array([[c, s],
                              [-s, c]])
 
         points = np.around(np.squeeze(np.apply_along_axis(lambda row: np.dot(rotation, row - move), 1, points)), 7)
+
+        q = points[1, 0]
+        r = points[2, 0]
+        s = points[3, 0]
+
+        if (r < min(0, q) and s < min(0, q)) or (r > max(0, q) and s > max(0, q)):
+            return 0.0
 
         x_coords, y_coords = zip(*points[2:])
         m, c = np.polyfit(x_coords, y_coords, 1)
@@ -55,7 +65,9 @@ class Distribution:
             return np.exp(-0.5 * (np.square(x - u) + np.square(m * u + c)) / np.square(sigma)) * np.sqrt(
                 1 + np.square(m)) / (sigma * np.sqrt((2 * np.pi)))
 
-        return integrate.nquad(function_to_integrate, ranges)[0]
+        output = integrate.nquad(function_to_integrate, ranges)
+
+        return np.abs(output[0])
 
     def similarity_polyline(self, first_polyline, second_polyline):
         """

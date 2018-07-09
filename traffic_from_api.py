@@ -31,7 +31,7 @@ class HereMapInfo:
 
         self.filename = FileName(self.data_folder)
         self.map_scale = 0.00005
-        self.normal_dist = Distribution(sigma=0.0000001)
+        self.normal_dist = Distribution(sigma=0.00001)
 
         with open('heremap_credentials.json') as f:
             api_keys = json.load(f)
@@ -127,24 +127,26 @@ class HereMapInfo:
         """
         max_prob = 0
         offset = [0, 0]
-        window = 5
+        window = 2
         for i in range(-1*window, window):
             for j in range(-1*window, window):
-                i *= self.map_scale
-                j *= self.map_scale
+                print(i, j)
+                map_i = i*self.map_scale
+                map_j = j*self.map_scale
                 offsetted_sumo_road_points = sumo_road_points.copy()
                 total_prob = 0
                 for k in offsetted_sumo_road_points.values():
                     for l in k:
-                        l[0] += i
-                        l[1] += j
+                        l[0] += map_i
+                        l[1] += map_j
 
                 for m in heremap_road_points.values():
                     for n in offsetted_sumo_road_points.values():
                         total_prob += self.normal_dist.similarity_polyline(first_polyline=n, second_polyline=m)
+                print(total_prob)
 
                 if total_prob > max_prob:
-                    offset = [i, j]
+                    offset = [map_i, map_j]
                     max_prob = total_prob
 
         return offset
@@ -166,7 +168,7 @@ class HereMapInfo:
 
         heremap_road_points = self.heremap_polyline()
 
-        correction_offset = [0, 0] # self.get_correction_offset(sumo_road_points, heremap_road_points)
+        correction_offset = [0.0, -0.00009]  # self.get_correction_offset(sumo_road_points, heremap_road_points)
 
         sumo_names = list(sumo_road_points.keys())
         heremap_names = list(heremap_road_points.keys())
