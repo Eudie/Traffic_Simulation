@@ -168,7 +168,13 @@ class HereMapInfo:
 
         heremap_road_points = self.heremap_polyline()
 
-        correction_offset = [0.0, -0.00009]  # self.get_correction_offset(sumo_road_points, heremap_road_points)
+        with open('data_comparision/sumo_road_points.json', 'w') as outfile:
+            json.dump(sumo_road_points, outfile, indent=4)
+
+        with open('data_comparision/heremap_road_points.json', 'w') as outfile:
+            json.dump(heremap_road_points, outfile, indent=4)
+
+        correction_offset = [0.00001, -0.00007]  # self.get_correction_offset(sumo_road_points, heremap_road_points)
 
         sumo_names = list(sumo_road_points.keys())
         heremap_names = list(heremap_road_points.keys())
