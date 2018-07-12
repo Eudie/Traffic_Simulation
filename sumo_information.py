@@ -164,6 +164,20 @@ class SumoNetworkInfo:
 
         return output
 
+    def get_junction_location(self, junction):
+        """
+        Here we are extracting lat long of given junction
+        :param junction: junction name
+        :return: [lat, long]
+        """
+        parsed_xml = Xml.parse(self.xml_name_location).getroot()
+
+        for i in parsed_xml:
+
+            if i.tag == 'junction' and i.attrib['id'] == junction:
+                return np.around(self.get_transform([float(i.attrib['x']), float(i.attrib['y'])]), 5).tolist()
+
+
     def get_junction_routes(self):
         """
         To get the routes which are passing from the junctions, these routes will be used to generate routefile

@@ -25,3 +25,6 @@ class FileName:
         self.vehicle_properties = os.path.join(data_folder, 'vehicle_properties.xml')
         self.sumo_tripinfo_file = os.path.join(self.data_folder, 'tripinfo.xml')
         self.sumo_cfg_file = os.path.join(self.data_folder, 'configuration.sumo.cfg')
+        self.heremap_sumo_mapping = os.path.join(self.data_folder, 'heremap_sumo_mapping.csv')
+        self.heremap_road_points = os.path.join(self.data_folder, 'heremap_road_points.json')
+        self.sumo_road_points = os.path.join(self.data_folder, 'sumo_road_points.json')

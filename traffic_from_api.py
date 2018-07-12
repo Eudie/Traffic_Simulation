@@ -11,11 +11,14 @@ import json
 import pandas as pd
 import datetime
 import re
+import os
 import itertools
 import defusedxml.ElementTree as Xml
 import sumo_information
 from make_file_names import FileName
 from normal_dist_for_lines import Distribution
+from geopy.distance import great_circle
+import copy
 
 
 class HereMapInfo:
@@ -30,8 +33,9 @@ class HereMapInfo:
         self.top = str(top)
 
         self.filename = FileName(self.data_folder)
-        self.map_scale = 0.00005
-        self.normal_dist = Distribution(sigma=0.00001)
+        self.map_scale = 0.00001
+        self.normal_dist = Distribution(sigma=0.000005)
+        self.sumo_info = sumo_information.SumoNetworkInfo(self.filename.original_sumo_map)
 
         with open('heremap_credentials.json') as f:
             api_keys = json.load(f)
@@ -127,13 +131,13 @@ class HereMapInfo:
         """
         max_prob = 0
         offset = [0, 0]
-        window = 2
+        window = 10
         for i in range(-1*window, window):
             for j in range(-1*window, window):
-                print(i, j)
                 map_i = i*self.map_scale
                 map_j = j*self.map_scale
-                offsetted_sumo_road_points = sumo_road_points.copy()
+                print(map_i, map_j)
+                offsetted_sumo_road_points = copy.deepcopy(sumo_road_points)
                 total_prob = 0
                 for k in offsetted_sumo_road_points.values():
                     for l in k:
@@ -151,11 +155,30 @@ class HereMapInfo:
 
         return offset
 
-    def find_mapping(self):
+    def trim_roads(self, polylines, trimming_distance=200):
+        """
+        We are getting very long polyline from heremap and sumo. Therefore overlapping is effective if roads are short.
+        Here we are trimming long roads to save computational power as well as increase accuracy
+        """
+
+        junction_loc = self.sumo_info.get_junction_location(list(self.traffic_flow.keys())[0])
+        output = copy.deepcopy(polylines)
+
+        for road, points in output.items():
+            output[road] = [point for point in points if great_circle(point, junction_loc).meters < trimming_distance]
+
+        return output
+
+    def find_mapping(self, force=False):
         """
         Here we will find the which road from here map is linked to that of sumo or osm
         :return: dataframe of sumo road corresponding to heremap road
         """
+
+        if os.path.exists(self.filename.heremap_sumo_mapping) and not force:
+            saved_df = pd.read_csv(self.filename.heremap_sumo_mapping)
+
+            return saved_df
 
         incoming_sumo_roads = []
         for i in self.traffic_flow.values():
@@ -163,38 +186,42 @@ class HereMapInfo:
                 incoming_sumo_roads.append(j['from'])
         incoming_sumo_roads = list(set(incoming_sumo_roads))
 
-        sumo_info = sumo_information.SumoNetworkInfo(self.filename.original_sumo_map)
-        sumo_road_points = sumo_info.get_road_polyline(incoming_sumo_roads)
+        sumo_road_points = self.sumo_info.get_road_polyline(incoming_sumo_roads)
 
         heremap_road_points = self.heremap_polyline()
 
-        with open('data_comparision/sumo_road_points.json', 'w') as outfile:
-            json.dump(sumo_road_points, outfile, indent=4)
+        trimmed_sumo_road_points = self.trim_roads(sumo_road_points)
+        trimmed_heremap_road_points = self.trim_roads(heremap_road_points)
 
-        with open('data_comparision/heremap_road_points.json', 'w') as outfile:
-            json.dump(heremap_road_points, outfile, indent=4)
-
-        correction_offset = [0.00001, -0.00007]  # self.get_correction_offset(sumo_road_points, heremap_road_points)
+        correction_offset = [0.00001, -0.00007]  # self.get_correction_offset(trimmed_sumo_road_points, trimmed_heremap_road_points)
 
         sumo_names = list(sumo_road_points.keys())
         heremap_names = list(heremap_road_points.keys())
 
-        offsetted_sumo_road_points = sumo_road_points.copy()
+        offsetted_sumo_road_points = copy.deepcopy(trimmed_sumo_road_points)
         for k in offsetted_sumo_road_points.values():
             for l in k:
                 l[0] += correction_offset[0]
                 l[1] += correction_offset[1]
+
+        with open(self.filename.sumo_road_points, 'w') as outfile:
+            json.dump(offsetted_sumo_road_points, outfile, indent=4)
+
+        with open(self.filename.heremap_road_points, 'w') as outfile:
+            json.dump(trimmed_heremap_road_points, outfile, indent=4)
 
         mapping = []
         for i in sumo_names:
             road_prob = []
             for j in heremap_names:
                 road_prob.append(self.normal_dist.similarity_polyline(first_polyline=offsetted_sumo_road_points[i],
-                                                                      second_polyline=heremap_road_points[j]))
+                                                                      second_polyline=trimmed_heremap_road_points[j]))
 
             mapping.append((i, heremap_names[road_prob.index(max(road_prob))]))
 
         df = pd.DataFrame.from_records(mapping, columns=['sumo_road', 'here_map_road'])
+
+        df.to_csv(self.filename.heremap_sumo_mapping, index=False)
 
         # sumo_road = ['122516806', '143215059', '580921886#0', '28043853']
         # here_map_road = ['2572+', '1835+', '2572-', '1836-']
