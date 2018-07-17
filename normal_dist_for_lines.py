@@ -10,6 +10,7 @@ This is the extension of normal distribution in zero dimension.
 
 import numpy as np
 from scipy import integrate
+from scipy import special
 
 
 class Distribution:
@@ -55,17 +56,28 @@ class Distribution:
         m, c = np.polyfit(x_coords, y_coords, 1)
         sigma = self.sigma
 
-        ranges = [[0, points[1, 0]], [points[2, 0], points[3, 0]]]
+        # ranges = [[0, points[1, 0]], [points[2, 0], points[3, 0]]]
 
-        def function_to_integrate(x, u):
-            """
-            This is the function we are getting to integrate normal distribution probability of each point of line 1 (x)
-            with each point of line 2 (u)
-            """
-            return np.exp(-0.5 * (np.square(x - u) + np.square(m * u + c)) / np.square(sigma)) * np.sqrt(
-                1 + np.square(m)) / (sigma * np.sqrt((2 * np.pi)))
+        # def function_to_integrate(x, u):
+        #     """
+        #     This is the function we are getting to integrate normal distribution probability of each point of line
+        #     with each point of line 2 (u)
+        #     """
+        #     return np.exp(-0.5 * (np.square(x - u) + np.square(m * u + c)) / np.square(sigma)) * np.sqrt(
+        #         1 + np.square(m)) / (sigma * np.sqrt((2 * np.pi)))
+        #
+        # output = integrate.nquad(function_to_integrate, ranges)
 
-        output = integrate.nquad(function_to_integrate, ranges)
+        def function_to_integrate(u):
+            """
+            Only one integration is required
+            """
+            return (-(np.sqrt(np.pi) * sigma * np.exp(-(m * u + c) ** 2 / (2 * sigma ** 2)) * (
+                        special.erf((u - q) / (np.sqrt(2) * sigma)) - special.erf(
+                    u / (np.sqrt(2) * sigma)))) / np.sqrt(2)) * np.sqrt(1 + np.square(m)) / (
+                               sigma * np.sqrt((2 * np.pi)))
+
+        output = integrate.quad(function_to_integrate, r, s)
 
         return np.abs(output[0])
 

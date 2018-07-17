@@ -136,7 +136,6 @@ class HereMapInfo:
             for j in range(-1*window, window):
                 map_i = i*self.map_scale
                 map_j = j*self.map_scale
-                print(map_i, map_j)
                 offsetted_sumo_road_points = copy.deepcopy(sumo_road_points)
                 total_prob = 0
                 for k in offsetted_sumo_road_points.values():
@@ -147,7 +146,6 @@ class HereMapInfo:
                 for m in heremap_road_points.values():
                     for n in offsetted_sumo_road_points.values():
                         total_prob += self.normal_dist.similarity_polyline(first_polyline=n, second_polyline=m)
-                print(total_prob)
 
                 if total_prob > max_prob:
                     offset = [map_i, map_j]
@@ -193,7 +191,7 @@ class HereMapInfo:
         trimmed_sumo_road_points = self.trim_roads(sumo_road_points)
         trimmed_heremap_road_points = self.trim_roads(heremap_road_points)
 
-        correction_offset = [0.00001, -0.00007]  # self.get_correction_offset(trimmed_sumo_road_points, trimmed_heremap_road_points)
+        correction_offset = self.get_correction_offset(trimmed_sumo_road_points, trimmed_heremap_road_points)  # [0.00001, -0.00007]
 
         sumo_names = list(sumo_road_points.keys())
         heremap_names = list(heremap_road_points.keys())
@@ -267,7 +265,9 @@ class HereMapInfo:
         merge_df = pd.merge(mapping, heremap_df, left_on='here_map_road', right_on='PATCH')
 
         merge_df['total_flow'] = (merge_df['total_lanes'] * merge_df['JF'] * merge_df['SP'])/(merge_df['average_vehicle_length'] * 18)
+        merge_df['total_flow_per_lane'] = (merge_df['JF'] * merge_df['SP']) / ( merge_df['average_vehicle_length'] * 18)
 
+        merge_df.to_csv(self.filename.merge_df, encoding='utf-8', index=False)
         flow_divide = dict.fromkeys(mapping['sumo_road'], 0)
 
         for roads in self.traffic_flow.values():

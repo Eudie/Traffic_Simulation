@@ -19,6 +19,8 @@ import json
 import defusedxml.ElementTree as Xml
 from scipy.optimize import brute
 from make_file_names import FileName
+from bayes_opt import BayesianOptimization
+import pandas as pd
 
 # we need to import python modules from the $SUMO_HOME/tools directory
 try:
@@ -94,11 +96,11 @@ class Simulation:
             traci.simulationStep()
 
             if cycle_step == total_cycle:
-                # there is a vehicle from the north, switch
+
                 cycle_step = 0
                 traci.trafficlights.setRedYellowGreenState(rule['junction'], rule['phases'][0])
             elif cycle_step in rule['time']:
-                # otherwise try to keep green for EW
+
                 index = rule['time'].index(cycle_step)
                 traci.trafficlights.setRedYellowGreenState(rule['junction'], rule['phases'][index+1])
             step += 1
@@ -107,19 +109,37 @@ class Simulation:
         traci.close()
         sys.stdout.flush()
 
-    def __objective(self, array):
+    def __objective(self, **green_time):
         """
         Internal objective function to optimize
         :param array: signal timings
         :return: total mean duration in the simulation
         """
-        rule = self.get_signal_schema(self.signal_pattern)
-        rule['time'] = np.cumsum(array).tolist()
 
-        self.run(rule)
-        info = sumo_information.SumoTripInfo(self.filename.sumo_tripinfo_file)
-        df = info.get_df()
-        return np.mean(df['duration'])
+        time_lost = 4
+        df = pd.read_csv(self.filename.merge_df)
+        rule = self.get_signal_schema(self.signal_pattern)
+
+        info = sumo_information.SumoNetworkInfo(self.filename.original_sumo_map)
+        signal_seq = info.signal_road_index(rule['junction'])
+
+        signal_seq_list = []
+        for key in sorted(signal_seq):
+            if signal_seq[key] not in signal_seq_list:
+                signal_seq_list.append(signal_seq[key])
+
+        per_lane_flow = {}
+        for i, sig in enumerate(signal_seq_list):
+            per_lane_flow['F'+str(i)] = float(df['total_flow_per_lane'][df['sumo_road'] == sig])
+
+        obj = 0
+        no_of_signals = len(rule['time'])
+        for i in range(no_of_signals - 1):
+            obj += np.abs((per_lane_flow['F'+str(i+1)]/per_lane_flow['F'+str(i)]) - ((green_time['G'+str(i+1)] - time_lost)/(green_time['G'+str(i)] - time_lost)))
+
+        obj += sum(list(green_time.values()))/3000
+
+        return -10*obj
 
     def optimize(self, timing_range):
         """
@@ -133,11 +153,24 @@ class Simulation:
 
         no_of_signals = len(rule['time'])
 
-        bounds = (slice(timing_range['min'], timing_range['max'], 1),)*no_of_signals
+        bounds = {}
+        for i in range(no_of_signals):
+            bounds['G'+str(i)] = (timing_range['min'], timing_range['max'])
 
-        x, f_val, grid, j_out = brute(self.__objective, ranges=bounds, full_output=True, finish=None)
+        bo = BayesianOptimization(self.__objective, bounds)
+        gp_params = {"alpha": 1e-5, "n_restarts_optimizer": 2}
+        bo.maximize(init_points=(2**(no_of_signals+1)), n_iter=50, acq="ucb", kappa=1, **gp_params)
+
         self.final_rule = rule
-        self.final_rule['time'] = np.cumsum(x).tolist()
+
+        time_list = []
+        value = 0
+        for key in sorted(bo.res['max']['max_params']):
+            value += round(bo.res['max']['max_params'][key])
+            time_list.append(value)
+
+        self.final_rule['time'] = time_list
+
 
 
 class Traffic:

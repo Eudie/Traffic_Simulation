@@ -164,6 +164,20 @@ class SumoNetworkInfo:
 
         return output
 
+    def signal_road_index(self, signal):
+        """
+        This function is for geting signal incoming index
+        """
+        parsed_xml = Xml.parse(self.xml_name_location).getroot()
+
+        output = {}
+        for i in parsed_xml:
+            if i.tag == 'connection' and i.attrib['state'] == 'o':
+                if i.attrib['tl'] == signal:
+                    output[int(i.attrib['linkIndex'])] = i.attrib['from']
+
+        return output
+
     def get_junction_location(self, junction):
         """
         Here we are extracting lat long of given junction
@@ -176,7 +190,6 @@ class SumoNetworkInfo:
 
             if i.tag == 'junction' and i.attrib['id'] == junction:
                 return np.around(self.get_transform([float(i.attrib['x']), float(i.attrib['y'])]), 5).tolist()
-
 
     def get_junction_routes(self):
         """

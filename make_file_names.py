@@ -28,3 +28,4 @@ class FileName:
         self.heremap_sumo_mapping = os.path.join(self.data_folder, 'heremap_sumo_mapping.csv')
         self.heremap_road_points = os.path.join(self.data_folder, 'heremap_road_points.json')
         self.sumo_road_points = os.path.join(self.data_folder, 'sumo_road_points.json')
+        self.merge_df = os.path.join(self.data_folder, 'merge_df.csv')
