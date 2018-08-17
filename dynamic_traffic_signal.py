@@ -103,11 +103,12 @@ class DynamicTrafficSignal:
 
         return 0
 
-    def build_traffic(self, how='manual'):
+    def build_traffic(self, how='manual', road_mapping='automatic'):
         """
         This function will open UI window or help to open UI window by sending information.
         It will capture all traffic info of each pair of roads.
         :param how: method by which user want to input values ['manual', 'heremap']
+        :param road_mapping: road mapping sometime require manual intervention ['manual', 'automatic']
         :return: success or failure
         """
 
@@ -117,7 +118,7 @@ class DynamicTrafficSignal:
             traffic.build_traffic_flow()
 
         if how == 'heremap':
-            here = traffic_from_api.HereMapInfo(self.data_folder, self.bottom, self.left, self.top, self.right)
+            here = traffic_from_api.HereMapInfo(self.data_folder, self.bottom, self.left, self.top, self.right, mapping=road_mapping)
             here.update_traffic_flow()
 
         traffic.generate()

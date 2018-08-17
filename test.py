@@ -26,7 +26,7 @@ This file is just to test intermediate functions
 
 import dynamic_traffic_signal
 
-traffic_signal = dynamic_traffic_signal.DynamicTrafficSignal('hoodi_test')
+traffic_signal = dynamic_traffic_signal.DynamicTrafficSignal('hoodi_test_final88')
 
 traffic_signal.optimize_traffic_lights(timing_range={'min': 45, 'max': 75}, gui=True)
 

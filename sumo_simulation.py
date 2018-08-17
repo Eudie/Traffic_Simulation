@@ -17,7 +17,6 @@ import sumo_information
 import operator
 import json
 import defusedxml.ElementTree as Xml
-from scipy.optimize import brute
 from make_file_names import FileName
 from bayes_opt import BayesianOptimization
 import pandas as pd
@@ -49,6 +48,16 @@ class Simulation:
                            'phases': [],
                            'time': []}
 
+        self.sumo_info = sumo_information.SumoNetworkInfo(self.filename.original_sumo_map)
+
+        with open(self.filename.traffic_flow_file) as f:
+            self.traffic_flow = json.load(f)
+
+        self.traffic_df = pd.DataFrame(list(self.traffic_flow.values())[0])
+        self.agg_df = self.traffic_df.groupby('from').agg('sum').reset_index()
+        self.agg_df['total_lanes'] = self.agg_df['from'].apply(self.sumo_info.get_total_lanes)
+        self.agg_df['total_flow_per_lane'] = self.agg_df['vehicle_flow'] / self.agg_df['total_lanes']
+
     def get_signal_schema(self, signal_pattern):
         """
         here we will get different schema for signal
@@ -56,22 +65,20 @@ class Simulation:
         :return: signal_schema
         """
         schema = None
+
+        road_index = self.sumo_info.signal_road_index(list(self.phases.keys())[0])
+        road_index_df = pd.DataFrame(list(road_index.items()), columns=['index', 'from_road'])
+        road_index_df['index'] = road_index_df['index'].astype('int')
+        road_index_df.sort_values(['index'], ascending=True, inplace=True)
+        road_index_df.reset_index(drop=True, inplace=True)
         if signal_pattern == "one_road_open":
-            first_phase = list(self.phases.values())[0][0]['state'].lower()
-
-            sig_len = []
+            road_index_df['lights'] = 'r'
+            unique_from_roads = list(road_index_df['from_road'].unique())
             phases = []
-            starting_index = 0
-            for i in range(1, len(first_phase)):
-                if first_phase[i - 1] != first_phase[i]:
-                    sig_len.append(i - starting_index)
-                    string = 'r' * len(first_phase[:starting_index]) + 'G' * len(
-                        first_phase[starting_index:i]) + 'r' * len(first_phase[i:])
-                    phases.append(string)
-                    starting_index = i
+            for i in unique_from_roads:
+                road_index_df['lights'] = np.where(road_index_df['from_road'] == i, 'G', 'r')
+                phases.append(''.join(list(road_index_df['lights'])))
 
-            last_string = 'r' * len(first_phase[:starting_index]) + 'G' * len(first_phase[starting_index:])
-            phases.append(last_string)
             time = [0]*len(phases)
 
             schema = {'junction': list(self.phases.keys())[0], 'phases': phases, 'time': time}
@@ -117,11 +124,9 @@ class Simulation:
         """
 
         time_lost = 4
-        df = pd.read_csv(self.filename.merge_df)
         rule = self.get_signal_schema(self.signal_pattern)
 
-        info = sumo_information.SumoNetworkInfo(self.filename.original_sumo_map)
-        signal_seq = info.signal_road_index(rule['junction'])
+        signal_seq = self.sumo_info.signal_road_index(rule['junction'])
 
         signal_seq_list = []
         for key in sorted(signal_seq):
@@ -130,7 +135,7 @@ class Simulation:
 
         per_lane_flow = {}
         for i, sig in enumerate(signal_seq_list):
-            per_lane_flow['F'+str(i)] = float(df['total_flow_per_lane'][df['sumo_road'] == sig])
+            per_lane_flow['F'+str(i)] = float(self.agg_df['total_flow_per_lane'][self.agg_df['from'] == sig])
 
         obj = 0
         no_of_signals = len(rule['time'])
@@ -141,10 +146,12 @@ class Simulation:
 
         return -10*obj
 
-    def optimize(self, timing_range):
+    def optimize(self, timing_range, iteration=50, verbose=False):
         """
         Here we run simulation multiple times and find the most optimized value
         :param timing_range: tuple of max and min time for lane opening
+        :param iteration: no. of iteration to do for optimization
+        :param verbose: see how objective function is optimizing
         :return: set optimized result
         """
 
@@ -157,9 +164,9 @@ class Simulation:
         for i in range(no_of_signals):
             bounds['G'+str(i)] = (timing_range['min'], timing_range['max'])
 
-        bo = BayesianOptimization(self.__objective, bounds)
+        bo = BayesianOptimization(self.__objective, bounds, verbose=verbose)
         gp_params = {"alpha": 1e-5, "n_restarts_optimizer": 2}
-        bo.maximize(init_points=(2**(no_of_signals+1)), n_iter=50, acq="ucb", kappa=1, **gp_params)
+        bo.maximize(init_points=(2**(no_of_signals+1)), n_iter=iteration, acq="ucb", kappa=1, **gp_params)
 
         self.final_rule = rule
 
@@ -170,7 +177,6 @@ class Simulation:
             time_list.append(value)
 
         self.final_rule['time'] = time_list
-
 
 
 class Traffic:
