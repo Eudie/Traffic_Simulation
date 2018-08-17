@@ -193,6 +193,12 @@ class HereMapInfo:
             trimmed_sumo_road_points = self.trim_roads(sumo_road_points)
             trimmed_heremap_road_points = self.trim_roads(heremap_road_points)
 
+            with open(self.filename.sumo_road_points, 'w') as outfile:
+                json.dump(trimmed_sumo_road_points, outfile, indent=4)
+
+            with open(self.filename.heremap_road_points, 'w') as outfile:
+                json.dump(trimmed_heremap_road_points, outfile, indent=4)
+
             correction_offset = self.get_correction_offset(trimmed_sumo_road_points, trimmed_heremap_road_points)  # [0.00001, -0.00007]
 
             sumo_names = list(sumo_road_points.keys())
@@ -203,12 +209,6 @@ class HereMapInfo:
                 for l in k:
                     l[0] += correction_offset[0]
                     l[1] += correction_offset[1]
-
-            with open(self.filename.sumo_road_points, 'w') as outfile:
-                json.dump(offsetted_sumo_road_points, outfile, indent=4)
-
-            with open(self.filename.heremap_road_points, 'w') as outfile:
-                json.dump(trimmed_heremap_road_points, outfile, indent=4)
 
             mapping = []
             for i in sumo_names:
