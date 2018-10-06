@@ -3,7 +3,7 @@
 # Author: Eudie
 
 """
-In this class I am trying to get vehicle flow from some api
+This utility module fetches and process data from APIs for updating traffic flow.
 
 """
 import requests
@@ -23,7 +23,7 @@ import copy
 
 class HereMapInfo:
     """
-    Here we get the data from heremap, which we will use to build traffic flow for sumo
+    From this class we get the data from heremap, which we will use to build traffic flow for sumo
     """
     def __init__(self, data_folder, bottom, left, top, right, mapping):
         self.data_folder = data_folder
@@ -35,7 +35,7 @@ class HereMapInfo:
 
         self.filename = FileName(self.data_folder)
         self.map_scale = 0.00001
-        self.normal_dist = Distribution(sigma=0.000005)
+        self.normal_dist = Distribution(sigma=0.000005)  # Got optimum sigma value from multiple iterations
         self.sumo_info = sumo_information.SumoNetworkInfo(self.filename.original_sumo_map)
 
         with open('heremap_credentials.json') as f:
@@ -61,7 +61,7 @@ class HereMapInfo:
 
     def heremap_data_as_df(self):
         """
-        For simplicity here we convert nested json data from heremap to dataframe
+        This method converts nested json data from heremap to dataframe for simplicity
         :return: heremap data as df
         """
         RWS = self.data_json['RWS']
@@ -104,8 +104,8 @@ class HereMapInfo:
 
     def heremap_polyline(self):
         """
-        From this function we will get polyline coordinates of heremap roads
-        :return:
+        This function gets polyline coordinates of heremap roads
+        :return: list of polyline coordinates
         """
         data_2 = self.heremap_data_as_df()
         output = {}
@@ -125,7 +125,7 @@ class HereMapInfo:
 
     def get_correction_offset(self, sumo_road_points, heremap_road_points):
         """
-        Here we will try to find the optimum offset my convolving one map over other
+        This method finds the optimum offset my convolving one map over other
         :param sumo_road_points:
         :param heremap_road_points:
         :return: tuple of offset value
@@ -157,7 +157,7 @@ class HereMapInfo:
     def trim_roads(self, polylines, trimming_distance=200):
         """
         We are getting very long polyline from heremap and sumo. Therefore overlapping is effective if roads are short.
-        Here we are trimming long roads to save computational power as well as increase accuracy
+        This method trims long roads to save computational power as well as increase accuracy
         """
 
         junction_loc = self.sumo_info.get_junction_location(list(self.traffic_flow.keys())[0])
@@ -170,7 +170,7 @@ class HereMapInfo:
 
     def find_mapping(self, force=False):
         """
-        Here we will find the which road from here map is linked to that of sumo or osm
+        This method finds the which road from here map is linked to that of sumo or osm
         :return: dataframe of sumo road corresponding to heremap road
         """
         if self.mapping == 'automatic':
@@ -257,7 +257,7 @@ class HereMapInfo:
 
     def update_traffic_flow(self):
         """
-        Here we will match heremap congestion data to sumo traffic flow
+        Matches heremap congestion data to sumo traffic flow
         """
 
         sumo_info = sumo_information.SumoNetworkInfo(self.filename.original_sumo_map)

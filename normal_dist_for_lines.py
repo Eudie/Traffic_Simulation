@@ -3,9 +3,9 @@
 # Author: Eudie
 
 """
-Here I am trying to make probabilistic function to find two line segments are actually one.
-This is the extension of normal distribution in zero dimension.
-
+This is utility module, extending the normal distribution methods for line segments. Generally we have mean and sigma of
+a value and for new experiment value, we check if Z value to check weather it belongs to same distribution. This class
+extend this feature of z value testing for 2 line segments.
 """
 
 import numpy as np
@@ -15,7 +15,7 @@ from scipy import special
 
 class Distribution:
     """
-    Here we will convert zero dimensional normal distribution to 1 dimension to work for line segments
+    Entry point to initialize distribution class and define all the calculation methods.
     """
 
     def __init__(self, sigma):
@@ -23,10 +23,10 @@ class Distribution:
 
     def similarity_line(self, first_seg, second_seg):
         """
-        Here we will compare one segment to another
+        This method compares one segment to another
         :param first_seg: coordinates of end points of first segment line [[x1, y1], [x2, y2]]
         :param second_seg: coordinates of end points of second segment line [[x1, y1], [x2, y2]]
-        :return: float containing prob
+        :return: float containing probability
         """
 
         first_seg = np.array(first_seg)
@@ -70,7 +70,8 @@ class Distribution:
 
         def function_to_integrate(u):
             """
-            Only one integration is required
+            This is the function we are getting to integrate normal distribution probability of each point of line with
+            each point of line 2. (signal integration, much more efficient)
             """
             return (-(np.sqrt(np.pi) * sigma * np.exp(-(m * u + c) ** 2 / (2 * sigma ** 2)) * (
                         special.erf((u - q) / (np.sqrt(2) * sigma)) - special.erf(
@@ -83,10 +84,10 @@ class Distribution:
 
     def similarity_polyline(self, first_polyline, second_polyline):
         """
-        Here we will compare one segment to another
-        :param first_polyline: coordinates of points of first polyline line [[x1, y1], [x2, y2], [x3, y3]]
-        :param second_polyline: coordinates of points of second polyline line [[x1, y1], [x2, y2], [x3, y3]]
-        :return: float containing prob
+        This method compares one polyline to another polyline
+        :param first_polyline: coordinates of points of first polyline line [[x1, y1], [x2, y2], [x3, y3] ....]
+        :param second_polyline: coordinates of points of second polyline line [[x1, y1], [x2, y2], [x3, y3] ....]
+        :return: float containing probability
         """
 
         similarity = 0.0

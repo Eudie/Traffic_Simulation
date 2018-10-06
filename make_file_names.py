@@ -10,7 +10,7 @@ import os
 
 class FileName:
     """
-    This class is just to make names of the file, which we are gonna use across sub-models
+    This class is just to make names of the file, which we are gonna use across sub-modules
     """
     def __init__(self, data_folder):
         self.data_folder = data_folder

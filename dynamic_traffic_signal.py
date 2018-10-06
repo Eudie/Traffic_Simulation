@@ -3,8 +3,8 @@
 # Author: Eudie
 
 """
-In this class I am trying in structure dynamic traffic signal module. Which will be used in product.
-We are trying to optimize the signal using simulation. We are using OpenStreetMap to get map and SUMO for optimization.
+This module abstracts dynamic traffic signal optimization. It uses OpenStreetMap to get map data and SUMO for optimizing
+traffic at given traffic signal using simulation.
 
 """
 
@@ -24,7 +24,7 @@ from make_file_names import FileName
 
 class DynamicTrafficSignal:
     """
-    Here we will structure all submodules of the project.
+    Entry point to initialize base class and define all the public data handling routines.
     """
 
     def __init__(self, name, data_dir='..'):
@@ -51,7 +51,12 @@ class DynamicTrafficSignal:
 
     def get_map(self, left, bottom, right, top):
         """
-        By this function user can get the map from openstreetmap and convert to sumo map.
+        This function fetches the map from openstreetmap and converts to sumo map.
+        :param left: TODO
+        :param bottom: TODO
+        :param right: TODO
+        :param top: TODO
+        :return: void
         """
 
         self.left = str(left)
@@ -125,7 +130,8 @@ class DynamicTrafficSignal:
 
     def optimize_traffic_lights(self, timing_range, signal_pattern='one_road_open', gui=False):
         """
-        Here we do all the magic. We simulate traffic in the area multiple time and optimize all signals for best perf.
+        Here is where the magic happens. This method simulates traffic in the given area multiple times and optimizes
+        all signals for best performance.
         :return: json file of optimized signal properties containing all signals in the map.
         """
         net_info = sumo_information.SumoNetworkInfo(self.filename.original_sumo_map)

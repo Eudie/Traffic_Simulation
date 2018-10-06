@@ -3,7 +3,7 @@
 # Author: Eudie
 
 """
-Here we are trying to do all coding related to sumo traci simulations
+This is utility module, doing all the heavy lifting for simulation
 """
 
 from __future__ import absolute_import
@@ -37,7 +37,7 @@ import traci
 
 class Simulation:
     """
-    Here we are doing everything related to traci
+    Entry point to initialize simulation class and define all the sumo routines.
     """
 
     def __init__(self, area_name, signal_pattern, phases):
@@ -61,8 +61,8 @@ class Simulation:
     def get_signal_schema(self, signal_pattern):
         """
         here we will get different schema for signal
-        :param signal_pattern:
-        :return: signal_schema
+        :param signal_pattern: architectural of traffic signal ['one_road_open'] (can be added more in future)
+        :return: signal schema in sumo terms
         """
         schema = None
 
@@ -86,7 +86,12 @@ class Simulation:
         return schema
 
     def run(self, rule, gui=False):
-        """execute the TraCI control loop"""
+        """
+        execute the TraCI control loop
+        :param rule: traffic signal rule to follow
+        :param gui: boolean for UI
+        :return: void
+        """
         if gui:
             sumo_binary = checkBinary('sumo-gui')
         else:
@@ -181,7 +186,9 @@ class Simulation:
 
 class Traffic:
     """
-    In this class we handel all traffic and route related information
+    This class handles all traffic and route related information and methods
+    :param: void
+    :return: void
     """
 
     def __init__(self, data_folder):
@@ -191,7 +198,7 @@ class Traffic:
 
     def build_traffic_flow(self):
         """
-        Here we will generate json with default values, that we can edit manually or with api
+        This method generates default traffic flow that can be further edited/corrected manually or through API
         """
 
         net_info = sumo_information.SumoNetworkInfo(self.filename.original_sumo_map)
@@ -220,8 +227,7 @@ class Traffic:
 
     def generate(self):
         """
-        Here we are going to generate traffic based on input values from user
-        :return: save route file with generated traffic
+        This method generates traffic route file for sumo.
         """
         # random.seed(42)  # make tests reproducible
         N = 90  # number of time steps

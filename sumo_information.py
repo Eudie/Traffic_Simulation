@@ -3,7 +3,7 @@
 # Author: Eudie
 
 """
-Here we are trying to organize the code for extracting information from SUMO xml files
+This utility module processes meta file info by loading them in memory and supporting other utility modules.
 """
 
 import pandas as pd
@@ -15,7 +15,7 @@ from geopy.distance import great_circle
 
 class OsmNetworkInfo:
     """
-    Here we are parsing and extracting relevenat information from osm file to use in our model
+    This class contains method to extract data from Open Street Map Network file
     """
 
     def __init__(self, xml_name_location):
@@ -23,7 +23,7 @@ class OsmNetworkInfo:
 
     def get_raw_traffic_light_nodes(self):
         """
-        here we are finding all raw traffic light nodes
+        This method finds all raw traffic light nodes
         :return: dictionary of all traffic light nodes
         """
         e = Xml.parse(self.xml_name_location).getroot()
@@ -52,7 +52,7 @@ class OsmNetworkInfo:
 
     def get_nodes_to_merge(self, max_distance=30):
         """
-        here we are finding the nodes of junction which has to be merged is sumo to get proper junction
+        This method finds the nodes of junction which has to be merged is sumo to get proper junction
         :return: list of lists that contain nodes to be merged
         """
         graph = nx.Graph()
@@ -100,7 +100,7 @@ class OsmNetworkInfo:
 
 class SumoNetworkInfo:
     """
-    In this class we will get all information about sumo network graph
+    This class contains method to extract data from SUMO Network file
     """
 
     def __init__(self, xml_name_location):
@@ -108,9 +108,9 @@ class SumoNetworkInfo:
 
     def get_total_lanes(self, road):
         """
-        Here we are finding the total number of lanes of a road
+        This method finds the total number of lanes of a road
         :param road: road for which lanes to find
-        :return: numnber of lanes
+        :return: number of lanes
         """
         lanes = 0
         parsed_xml = Xml.parse(self.xml_name_location).getroot()
@@ -141,7 +141,7 @@ class SumoNetworkInfo:
 
     def get_road_polyline(self, roads):
         """
-        Here we are extracting polyline of all list of roads
+        This method extracts polyline of all list of roads
         :param roads: list of roads
         :return: dict of polyline with key as roads
         """
@@ -242,7 +242,7 @@ class SumoNetworkInfo:
 
 class SumoTripInfo:
     """
-    In this class we will get all information about sumo trips happened after simulation
+    This class contains method to extract data from SUMO trip file
     """
 
     def __init__(self, xml_name_location):
